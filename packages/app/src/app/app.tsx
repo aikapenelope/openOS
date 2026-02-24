@@ -33,6 +33,7 @@ import CreateRemoteWorkspaceModal from "./components/create-remote-workspace-mod
 import CreateWorkspaceModal from "./components/create-workspace-modal";
 import RenameWorkspaceModal from "./components/rename-workspace-modal";
 import McpAuthModal from "./components/mcp-auth-modal";
+import TemplatePickerModal from "./components/template-picker-modal";
 import OnboardingView from "./pages/onboarding";
 import DashboardView from "./pages/dashboard";
 import SessionView from "./pages/session";
@@ -246,7 +247,7 @@ export default function App() {
       : null;
 
   // Workspace switch tracing is noisy, so only emit in developer mode.
-  // (OpenWork already has a developer mode toggle in Settings.)
+  // (AikaOS already has a developer mode toggle in Settings.)
   const wsDebugEnabled = () => developerMode();
 
   const wsDebug = (label: string, payload?: unknown) => {
@@ -1232,7 +1233,7 @@ export default function App() {
   };
 
   // OpenCode keeps reverted messages in the log and uses `session.revert.messageID`
-  // as the visibility boundary. OpenWork mirrors that behavior by filtering the
+  // as the visibility boundary. AikaOS mirrors that behavior by filtering the
   // displayed transcript.
   const visibleMessages = createMemo(() => {
     const list = messages();
@@ -2005,7 +2006,7 @@ export default function App() {
     const directory = workspace.directory?.trim() ?? "";
     if (workspace.remoteType === "openwork") {
       // Sidebar session listing should be per-workspace and should not implicitly depend on
-      // global OpenWork server settings, otherwise switching between remotes can cause other
+      // global AikaOS server settings, otherwise switching between remotes can cause other
       // workspace task lists to appear/disappear.
       const token = workspace.openworkToken?.trim() ?? "";
       const auth: OpencodeAuth | undefined = token ? { token, mode: "openwork" } : undefined;
@@ -2172,7 +2173,7 @@ export default function App() {
       .join(";");
 
     // Sidebar session refreshes should only be driven by the engine auth/baseUrl or the workspace
-    // definitions themselves. Global OpenWork server settings are intentionally excluded so that
+    // definitions themselves. Global AikaOS server settings are intentionally excluded so that
     // connecting/activating a remote does not cause other workspace task lists to refresh (and
     // potentially disappear) due to auth fallback changes.
     if (engineKey === lastSidebarEngineKey && workspaceKey === lastSidebarWorkspaceKey) return;
@@ -2512,6 +2513,7 @@ export default function App() {
   const [editRemoteWorkspaceError, setEditRemoteWorkspaceError] = createSignal<string | null>(null);
   const [deepLinkRemoteWorkspaceDefaults, setDeepLinkRemoteWorkspaceDefaults] = createSignal<RemoteWorkspaceDefaults | null>(null);
   const [pendingRemoteConnectDeepLink, setPendingRemoteConnectDeepLink] = createSignal<RemoteWorkspaceDefaults | null>(null);
+  const [templatePickerOpen, setTemplatePickerOpen] = createSignal(false);
   const [renameWorkspaceOpen, setRenameWorkspaceOpen] = createSignal(false);
   const [renameWorkspaceId, setRenameWorkspaceId] = createSignal<string | null>(null);
   const [renameWorkspaceName, setRenameWorkspaceName] = createSignal("");
@@ -2821,7 +2823,7 @@ export default function App() {
   };
 
   onMount(() => {
-    // OpenCode hot reload drives freshness now; OpenWork no longer listens for
+    // OpenCode hot reload drives freshness now; AikaOS no longer listens for
     // legacy reload-required events.
   });
 
@@ -2869,10 +2871,10 @@ export default function App() {
         setScheduledJobs([]);
         const status =
           openworkServerStatus() === "disconnected"
-            ? "OpenWork server unavailable. Connect to sync scheduled tasks."
+            ? "AikaOS server unavailable. Connect to sync scheduled tasks."
             : openworkServerStatus() === "limited"
-              ? "OpenWork server needs a token to load scheduled tasks."
-              : "OpenWork server not ready.";
+              ? "AikaOS server needs a token to load scheduled tasks."
+              : "AikaOS server not ready.";
         setScheduledJobsStatus(status);
         return;
       }
@@ -2934,7 +2936,7 @@ export default function App() {
     if (scheduledJobsSource() === "remote") {
       const scheduler = resolveOpenworkScheduler();
       if (!scheduler) {
-        throw new Error("OpenWork server unavailable. Connect to sync scheduled tasks.");
+        throw new Error("AikaOS server unavailable. Connect to sync scheduled tasks.");
       }
       const response = await scheduler.client.deleteScheduledJob(scheduler.workspaceId, name);
       setScheduledJobs((current) => current.filter((entry) => entry.slug !== response.job.slug));
@@ -3472,7 +3474,7 @@ export default function App() {
 
     if (isRemoteWorkspace) {
       if (!canUseOpenworkServer) {
-        setMcpStatus("OpenWork server unavailable. MCP config is read-only.");
+        setMcpStatus("AikaOS server unavailable. MCP config is read-only.");
         setMcpServers([]);
         setMcpStatuses({});
         return;
@@ -3630,7 +3632,7 @@ export default function App() {
       openworkCapabilities?.mcp?.write;
 
     if (isRemoteWorkspace && !canUseOpenworkServer) {
-      setMcpStatus("OpenWork server unavailable. MCP config is read-only.");
+      setMcpStatus("AikaOS server unavailable. MCP config is read-only.");
       finishPerf(developerMode(), "mcp.connect", "blocked", startedAt, {
         reason: "openwork-server-unavailable",
       });
@@ -3837,7 +3839,7 @@ export default function App() {
       openworkCapabilities?.mcp?.write;
 
     if (isRemoteWorkspace && !canUseOpenworkServer) {
-      setMcpStatus("OpenWork server unavailable. MCP auth is read-only.");
+      setMcpStatus("AikaOS server unavailable. MCP auth is read-only.");
       return;
     }
 
@@ -4741,7 +4743,7 @@ export default function App() {
     const normalizedVersion = openworkVersion.startsWith("v")
       ? openworkVersion
       : `v${openworkVersion}`;
-    return `OpenWork ${normalizedVersion}`;
+    return `AikaOS ${normalizedVersion}`;
   });
 
   const headerStatus = createMemo(() => {
@@ -4908,21 +4910,21 @@ export default function App() {
     const canUseGlobalPluginScope = !isRemoteWorkspace && isTauriRuntime();
     const skillsAccessHint = isRemoteWorkspace
       ? openworkStatus === "disconnected"
-        ? "OpenWork server unavailable. Add the server URL/token in Advanced to manage skills."
+        ? "AikaOS server unavailable. Add the server URL/token in Advanced to manage skills."
         : openworkStatus === "limited"
-          ? "OpenWork server needs a host token to install/update skills. Add it in Advanced and reconnect."
+          ? "AikaOS server needs a host token to install/update skills. Add it in Advanced and reconnect."
           : openworkServerCanWriteSkills()
             ? null
-            : "OpenWork server is read-only for skills. Add a host token in Advanced to enable installs."
+            : "AikaOS server is read-only for skills. Add a host token in Advanced to enable installs."
       : null;
     const pluginsAccessHint = isRemoteWorkspace
       ? openworkStatus === "disconnected"
-        ? "OpenWork server unavailable. Plugins are read-only."
+        ? "AikaOS server unavailable. Plugins are read-only."
         : openworkStatus === "limited"
-          ? "OpenWork server needs a token to edit plugins."
+          ? "AikaOS server needs a token to edit plugins."
           : openworkServerCanWritePlugins()
             ? null
-            : "OpenWork server is read-only for plugins."
+            : "AikaOS server is read-only for plugins."
       : null;
 
     return {
@@ -5143,6 +5145,7 @@ export default function App() {
       reloadMcpEngine: () => reloadWorkspaceEngineAndResume(),
       language: currentLocale(),
       setLanguage: setLocale,
+      openTemplatePicker: () => setTemplatePickerOpen(true),
     };
   };
 
@@ -5619,6 +5622,15 @@ export default function App() {
         title={t("dashboard.edit_remote_workspace_title", currentLocale())}
         subtitle={t("dashboard.edit_remote_workspace_subtitle", currentLocale())}
         confirmLabel={t("dashboard.edit_remote_workspace_confirm", currentLocale())}
+      />
+
+      <TemplatePickerModal
+        open={templatePickerOpen()}
+        onClose={() => setTemplatePickerOpen(false)}
+        projectDir={workspaceProjectDir()}
+        onInstalled={() => {
+          refreshSkills().catch(() => undefined);
+        }}
       />
     </>
   );

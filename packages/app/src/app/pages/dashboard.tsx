@@ -284,6 +284,7 @@ export type DashboardViewProps = {
   notionError: string | null;
   notionBusy: boolean;
   connectNotion: () => void;
+  openTemplatePicker?: () => void;
 };
 
 export default function DashboardView(props: DashboardViewProps) {
@@ -667,7 +668,7 @@ export default function DashboardView(props: DashboardViewProps) {
       const token = props.openworkServerHostInfo?.clientToken?.trim() || "";
       return [
         {
-          label: "OpenWork worker URL",
+          label: "AikaOS worker URL",
           value: url,
           placeholder: !isTauriRuntime() ? "Desktop app required" : "Starting server...",
           hint: mountedUrl
@@ -697,7 +698,7 @@ export default function DashboardView(props: DashboardViewProps) {
         "";
       return [
         {
-          label: "OpenWork worker URL",
+          label: "AikaOS worker URL",
           value: url,
         },
         {
@@ -1326,6 +1327,13 @@ export default function DashboardView(props: DashboardViewProps) {
               />
             </Match>
             <Match when={props.tab === "skills"}>
+              <Show when={props.openTemplatePicker}>
+                <div class="flex justify-end mb-4">
+                  <Button variant="outline" onClick={() => props.openTemplatePicker?.()}>
+                    Apply Template
+                  </Button>
+                </div>
+              </Show>
               <SkillsView
                 workspaceName={props.activeWorkspaceDisplay.name}
                 busy={props.busy}
