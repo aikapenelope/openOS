@@ -144,6 +144,10 @@ import {
 } from "./lib/tauri";
 import {
   parseOpenworkWorkspaceIdFromUrl,
+  readOpenworkBundleInviteFromSearch,
+  readOpenworkConnectInviteFromSearch,
+  stripOpenworkBundleInviteFromUrl,
+  stripOpenworkConnectInviteFromUrl,
   createOpenworkServerClient,
   hydrateOpenworkServerSettingsFromEnv,
   normalizeOpenworkServerUrl,
@@ -420,7 +424,32 @@ export default function App() {
   createEffect(() => {
     if (typeof window === "undefined") return;
     hydrateOpenworkServerSettingsFromEnv();
-    setOpenworkServerSettings(readOpenworkServerSettings());
+
+    const stored = readOpenworkServerSettings();
+    const invite = readOpenworkConnectInviteFromSearch(window.location.search);
+
+    if (!invite) {
+      setOpenworkServerSettings(stored);
+    } else {
+      const merged: OpenworkServerSettings = {
+        ...stored,
+        urlOverride: invite.url,
+        token: invite.token ?? stored.token,
+      };
+
+      const next = writeOpenworkServerSettings(merged);
+      setOpenworkServerSettings(next);
+
+      if (invite.startup === "server" && untrack(onboardingStep) === "welcome") {
+        setStartupPreference("server");
+        setOnboardingStep("server");
+      }
+    }
+
+    const cleaned = stripOpenworkConnectInviteFromUrl(window.location.href);
+    if (cleaned !== window.location.href) {
+      window.history.replaceState(window.history.state ?? null, "", cleaned);
+    }
   });
 
   createEffect(() => {

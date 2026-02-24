@@ -139,7 +139,7 @@ All writes are gated by host approval.
 
 Host APIs accept either:
 
-- `X-AikaOS-Host-Token: <token>` (legacy host token), or
+- `X-OpenWork-Host-Token: <token>` (legacy host token), or
 - `Authorization: Bearer <token>` where the token scope is `owner`.
 
 Approvals endpoints:
