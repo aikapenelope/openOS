@@ -1,18 +1,18 @@
-name: AikaOS Tests
+name: OpenWork Tests
 
 on:
   pull_request:
     branches:
-      - main
+      - dev
   push:
     branches:
-      - main
+      - dev
 
 permissions:
   contents: read
 
 jobs:
-  aikaos-tests:
+  openwork-tests:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -140,4 +140,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run e2e tests
-        run: pnpm --filter @aikalabs/aikaos test:e2e
+        run: pnpm --filter @different-ai/openwork test:e2e

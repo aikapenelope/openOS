@@ -135,23 +135,27 @@ export default async function Home() {
               <h1 className="mb-4 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl">
                 Agentes IA preconfigurados para tu empresa.
               </h1>
-              <p className="mb-10 max-w-4xl text-xl font-medium leading-relaxed text-gray-900/80">
+              <p className="mb-6 max-w-4xl text-xl font-medium leading-relaxed text-gray-900/80">
                 AikaOS convierte la inteligencia artificial en empleados
                 digitales listos para trabajar. Elige un experto, instálalo en
-                tu escritorio y automatiza tareas reales — contratos, reportes
+                tu Mac y automatiza tareas reales — contratos, reportes
                 fiscales, campañas, soporte y más.
+              </p>
+              <p className="mb-10 max-w-3xl text-[15px] leading-relaxed text-gray-500">
+                Disponible para macOS con Apple Silicon (M1/M2/M3/M4).
+                Windows y Linux en desarrollo.
               </p>
             </div>
 
-            {/* ── CTA ── */}
-            <div className="mb-10 flex flex-wrap items-center gap-3">
+            {/* ── CTA principal ── */}
+            <div className="mb-10 flex flex-wrap items-center gap-4">
               <a
                 href={github.downloads.macos}
                 className="doc-button"
                 rel="noreferrer"
                 target="_blank"
               >
-                Descargar para macOS
+                Descargar para macOS (Apple Silicon)
                 <svg
                   className="h-4 w-4"
                   fill="none"
@@ -167,25 +171,19 @@ export default async function Home() {
                   />
                 </svg>
               </a>
-              <div className="ml-2 flex gap-4">
-                <a
-                  href="/download#windows"
-                  className="text-[15px] font-medium text-gray-900/60 transition hover:text-gray-900"
-                >
-                  Windows{" "}
-                  <span className="alpha-tag ml-1 border-gray-900/10 text-gray-900/60">
-                    Alpha
+              <div className="flex gap-4">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-[13px] text-gray-400">
+                  Windows
+                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-600">
+                    Próximamente
                   </span>
-                </a>
-                <a
-                  href="/download#linux"
-                  className="text-[15px] font-medium text-gray-900/60 transition hover:text-gray-900"
-                >
-                  Linux{" "}
-                  <span className="alpha-tag ml-1 border-gray-900/10 text-gray-900/60">
-                    Alpha
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-[13px] text-gray-400">
+                  Linux
+                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-600">
+                    Próximamente
                   </span>
-                </a>
+                </span>
               </div>
             </div>
 
@@ -208,6 +206,163 @@ export default async function Home() {
               Interfaz real de AikaOS — crea tareas, ejecuta skills y automatiza
               flujos desde tu escritorio.
             </p>
+
+            <hr />
+
+            {/* ── Instalación paso a paso ── */}
+            <section id="instalacion" className="py-12">
+              <h2 className="mb-3 text-2xl font-bold md:text-3xl">
+                Instalación en macOS (Apple Silicon)
+              </h2>
+              <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
+                Sigue estos pasos para tener AikaOS funcionando en tu Mac en
+                menos de 5 minutos.
+              </p>
+
+              <div className="space-y-8">
+                {/* Paso 1 */}
+                <div className="flex gap-6">
+                  <div className="step-circle shrink-0">1</div>
+                  <div className="space-y-3">
+                    <h3 className="text-base font-bold">
+                      Descarga el archivo .dmg
+                    </h3>
+                    <p className="text-[15px] text-gray-700">
+                      Haz clic en el botón de descarga de arriba o ve
+                      directamente a la{" "}
+                      <a
+                        href={github.releaseUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-semibold text-teal-700 underline decoration-teal-300 underline-offset-4 transition hover:decoration-teal-600"
+                      >
+                        página de releases en GitHub
+                      </a>
+                      . Busca el archivo que termina en{" "}
+                      <code className="mono rounded bg-gray-100 px-1.5 py-0.5 text-[13px]">
+                        _aarch64.dmg
+                      </code>{" "}
+                      (Apple Silicon).
+                    </p>
+                  </div>
+                </div>
+
+                {/* Paso 2 */}
+                <div className="flex gap-6">
+                  <div className="step-circle shrink-0">2</div>
+                  <div className="space-y-3">
+                    <h3 className="text-base font-bold">
+                      Abre el .dmg y arrastra a Aplicaciones
+                    </h3>
+                    <p className="text-[15px] text-gray-700">
+                      Haz doble clic en el archivo descargado. Se abrirá una
+                      ventana con el ícono de AikaOS. Arrástralo a la carpeta{" "}
+                      <strong>Aplicaciones</strong>.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Paso 3 */}
+                <div className="flex gap-6">
+                  <div className="step-circle shrink-0">3</div>
+                  <div className="space-y-3">
+                    <h3 className="text-base font-bold">
+                      Permite la ejecución en Seguridad
+                    </h3>
+                    <p className="text-[15px] text-gray-700">
+                      La primera vez que abras AikaOS, macOS puede mostrar un
+                      aviso de seguridad porque la app no está firmada con una
+                      cuenta de desarrollador de Apple. Para abrirla:
+                    </p>
+                    <ol className="list-inside list-decimal space-y-2 text-[15px] text-gray-700">
+                      <li>
+                        Haz clic derecho (o Control + clic) sobre AikaOS en
+                        Aplicaciones y selecciona <strong>Abrir</strong>.
+                      </li>
+                      <li>
+                        En el diálogo que aparece, haz clic en{" "}
+                        <strong>Abrir</strong> de nuevo.
+                      </li>
+                      <li>
+                        Si no aparece la opción, ve a{" "}
+                        <strong>
+                          Ajustes del Sistema → Privacidad y Seguridad
+                        </strong>{" "}
+                        y haz clic en <strong>Abrir de todos modos</strong>.
+                      </li>
+                    </ol>
+                    <p className="text-[13px] text-gray-500">
+                      Solo necesitas hacer esto una vez. Las siguientes veces
+                      abrirá normalmente.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Paso 4 */}
+                <div className="flex gap-6">
+                  <div className="step-circle shrink-0">4</div>
+                  <div className="space-y-3">
+                    <h3 className="text-base font-bold">
+                      Configura tu API key
+                    </h3>
+                    <p className="text-[15px] text-gray-700">
+                      AikaOS necesita una clave de API para conectarse a un
+                      modelo de lenguaje. Ve a{" "}
+                      <strong>Settings → Model Provider</strong> y agrega tu
+                      clave de Anthropic (Claude), OpenAI (GPT-4) o el proveedor
+                      que prefieras.
+                    </p>
+                    <p className="text-[13px] text-gray-500">
+                      También puedes usar modelos locales con Ollama sin
+                      necesidad de API key.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Paso 5 */}
+                <div className="flex gap-6">
+                  <div className="step-circle shrink-0">5</div>
+                  <div className="space-y-3">
+                    <h3 className="text-base font-bold">
+                      Elige un experto y empieza a trabajar
+                    </h3>
+                    <p className="text-[15px] text-gray-700">
+                      Ve a la pestaña <strong>Skills</strong>, haz clic en{" "}
+                      <strong>Aplicar Plantilla</strong> y selecciona el experto
+                      que necesitas (Legal, Contabilidad, Marketing, etc.). Se
+                      instalan skills y comandos automáticamente. Escribe tu
+                      primera tarea en lenguaje natural.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Requisitos */}
+              <div className="mt-12 rounded-2xl border border-gray-100 bg-gray-50/60 p-6">
+                <h3 className="mb-3 text-[15px] font-bold">
+                  Requisitos del sistema
+                </h3>
+                <ul className="space-y-2 text-[14px] text-gray-700">
+                  <li>
+                    <strong>macOS:</strong> 12.0 (Monterey) o superior
+                  </li>
+                  <li>
+                    <strong>Procesador:</strong> Apple Silicon (M1, M2, M3, M4)
+                  </li>
+                  <li>
+                    <strong>RAM:</strong> 8 GB mínimo (16 GB recomendado para
+                    modelos locales)
+                  </li>
+                  <li>
+                    <strong>Disco:</strong> 500 MB para la aplicación
+                  </li>
+                  <li>
+                    <strong>Conexión a internet:</strong> Solo si usas modelos en
+                    la nube (Claude, GPT-4)
+                  </li>
+                </ul>
+              </div>
+            </section>
 
             <hr />
 
@@ -357,128 +512,6 @@ export default async function Home() {
 
             <hr />
 
-            {/* ── Cómo empezar ── */}
-            <section id="empezar" className="py-12">
-              <h2 className="mb-6 text-2xl font-bold md:text-3xl">
-                Empieza en 3 pasos
-              </h2>
-
-              <div className="space-y-12">
-                <div className="flex gap-6">
-                  <div className="step-circle shrink-0">1</div>
-                  <div className="space-y-4">
-                    <h3 className="text-base font-bold">
-                      Descarga e instala AikaOS
-                    </h3>
-                    <p className="text-[15px] text-gray-700">
-                      Disponible para macOS (estable), Windows y Linux (alpha).
-                      No requiere registro.
-                    </p>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <a
-                        href={github.downloads.macos}
-                        className="doc-button"
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        Descargar para macOS
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          aria-hidden="true"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                          />
-                        </svg>
-                      </a>
-                      <div className="ml-2 flex gap-4">
-                        <a
-                          href="/download#windows"
-                          className="text-[15px] text-gray-700 transition hover:text-black"
-                        >
-                          Windows{" "}
-                          <span className="alpha-tag ml-1">Alpha</span>
-                        </a>
-                        <a
-                          href="/download#linux"
-                          className="text-[15px] text-gray-700 transition hover:text-black"
-                        >
-                          Linux{" "}
-                          <span className="alpha-tag ml-1">Alpha</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-6">
-                  <div className="step-circle shrink-0">2</div>
-                  <div className="space-y-4">
-                    <h3 className="text-base font-bold">
-                      Elige un experto preconfigurado
-                    </h3>
-                    <p className="text-[15px] text-gray-700">
-                      Ve a la pestaña Skills, haz clic en{" "}
-                      <strong>Aplicar Plantilla</strong> y selecciona el experto
-                      que necesitas. Se instalan skills y comandos
-                      automáticamente.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-6">
-                  <div className="step-circle shrink-0">3</div>
-                  <div className="space-y-4">
-                    <h3 className="text-base font-bold">
-                      Envía tu primera tarea
-                    </h3>
-                    <p className="text-[15px] text-gray-700">
-                      Escribe lo que necesitas en lenguaje natural. El agente
-                      ejecuta la tarea, te muestra un plan antes de actuar y tú
-                      apruebas cada paso.
-                    </p>
-                    <div className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-3">
-                      <div className="flex flex-col gap-3 rounded-xl border border-violet-100 bg-white/90 p-4 shadow-sm ring-1 ring-violet-100/50">
-                        <span className="text-[11px] font-semibold uppercase tracking-wide text-violet-700">
-                          Legal
-                        </span>
-                        <p className="text-[14px] font-medium leading-relaxed text-gray-900">
-                          &ldquo;Redacta un contrato de arrendamiento para un
-                          local comercial en CDMX.&rdquo;
-                        </p>
-                      </div>
-                      <div className="flex flex-col gap-3 rounded-xl border border-emerald-100 bg-white/90 p-4 shadow-sm ring-1 ring-emerald-100/50">
-                        <span className="text-[11px] font-semibold uppercase tracking-wide text-emerald-700">
-                          Contabilidad
-                        </span>
-                        <p className="text-[14px] font-medium leading-relaxed text-gray-900">
-                          &ldquo;Genera el reporte fiscal mensual con desglose
-                          de IVA e ISR.&rdquo;
-                        </p>
-                      </div>
-                      <div className="flex flex-col gap-3 rounded-xl border border-pink-100 bg-white/90 p-4 shadow-sm ring-1 ring-pink-100/50">
-                        <span className="text-[11px] font-semibold uppercase tracking-wide text-pink-700">
-                          Marketing
-                        </span>
-                        <p className="text-[14px] font-medium leading-relaxed text-gray-900">
-                          &ldquo;Crea una campaña de email para el Buen Fin con
-                          3 variantes de copy.&rdquo;
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <hr />
-
             {/* ── FAQ ── */}
             <section id="faq" className="py-12">
               <h2 className="mb-10 text-2xl font-bold md:text-3xl">
@@ -504,6 +537,17 @@ export default async function Home() {
                     Sí. AikaOS es open source y puedes usarlo gratis con modelos
                     locales. Solo pagas por uso de API si decides conectar
                     modelos en la nube como Claude o GPT-4.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="mb-2 text-[15px] font-bold">
+                    ¿Solo funciona en Mac?
+                  </h4>
+                  <p className="text-[15px] leading-relaxed text-gray-700">
+                    Actualmente AikaOS está optimizado para macOS con
+                    procesadores Apple Silicon (M1, M2, M3, M4). Las versiones
+                    para Windows y Linux están en desarrollo activo y se
+                    anunciarán próximamente.
                   </p>
                 </div>
                 <div>
@@ -548,17 +592,17 @@ export default async function Home() {
                 Empieza a automatizar hoy
               </h2>
               <p className="mx-auto mb-8 max-w-2xl text-[15px] leading-relaxed text-gray-700">
-                Descarga AikaOS, elige un experto y envía tu primera tarea. Sin
-                registro, sin tarjeta de crédito, sin complicaciones.
+                Descarga AikaOS en tu Mac, elige un experto y envía tu primera
+                tarea. Sin registro, sin tarjeta de crédito, sin complicaciones.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-4">
                 <a
                   href={github.downloads.macos}
                   className="doc-button"
                   rel="noreferrer"
                   target="_blank"
                 >
-                  Descargar para macOS
+                  Descargar para macOS (Apple Silicon)
                   <svg
                     className="h-4 w-4"
                     fill="none"
