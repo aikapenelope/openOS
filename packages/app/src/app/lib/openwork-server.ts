@@ -334,7 +334,7 @@ export type OpenworkWorkspaceExport = {
   exportedAt: number;
   opencode?: Record<string, unknown>;
   openwork?: Record<string, unknown>;
-  skills?: Array<{ name: string; description?: string; content: string }>;
+  skills?: Array<{ name: string; description?: string; trigger?: string; content: string }>;
   commands?: Array<{ name: string; description?: string; template?: string }>;
 };
 
