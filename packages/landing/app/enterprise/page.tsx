@@ -1,63 +1,79 @@
 import { SiteFooter } from "../../components/site-footer";
 import { SiteNav } from "../../components/site-nav";
-import { getGithubData } from "../../lib/github";
 
 export const metadata = {
   title: "AikaOS — Precios",
   description:
-    "Planes de AikaOS para empresas en Latinoamérica. Desde uso gratuito hasta implementación enterprise con soporte dedicado.",
+    "Planes de AikaOS para empresas en Latinoamérica. Desde $20 USD/mes hasta implementación enterprise con desarrollo MCP a medida.",
 };
 
 const PLANES = [
   {
-    nombre: "Starter",
-    precio: "Gratis",
-    periodo: "",
-    desc: "Para profesionales independientes y equipos pequeños que quieren probar la automatización con IA.",
+    nombre: "Personal",
+    precio: "$20",
+    periodo: "USD/mes",
+    desc: "1 instalación. La app base sin expertos preconfigurados. Ideal para explorar y configurar tus propios skills.",
     destacado: false,
     features: [
-      "App de escritorio (macOS, Windows, Linux)",
-      "10 expertos preconfigurados",
-      "Skills y comandos ilimitados",
-      "Modelos locales gratuitos",
-      "Comunidad en GitHub",
+      "App de escritorio (macOS)",
+      "Trae tu propio modelo (BYOM)",
+      "Actualizaciones incluidas",
+      "Soporte por documentación",
     ],
-    cta: "Descargar gratis",
-    ctaHref: "/download",
+    cta: "Empezar",
+    ctaHref: "#contacto",
     ctaClass: "doc-button-dark",
   },
   {
     nombre: "Profesional",
-    precio: "$49 USD",
-    periodo: "/mes por worker",
-    desc: "Para PyMEs y equipos que necesitan workers en la nube, automatizaciones programadas y soporte prioritario.",
+    precio: "$50",
+    periodo: "USD/mes",
+    desc: "1 instalación. Todos los expertos y skills preconfigurados. Sistema listo para trabajar con puesta en marcha asistida.",
     destacado: true,
     features: [
-      "Todo lo de Starter",
-      "Workers hospedados en la nube",
-      "Automatizaciones programadas",
-      "Acceso desde Slack y Telegram",
-      "Soporte prioritario por email",
-      "Onboarding personalizado",
+      "Todo lo de Personal",
+      "10 expertos preconfigurados para LATAM",
+      "Todos los skills y comandos",
+      "Servidores MCP incluidos",
+      "Soporte por email",
+      "Puesta en marcha asistida",
     ],
-    cta: "Contactar ventas",
+    cta: "Empezar",
     ctaHref: "#contacto",
     ctaClass: "doc-button",
   },
   {
-    nombre: "Enterprise",
-    precio: "Personalizado",
-    periodo: "",
-    desc: "Para organizaciones que requieren implementación a medida, seguridad avanzada y soporte dedicado.",
+    nombre: "Business",
+    precio: "$150",
+    periodo: "USD/mes",
+    desc: "Hasta 5 instalaciones. Interconexión entre agentes y asistencia para integrar tu modelo preferido en toda tu infraestructura.",
     destacado: false,
     features: [
       "Todo lo de Profesional",
-      "Workers ilimitados",
-      "SSO y control de acceso",
-      "Auditoría y permisos granulares",
-      "Skills personalizados por industria",
-      "Gerente de cuenta dedicado",
-      "SLA garantizado",
+      "Hasta 5 instalaciones",
+      "Interconexión entre agentes vía MCP",
+      "Asistencia de integración de modelo",
+      "Soporte prioritario (email + chat)",
+      "Actualizaciones con prioridad",
+    ],
+    cta: "Contactar ventas",
+    ctaHref: "#contacto",
+    ctaClass: "doc-button-dark",
+  },
+  {
+    nombre: "Enterprise",
+    precio: "$500",
+    periodo: "USD/mes",
+    desc: "10+ instalaciones. Desarrollo de servidores MCP a medida, integración completa de modelo y arquitectura personalizada de agentes.",
+    destacado: false,
+    features: [
+      "Todo lo de Business",
+      "10+ instalaciones (ilimitadas)",
+      "Desarrollo de servidores MCP custom",
+      "Integración completa de modelo en tu infra",
+      "Acceso anticipado a nuevas funciones",
+      "Soporte dedicado + videollamada",
+      "Arquitectura de agentes personalizada",
     ],
     cta: "Hablar con ventas",
     ctaHref: "#contacto",
@@ -65,12 +81,10 @@ const PLANES = [
   },
 ];
 
-export default async function Enterprise() {
-  const github = await getGithubData();
-
+export default function Enterprise() {
   return (
     <div className="min-h-screen">
-      <SiteNav stars={github.stars} active="enterprise" />
+      <SiteNav active="enterprise" />
 
       <main className="pb-24 pt-20">
         <div className="content-max-width px-6">
@@ -82,13 +96,14 @@ export default async function Enterprise() {
               Un plan para cada etapa de tu empresa
             </h1>
             <p className="mx-auto mb-12 max-w-2xl text-[17px] leading-relaxed text-gray-700">
-              Empieza gratis con modelos locales. Escala a la nube cuando tu
-              equipo lo necesite. Precios en USD para toda Latinoamérica.
+              Todos los planes incluyen actualizaciones con nuevos modelos,
+              integraciones y mejoras. Precios en USD para toda Latinoamérica.
+              Trae tu propio modelo de IA (BYOM) o te ayudamos a elegir uno.
             </p>
           </div>
 
           {/* ── Pricing cards ── */}
-          <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="mb-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {PLANES.map((plan) => (
               <div
                 key={plan.nombre}
@@ -168,10 +183,13 @@ export default async function Enterprise() {
                       Característica
                     </th>
                     <th className="pb-3 px-4 text-center font-semibold text-gray-900">
-                      Starter
+                      Personal
                     </th>
                     <th className="pb-3 px-4 text-center font-semibold text-aika-teal">
                       Profesional
+                    </th>
+                    <th className="pb-3 px-4 text-center font-semibold text-gray-900">
+                      Business
                     </th>
                     <th className="pb-3 pl-4 text-center font-semibold text-gray-900">
                       Enterprise
@@ -179,25 +197,36 @@ export default async function Enterprise() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {[
-                    ["App de escritorio", true, true, true],
-                    ["Expertos preconfigurados", true, true, true],
-                    ["Modelos locales", true, true, true],
-                    ["Workers en la nube", false, true, true],
-                    ["Automatizaciones programadas", false, true, true],
-                    ["Slack / Telegram", false, true, true],
-                    ["Soporte prioritario", false, true, true],
-                    ["SSO / Control de acceso", false, false, true],
-                    ["Auditoría granular", false, false, true],
-                    ["SLA garantizado", false, false, true],
-                  ].map(([feature, s, p, e]) => (
+                  {(
+                    [
+                      ["Instalaciones", "1", "1", "Hasta 5", "10+"],
+                      ["App de escritorio", true, true, true, true],
+                      ["Trae tu propio modelo (BYOM)", true, true, true, true],
+                      ["Actualizaciones incluidas", true, true, true, true],
+                      ["Expertos preconfigurados", false, true, true, true],
+                      ["Skills y comandos completos", false, true, true, true],
+                      ["Servidores MCP", false, true, true, true],
+                      ["Puesta en marcha asistida", false, true, true, true],
+                      ["Interconexión entre agentes", false, false, true, true],
+                      ["Asistencia integración de modelo", false, false, true, true],
+                      ["Soporte prioritario", false, false, true, true],
+                      ["Desarrollo MCP a medida", false, false, false, true],
+                      ["Integración completa en tu infra", false, false, false, true],
+                      ["Acceso anticipado", false, false, false, true],
+                      ["Soporte dedicado + videollamada", false, false, false, true],
+                    ] as [string, boolean | string, boolean | string, boolean | string, boolean | string][]
+                  ).map(([feature, pe, pr, bu, en]) => (
                     <tr key={feature as string}>
                       <td className="py-3 pr-4 text-gray-700">
                         {feature as string}
                       </td>
-                      {[s, p, e].map((val, i) => (
+                      {[pe, pr, bu, en].map((val, i) => (
                         <td key={i} className="py-3 px-4 text-center">
-                          {val ? (
+                          {typeof val === "string" ? (
+                            <span className="text-[13px] font-semibold text-gray-900">
+                              {val}
+                            </span>
+                          ) : val ? (
                             <svg
                               className="mx-auto h-4 w-4 text-aika-teal"
                               fill="none"
@@ -221,6 +250,60 @@ export default async function Enterprise() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </section>
+
+          <hr />
+
+          {/* ── BYOM ── */}
+          <section className="py-12">
+            <h2 className="mb-4 text-2xl font-bold md:text-3xl">
+              Trae tu propio modelo (BYOM)
+            </h2>
+            <p className="mb-8 max-w-3xl text-base leading-relaxed text-gray-700">
+              AikaOS no te obliga a usar un modelo específico. Tú decides qué
+              inteligencia artificial potencia tu sistema. Estas son tus
+              opciones:
+            </p>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="feature-card bg-white/90">
+                <h4 className="mb-2 text-[15px] font-bold">
+                  API key propia
+                </h4>
+                <p className="text-[14px] leading-relaxed text-gray-700">
+                  Conecta tu clave de Anthropic (Claude), OpenAI (GPT-4),
+                  DeepSeek, Google Gemini o cualquier proveedor compatible.
+                  Pagas directamente al proveedor por tu consumo.
+                </p>
+              </div>
+              <div className="feature-card bg-white/90">
+                <h4 className="mb-2 text-[15px] font-bold">
+                  Modelos locales (Ollama)
+                </h4>
+                <p className="text-[14px] leading-relaxed text-gray-700">
+                  Corre Llama, Mistral, Phi u otros modelos 100% en tu máquina.
+                  Sin internet, sin costo adicional, con privacidad total.
+                </p>
+              </div>
+              <div className="feature-card bg-white/90">
+                <h4 className="mb-2 text-[15px] font-bold">
+                  Suscripción de OpenCode
+                </h4>
+                <p className="text-[14px] leading-relaxed text-gray-700">
+                  Si ya tienes una suscripción de OpenCode, puedes conectarla
+                  directamente a AikaOS sin configuración adicional.
+                </p>
+              </div>
+              <div className="feature-card border-teal-100 bg-teal-50/30 ring-1 ring-teal-100/60">
+                <h4 className="mb-2 text-[15px] font-bold">
+                  Asistencia de integración
+                </h4>
+                <p className="text-[14px] leading-relaxed text-gray-700">
+                  En planes Business y Enterprise, nuestro equipo integra el
+                  modelo que prefieras en toda tu infraestructura. Te ayudamos
+                  a elegir, configurar y optimizar.
+                </p>
+              </div>
             </div>
           </section>
 
@@ -255,12 +338,6 @@ export default async function Enterprise() {
                     d="M14 5l7 7m0 0l-7 7m7-7H3"
                   />
                 </svg>
-              </a>
-              <a
-                href="/download"
-                className="doc-button-dark"
-              >
-                O descarga gratis
               </a>
             </div>
           </section>

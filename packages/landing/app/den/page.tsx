@@ -1,6 +1,5 @@
 import { SiteFooter } from "../../components/site-footer";
 import { SiteNav } from "../../components/site-nav";
-import { getGithubData } from "../../lib/github";
 
 export const metadata = {
   title: "AikaOS — Nube",
@@ -8,12 +7,10 @@ export const metadata = {
     "Workers hospedados en la nube para tu equipo. Accede desde escritorio, Slack o Telegram.",
 };
 
-export default async function Den() {
-  const github = await getGithubData();
-
+export default function Den() {
   return (
     <div className="min-h-screen">
-      <SiteNav stars={github.stars} active="den" />
+      <SiteNav active="den" />
 
       <main className="pb-24 pt-20">
         <div className="content-max-width px-6">

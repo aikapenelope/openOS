@@ -1,21 +1,16 @@
 import { SiteFooter } from "../../components/site-footer";
 import { SiteNav } from "../../components/site-nav";
-import { getGithubData } from "../../lib/github";
 
 export const metadata = {
   title: "AikaOS — Descargar",
   description:
-    "Descarga AikaOS para macOS con Apple Silicon. Windows y Linux próximamente.",
+    "Solicita AikaOS para macOS con Apple Silicon. Windows y Linux próximamente.",
 };
 
-export default async function Download() {
-  const github = await getGithubData();
-  const releaseLabel = github.releaseTag || "última versión";
-  const releaseUrl = github.releaseUrl;
-
+export default function Download() {
   return (
     <div className="min-h-screen">
-      <SiteNav stars={github.stars} active="download" />
+      <SiteNav active="download" />
 
       <main className="pb-24 pt-20">
         <div className="content-max-width px-6">
@@ -24,22 +19,15 @@ export default async function Download() {
               AikaOS Desktop
             </div>
             <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Descargar AikaOS
+              Obtener AikaOS
             </h1>
             <p className="mb-4 max-w-3xl text-[17px] leading-relaxed text-gray-700">
               AikaOS está disponible para macOS con procesadores Apple Silicon.
               Las versiones para Windows y Linux están en desarrollo.
             </p>
             <p className="mb-10 text-[14px] text-gray-600">
-              Última versión estable:{" "}
-              <a
-                href={releaseUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="font-semibold text-gray-900 underline decoration-gray-300 underline-offset-4 transition hover:decoration-gray-700"
-              >
-                {releaseLabel}
-              </a>
+              La descarga se gestiona a través de nuestro equipo para garantizar
+              una instalación correcta y soporte desde el primer día.
             </p>
           </div>
 
@@ -47,7 +35,7 @@ export default async function Download() {
           <section id="macos" className="py-6">
             <h2 className="mb-2 text-2xl font-bold md:text-3xl">macOS</h2>
             <p className="mb-8 text-[15px] text-gray-700">
-              Descarga el DMG que corresponda a tu Mac.
+              Disponible para Apple Silicon (M1, M2, M3, M4) e Intel.
             </p>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -64,12 +52,10 @@ export default async function Download() {
                   Para chips M1, M2, M3 y M4.
                 </p>
                 <a
-                  href={github.installers.macos.appleSilicon}
+                  href="/enterprise#contacto"
                   className="doc-button"
-                  rel="noreferrer"
-                  target="_blank"
                 >
-                  Descargar .dmg (Apple Silicon)
+                  Solicitar instalación
                 </a>
               </div>
 
@@ -81,41 +67,42 @@ export default async function Download() {
                   Para Macs con procesador Intel.
                 </p>
                 <a
-                  href={github.installers.macos.intel}
+                  href="/enterprise#contacto"
                   className="doc-button"
-                  rel="noreferrer"
-                  target="_blank"
                 >
-                  Descargar .dmg (Intel)
+                  Solicitar instalación
                 </a>
               </div>
             </div>
 
-            {/* Instrucciones de instalación */}
+            {/* Cómo funciona */}
             <div className="mt-8 rounded-2xl border border-gray-100 bg-gray-50/60 p-6">
               <h3 className="mb-4 text-[15px] font-bold">
-                Instrucciones de instalación
+                ¿Cómo obtengo AikaOS?
               </h3>
               <ol className="list-inside list-decimal space-y-3 text-[14px] text-gray-700">
                 <li>
-                  Abre el archivo <code className="mono rounded bg-gray-100 px-1.5 py-0.5 text-[13px]">.dmg</code> descargado.
+                  Elige tu plan en la{" "}
+                  <a
+                    href="/enterprise"
+                    className="font-semibold text-teal-700 underline decoration-teal-300 underline-offset-4 transition hover:decoration-teal-600"
+                  >
+                    página de precios
+                  </a>{" "}
+                  (desde $20 USD/mes).
                 </li>
                 <li>
-                  Arrastra AikaOS a la carpeta <strong>Aplicaciones</strong>.
+                  Contáctanos y nuestro equipo coordinará la instalación.
                 </li>
                 <li>
-                  La primera vez, haz clic derecho → <strong>Abrir</strong> para
-                  autorizar la ejecución.
+                  Recibes AikaOS configurado y listo para trabajar en tu Mac.
                 </li>
                 <li>
-                  Si macOS lo bloquea, ve a{" "}
-                  <strong>Ajustes del Sistema → Privacidad y Seguridad</strong>{" "}
-                  y haz clic en <strong>Abrir de todos modos</strong>.
+                  Configura tu modelo de IA (API key propia, Ollama local, o
+                  suscripción de OpenCode).
                 </li>
                 <li>
-                  Configura tu API key en{" "}
-                  <strong>Settings → Model Provider</strong> y empieza a
-                  trabajar.
+                  Empieza a automatizar. Soporte incluido en tu plan.
                 </li>
               </ol>
             </div>
@@ -133,7 +120,7 @@ export default async function Download() {
             </div>
             <p className="mt-3 text-[15px] text-gray-500">
               La versión para Windows está en desarrollo activo. Se anunciará
-              cuando esté lista para pruebas públicas.
+              cuando esté lista.
             </p>
           </section>
 
@@ -149,25 +136,23 @@ export default async function Download() {
             </div>
             <p className="mt-3 text-[15px] text-gray-500">
               La versión para Linux (Arch, Ubuntu/Debian, Fedora) está en
-              desarrollo activo. Se anunciará cuando esté lista para pruebas
-              públicas.
+              desarrollo activo. Se anunciará cuando esté lista.
             </p>
           </section>
 
           <hr />
 
-          <p className="mt-8 text-[14px] text-gray-600">
-            ¿Necesitas otro formato?{" "}
-            <a
-              href={releaseUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-gray-900 underline decoration-gray-300 underline-offset-4 transition hover:decoration-gray-700"
-            >
-              Ver todos los assets del release en GitHub
-            </a>
-            .
-          </p>
+          <div className="mt-8 rounded-2xl border border-teal-200 bg-teal-50/50 p-6 text-center">
+            <p className="text-[15px] text-gray-700">
+              ¿Tienes dudas sobre la instalación o compatibilidad?{" "}
+              <a
+                href="mailto:contacto@aikalabs.com"
+                className="font-semibold text-teal-700 underline decoration-teal-300 underline-offset-4 transition hover:decoration-teal-600"
+              >
+                Escríbenos a contacto@aikalabs.com
+              </a>
+            </p>
+          </div>
 
           <SiteFooter />
         </div>
