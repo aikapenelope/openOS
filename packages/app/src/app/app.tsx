@@ -33,6 +33,7 @@ import CreateRemoteWorkspaceModal from "./components/create-remote-workspace-mod
 import CreateWorkspaceModal from "./components/create-workspace-modal";
 import RenameWorkspaceModal from "./components/rename-workspace-modal";
 import McpAuthModal from "./components/mcp-auth-modal";
+import TemplatePickerModal from "./components/template-picker-modal";
 import OnboardingView from "./pages/onboarding";
 import DashboardView from "./pages/dashboard";
 import SessionView from "./pages/session";
@@ -2512,6 +2513,7 @@ export default function App() {
   const [editRemoteWorkspaceError, setEditRemoteWorkspaceError] = createSignal<string | null>(null);
   const [deepLinkRemoteWorkspaceDefaults, setDeepLinkRemoteWorkspaceDefaults] = createSignal<RemoteWorkspaceDefaults | null>(null);
   const [pendingRemoteConnectDeepLink, setPendingRemoteConnectDeepLink] = createSignal<RemoteWorkspaceDefaults | null>(null);
+  const [templatePickerOpen, setTemplatePickerOpen] = createSignal(false);
   const [renameWorkspaceOpen, setRenameWorkspaceOpen] = createSignal(false);
   const [renameWorkspaceId, setRenameWorkspaceId] = createSignal<string | null>(null);
   const [renameWorkspaceName, setRenameWorkspaceName] = createSignal("");
@@ -5143,6 +5145,7 @@ export default function App() {
       reloadMcpEngine: () => reloadWorkspaceEngineAndResume(),
       language: currentLocale(),
       setLanguage: setLocale,
+      openTemplatePicker: () => setTemplatePickerOpen(true),
     };
   };
 
@@ -5619,6 +5622,15 @@ export default function App() {
         title={t("dashboard.edit_remote_workspace_title", currentLocale())}
         subtitle={t("dashboard.edit_remote_workspace_subtitle", currentLocale())}
         confirmLabel={t("dashboard.edit_remote_workspace_confirm", currentLocale())}
+      />
+
+      <TemplatePickerModal
+        open={templatePickerOpen()}
+        onClose={() => setTemplatePickerOpen(false)}
+        projectDir={workspaceProjectDir()}
+        onInstalled={() => {
+          refreshSkills().catch(() => undefined);
+        }}
       />
     </>
   );
