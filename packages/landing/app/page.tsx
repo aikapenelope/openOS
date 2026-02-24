@@ -290,10 +290,30 @@ export default function Home() {
               </a>
             </div>
 
-            {/* ── Hero beam visualization ── */}
-            <div className="mb-16 mt-8">
-              <HeroBeam />
+            {/* ── Video demo ── */}
+            <div className="group relative mb-2 mt-8">
+              <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl transition-transform duration-500 group-hover:scale-[1.01] ring-1 ring-black/5">
+                {/* Overlay: tapa "OpenWork" en la esquina superior del video y muestra "AikaOS" */}
+                <div className="absolute left-0 top-0 z-10 flex items-center gap-2 bg-[#1e1e2e] px-4 py-2">
+                  <span className="font-mono text-sm font-bold text-aika-teal">{">_"}</span>
+                  <span className="text-sm font-semibold text-white">AikaOS</span>
+                </div>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full block"
+                >
+                  <source src="/app-demo.mp4" type="video/mp4" />
+                </video>
+              </div>
             </div>
+
+            <p className="mb-16 text-center text-[13px] text-gray-500">
+              Interfaz real de AikaOS — crea tareas, ejecuta skills y automatiza
+              flujos desde tu escritorio.
+            </p>
 
             <hr />
 
@@ -544,6 +564,14 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+            </section>
+
+            <hr />
+
+            {/* ── Visualización: AikaOS conecta tus herramientas con IA ── */}
+            <section className="py-12">
+              <SectionTitle>Conecta todo con inteligencia artificial</SectionTitle>
+              <HeroBeam />
             </section>
 
             <hr />
