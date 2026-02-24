@@ -1,5 +1,7 @@
 import { SiteFooter } from "../components/site-footer";
 import { SiteNav } from "../components/site-nav";
+import { HeroBeam } from "../components/hero-beam";
+import { SectionTitle } from "../components/section-title";
 
 const EXPERTOS = [
   {
@@ -288,25 +290,10 @@ export default function Home() {
               </a>
             </div>
 
-            {/* ── Video demo ── */}
-            <div className="group relative mb-2 mt-8">
-              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl transition-transform duration-500 group-hover:scale-[1.01] ring-1 ring-black/5">
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full block"
-                >
-                  <source src="/app-demo.mp4" type="video/mp4" />
-                </video>
-              </div>
+            {/* ── Hero beam visualization ── */}
+            <div className="mb-16 mt-8">
+              <HeroBeam />
             </div>
-
-            <p className="mb-16 text-center text-[13px] text-gray-500">
-              Interfaz real de AikaOS — crea tareas, ejecuta skills y automatiza
-              flujos desde tu escritorio.
-            </p>
 
             <hr />
 
@@ -314,6 +301,7 @@ export default function Home() {
                 ── CÓMO FUNCIONA ──
                 ══════════════════════════════════════════════════════════ */}
             <section id="como-funciona" className="py-12">
+              <SectionTitle>Cómo funciona</SectionTitle>
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 Cómo funciona
               </h2>
@@ -451,6 +439,7 @@ export default function Home() {
                 ── POR QUÉ LOCAL-FIRST ──
                 ══════════════════════════════════════════════════════════ */}
             <section id="local-first" className="py-12">
+              <SectionTitle>¿Por qué correr tu IA en local?</SectionTitle>
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 ¿Por qué correr tu IA en local?
               </h2>
@@ -561,6 +550,7 @@ export default function Home() {
 
             {/* ── Expertos preconfigurados ── */}
             <section id="expertos" className="py-12">
+              <SectionTitle>10 expertos preconfigurados</SectionTitle>
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 10 expertos preconfigurados
               </h2>
@@ -601,6 +591,7 @@ export default function Home() {
 
             {/* ── Funciones ── */}
             <section id="funciones" className="py-12">
+              <SectionTitle>Lo que puedes hacer con AikaOS</SectionTitle>
               <h2 className="mb-10 text-2xl font-bold md:text-3xl">
                 Lo que puedes hacer con AikaOS
               </h2>
@@ -689,6 +680,7 @@ export default function Home() {
                 ── COMPARATIVA VS COMPETENCIA ──
                 ══════════════════════════════════════════════════════════ */}
             <section id="comparativa" className="py-12">
+              <SectionTitle>AikaOS vs la competencia</SectionTitle>
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 AikaOS vs la competencia
               </h2>
@@ -813,6 +805,7 @@ export default function Home() {
 
             {/* ── Sectores objetivo ── */}
             <section id="sectores" className="py-12">
+              <SectionTitle>Diseñado para estos sectores</SectionTitle>
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 Diseñado para estos sectores
               </h2>
@@ -839,6 +832,7 @@ export default function Home() {
 
             {/* ── Planes resumen ── */}
             <section id="planes" className="py-12">
+              <SectionTitle>Planes</SectionTitle>
               <h2 className="mb-3 text-center text-2xl font-bold md:text-3xl">
                 Planes
               </h2>
@@ -952,6 +946,7 @@ export default function Home() {
 
             {/* ── FAQ ── */}
             <section id="faq" className="py-12">
+              <SectionTitle>Preguntas frecuentes</SectionTitle>
               <h2 className="mb-10 text-2xl font-bold md:text-3xl">
                 Preguntas frecuentes
               </h2>
@@ -1063,6 +1058,7 @@ export default function Home() {
 
             {/* ── CTA final ── */}
             <section className="py-12 text-center">
+              <SectionTitle>Empieza a automatizar tu empresa</SectionTitle>
               <h2 className="mb-4 text-2xl font-bold md:text-3xl">
                 Empieza a automatizar tu empresa
               </h2>
