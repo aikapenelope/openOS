@@ -7,9 +7,6 @@ export function SiteFooter() {
         <Link href="/enterprise" className="transition hover:text-black">
           Precios
         </Link>
-        <Link href="/download" className="transition hover:text-black">
-          Descargar
-        </Link>
         <Link href="#" className="transition hover:text-black">
           Términos
         </Link>
