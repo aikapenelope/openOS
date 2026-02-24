@@ -1,18 +1,15 @@
 import { SiteFooter } from "../../components/site-footer";
 import { SiteNav } from "../../components/site-nav";
-import { getGithubData } from "../../lib/github";
 
 export const metadata = {
   title: "AikaOS — Suscripción confirmada",
-  description: "Gracias por suscribirte a AikaOS Profesional.",
+  description: "Gracias por suscribirte a AikaOS.",
 };
 
-export default async function StarterSuccessPage() {
-  const github = await getGithubData();
-
+export default function StarterSuccessPage() {
   return (
     <div className="min-h-screen">
-      <SiteNav stars={github.stars} />
+      <SiteNav />
 
       <main className="pb-24 pt-20">
         <div className="content-max-width px-6">
@@ -26,8 +23,8 @@ export default async function StarterSuccessPage() {
             </h1>
 
             <p className="max-w-2xl text-[16px] leading-relaxed text-gray-700">
-              Estás en camino a recibir acceso a AikaOS Nube en los próximos
-              7 días.
+              Nuestro equipo se pondrá en contacto contigo para coordinar la
+              instalación y puesta en marcha de AikaOS.
             </p>
           </section>
 
@@ -38,8 +35,8 @@ export default async function StarterSuccessPage() {
               </h2>
               <ul className="space-y-2 text-[14px] leading-relaxed text-gray-600">
                 <li>- Revisamos tu configuración de equipo y caso de uso.</li>
-                <li>- Te enviamos los detalles de implementación para equipos de hasta 10 personas.</li>
-                <li>- Recibes acceso anticipado cuando los workers hospedados estén activos.</li>
+                <li>- Coordinamos la instalación y configuración en tu Mac.</li>
+                <li>- Te entregamos el sistema listo para trabajar con soporte incluido.</li>
               </ul>
             </div>
 
@@ -58,8 +55,8 @@ export default async function StarterSuccessPage() {
           </section>
 
           <div className="mt-10 rounded-xl border border-gray-100 bg-white p-5 text-[13px] text-gray-500">
-            AikaOS es open source, corre en cualquier entorno y funciona con
-            cualquier modelo de IA.
+            AikaOS corre localmente en tu máquina, funciona con cualquier
+            modelo de IA y tus datos nunca salen de tu computadora.
           </div>
 
           <SiteFooter />

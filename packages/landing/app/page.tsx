@@ -1,6 +1,5 @@
 import { SiteFooter } from "../components/site-footer";
 import { SiteNav } from "../components/site-nav";
-import { getGithubData } from "../lib/github";
 
 const EXPERTOS = [
   {
@@ -152,9 +151,9 @@ const SECTORES = [
 const COMPARATIVA = [
   {
     criterio: "Precio",
-    aikaos: "Gratis (open source). Solo pagas API si usas modelos en la nube.",
-    openclaw: "Gratis (open source). Requiere suscripción a un modelo (Claude Max recomendado: $100-200/mes).",
-    cowork: "$20/mes (Pro) a $200/mes (Max 20x). Pago obligatorio.",
+    aikaos: "Desde $20 USD/mes. Incluye la app, actualizaciones y soporte. Sin costos ocultos.",
+    openclaw: "El software es gratuito, pero requiere suscripción a un modelo (Claude Max recomendado: $100-200/mes). Configuración técnica por tu cuenta.",
+    cowork: "$20/mes (Pro) a $200/mes (Max 20x). Pago obligatorio para acceder a funciones agenticas.",
   },
   {
     criterio: "Privacidad de datos",
@@ -170,7 +169,7 @@ const COMPARATIVA = [
   },
   {
     criterio: "Modelos de IA",
-    aikaos: "Cualquiera: Claude, GPT-4, DeepSeek, Ollama (local, gratis). Tú eliges.",
+    aikaos: "Trae tu propio modelo (BYOM): Claude, GPT-4, DeepSeek, Ollama (local). También ofrecemos asistencia para integrar el modelo que prefieras.",
     openclaw: "Cualquiera, pero recomienda fuertemente Claude Max ($100-200/mes) para mejor rendimiento.",
     cowork: "Solo Claude (Anthropic). No puedes usar otros modelos.",
   },
@@ -194,7 +193,7 @@ const COMPARATIVA = [
   },
   {
     criterio: "Seguridad",
-    aikaos: "Código abierto, auditable. Sin acceso a datos de terceros. Sin skills maliciosos de repositorios no verificados.",
+    aikaos: "Sistema cerrado y controlado por AikaLabs. Sin skills de terceros no verificados. Cada actualización es revisada por nuestro equipo.",
     openclaw: "Riesgos documentados: Cisco encontró exfiltración de datos en skills de terceros. El repositorio de skills carece de verificación adecuada.",
     cowork: "Anthropic advierte explícitamente: no usar para cargas de trabajo reguladas. Sin logs de auditoría para actividad de Cowork.",
   },
@@ -205,8 +204,8 @@ const COMPARATIVA = [
     cowork: "Multiidioma en chat, pero la interfaz y documentación están en inglés.",
   },
   {
-    criterio: "Configuración",
-    aikaos: "Descarga el .dmg, arrastra a Aplicaciones, configura tu API key. 5 minutos.",
+    criterio: "Puesta en marcha",
+    aikaos: "Nosotros lo instalamos y configuramos. Recibes el sistema listo para trabajar con soporte incluido.",
     openclaw: "Requiere Node 22+, CLI wizard, configuración de gateway, canales de mensajería. Nivel técnico medio-avanzado.",
     cowork: "Descarga la app, inicia sesión con tu cuenta de pago. Sencillo pero requiere suscripción.",
   },
@@ -216,14 +215,25 @@ const COMPARATIVA = [
     openclaw: "Depende de tu configuración. Si usas APIs en la nube, los datos salen de tu máquina.",
     cowork: "Anthropic no ofrece cumplimiento HIPAA para Cowork. Ellos mismos advierten no usarlo para cargas reguladas.",
   },
+  {
+    criterio: "Actualizaciones",
+    aikaos: "Incluidas en tu plan. Nuevos modelos, integraciones y mejoras se entregan automáticamente.",
+    openclaw: "Actualizaciones comunitarias. Sin garantía de estabilidad ni soporte.",
+    cowork: "Actualizaciones de Anthropic. No tienes control sobre qué cambia ni cuándo.",
+  },
+  {
+    criterio: "Servidores MCP",
+    aikaos: "Incluidos en planes Profesional+. En Enterprise, desarrollamos servidores MCP a medida para tu empresa.",
+    openclaw: "3,000+ skills de la comunidad, pero sin verificación de seguridad.",
+    cowork: "Conectores limitados (Google Drive, Gmail, DocuSign). No puedes crear los tuyos.",
+  },
 ];
 
-export default async function Home() {
-  const github = await getGithubData();
+export default function Home() {
   return (
     <div className="relative min-h-screen">
       <div className="relative z-10">
-        <SiteNav stars={github.stars} />
+        <SiteNav />
 
         <main className="pb-24 pt-20">
           <div className="content-max-width px-6">
@@ -233,13 +243,14 @@ export default async function Home() {
                 <span className="mono">{">_"}</span> por AikaLabs
               </div>
               <h1 className="mb-4 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl">
-                Agentes IA preconfigurados para tu empresa.
+                Tu equipo de IA privado, listo para trabajar.
               </h1>
               <p className="mb-6 max-w-4xl text-xl font-medium leading-relaxed text-gray-900/80">
-                AikaOS convierte la inteligencia artificial en empleados
-                digitales listos para trabajar. Elige un experto, instálalo en
-                tu Mac y automatiza tareas reales — contratos, reportes
-                fiscales, campañas, soporte y más.
+                AikaOS es un sistema de agentes inteligentes que corre
+                directamente en tu computadora. Automatiza contratos, reportes
+                fiscales, campañas, soporte y más — sin que tus datos salgan
+                de tu empresa. Nosotros lo instalamos, configuramos y
+                mantenemos actualizado.
               </p>
               <p className="mb-10 max-w-3xl text-[15px] leading-relaxed text-gray-500">
                 Disponible para macOS con Apple Silicon (M1/M2/M3/M4).
@@ -250,12 +261,10 @@ export default async function Home() {
             {/* ── CTA principal ── */}
             <div className="mb-10 flex flex-wrap items-center gap-4">
               <a
-                href={github.downloads.macos}
+                href="/enterprise#contacto"
                 className="doc-button"
-                rel="noreferrer"
-                target="_blank"
               >
-                Descargar para macOS (Apple Silicon)
+                Solicitar demo
                 <svg
                   className="h-4 w-4"
                   fill="none"
@@ -267,24 +276,16 @@ export default async function Home() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
                   />
                 </svg>
               </a>
-              <div className="flex gap-4">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-[13px] text-gray-400">
-                  Windows
-                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-600">
-                    Próximamente
-                  </span>
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-[13px] text-gray-400">
-                  Linux
-                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-600">
-                    Próximamente
-                  </span>
-                </span>
-              </div>
+              <a
+                href="/enterprise"
+                className="doc-button-dark"
+              >
+                Ver planes desde $20/mes
+              </a>
             </div>
 
             {/* ── Video demo ── */}
@@ -310,313 +311,115 @@ export default async function Home() {
             <hr />
 
             {/* ══════════════════════════════════════════════════════════
-                ── POR QUÉ LOCAL-FIRST ──
+                ── CÓMO FUNCIONA ──
                 ══════════════════════════════════════════════════════════ */}
-            <section id="local-first" className="py-12">
+            <section id="como-funciona" className="py-12">
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
-                ¿Por qué correr tu IA en local?
+                Cómo funciona
               </h2>
               <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
-                La mayoría de las herramientas de IA procesan tus datos en
-                servidores externos. Eso significa que tus conversaciones,
-                archivos y estrategias de negocio pasan por manos de terceros.
-                AikaOS funciona diferente: todo corre en tu propia computadora.
-                Esto no es solo una preferencia técnica — es una ventaja
-                competitiva real para tu empresa.
-              </p>
-
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Privacidad */}
-                <div className="rounded-2xl border border-teal-100 bg-teal-50/30 p-6 ring-1 ring-teal-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-teal-100 text-lg">
-                    🔒
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Privacidad total de tus datos
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    Tus conversaciones, archivos y datos de negocio nunca salen
-                    de tu computadora. No hay servidores intermediarios, no hay
-                    terceros con acceso a tu información. En abril de 2023,
-                    empleados de Samsung filtraron código confidencial al usar
-                    ChatGPT — con AikaOS eso es imposible porque nada se envía
-                    a la nube.
-                  </p>
-                </div>
-
-                {/* Costo cero */}
-                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-6 ring-1 ring-emerald-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-lg">
-                    💰
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Cero costo de infraestructura
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    Con modelos locales como Ollama, tu costo de infraestructura
-                    es literalmente $0. No hay factura mensual de servidores, no
-                    hay sorpresas de consumo, no hay &quot;quemé $300 probando
-                    algo&quot;. Tu Mac ya tiene el hardware necesario — solo
-                    necesitas descargar AikaOS y empezar.
-                  </p>
-                </div>
-
-                {/* Sin vendor lock-in */}
-                <div className="rounded-2xl border border-violet-100 bg-violet-50/30 p-6 ring-1 ring-violet-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-lg">
-                    🔓
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Sin dependencia de un proveedor
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    Elige el modelo que quieras: Claude, GPT-4, DeepSeek, Llama,
-                    Mistral o cualquier modelo local. Si un proveedor sube
-                    precios o cambia sus términos, simplemente cambias a otro.
-                    Tu trabajo, tus skills y tus automatizaciones siguen
-                    funcionando exactamente igual.
-                  </p>
-                </div>
-
-                {/* Cumplimiento automático */}
-                <div className="rounded-2xl border border-blue-100 bg-blue-50/30 p-6 ring-1 ring-blue-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-lg">
-                    📋
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Cumplimiento regulatorio automático
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    Si tus datos nunca salen de tu máquina, cumples
-                    automáticamente con GDPR, LGPD (Brasil), Ley Federal de
-                    Protección de Datos (México) y regulaciones similares. No
-                    necesitas contratos de procesamiento de datos con terceros
-                    ni auditorías de proveedores cloud. Ideal para despachos
-                    legales, clínicas y firmas financieras.
-                  </p>
-                </div>
-
-                {/* Sin límites */}
-                <div className="rounded-2xl border border-amber-100 bg-amber-50/30 p-6 ring-1 ring-amber-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-lg">
-                    ♾️
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Sin límites de uso
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    Las herramientas cloud tienen límites por ventanas de tiempo
-                    — Claude Cowork, por ejemplo, opera en ventanas de 5 horas
-                    y las tareas agenticas consumen tokens mucho más rápido que
-                    el chat normal. Con AikaOS y un modelo local, puedes
-                    trabajar todo el día sin interrupciones, sin esperar a que
-                    se renueve tu cuota.
-                  </p>
-                </div>
-
-                {/* Funciona offline */}
-                <div className="rounded-2xl border border-pink-100 bg-pink-50/30 p-6 ring-1 ring-pink-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-pink-100 text-lg">
-                    📡
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Funciona sin internet
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    Con un modelo local instalado, AikaOS funciona completamente
-                    offline. Esto es especialmente valioso en Latinoamérica,
-                    donde más de la mitad de los hogares rurales no tienen
-                    acceso confiable a internet. Tu asistente de IA no depende
-                    de la calidad de tu conexión.
-                  </p>
-                </div>
-
-                {/* Control total */}
-                <div className="rounded-2xl border border-gray-200 bg-gray-50/30 p-6 ring-1 ring-gray-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-lg">
-                    🛠️
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Control total sobre tu herramienta
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    AikaOS es open source. Puedes inspeccionar cada línea de
-                    código, modificar lo que necesites, crear tus propios skills
-                    y adaptar la herramienta a tu flujo de trabajo exacto. No
-                    dependes de que una empresa decida agregar la función que
-                    necesitas — la construyes tú mismo o la pides a la
-                    comunidad.
-                  </p>
-                </div>
-
-                {/* Sin suscripción */}
-                <div className="rounded-2xl border border-orange-100 bg-orange-50/30 p-6 ring-1 ring-orange-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100 text-lg">
-                    🚫
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Adiós a la fatiga de suscripciones
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    No más pagos mensuales que se acumulan. AikaOS es gratis
-                    para siempre. Si quieres usar modelos en la nube como Claude
-                    o GPT-4, pagas solo por lo que consumes en API — no una
-                    suscripción fija que te cobra aunque no uses la herramienta.
-                  </p>
-                </div>
-
-                {/* Casos reales */}
-                <div className="rounded-2xl border border-red-100 bg-red-50/30 p-6 ring-1 ring-red-100/50">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 text-lg">
-                    ⚠️
-                  </div>
-                  <h3 className="mb-2 text-[15px] font-bold">
-                    Los riesgos del cloud son reales
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-gray-700">
-                    En marzo de 2023, un bug de ChatGPT expuso títulos de
-                    conversaciones e información de pago de otros usuarios. En
-                    abril de 2023, Samsung prohibió ChatGPT internamente después
-                    de que empleados subieran código fuente confidencial. Estos
-                    no son escenarios hipotéticos — son incidentes documentados
-                    que afectaron a empresas reales.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <hr />
-
-            {/* ── Instalación paso a paso ── */}
-            <section id="instalacion" className="py-12">
-              <h2 className="mb-3 text-2xl font-bold md:text-3xl">
-                Instalación en macOS (Apple Silicon)
-              </h2>
-              <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
-                Sigue estos pasos para tener AikaOS funcionando en tu Mac en
-                menos de 5 minutos.
+                AikaOS se instala en tu computadora y se conecta al modelo de
+                inteligencia artificial que tú elijas. Nosotros nos encargamos
+                de la puesta en marcha.
               </p>
 
               <div className="space-y-8">
-                {/* Paso 1 */}
                 <div className="flex gap-6">
                   <div className="step-circle shrink-0">1</div>
                   <div className="space-y-3">
                     <h3 className="text-base font-bold">
-                      Descarga el archivo .dmg
+                      Elige tu plan y contáctanos
                     </h3>
                     <p className="text-[15px] text-gray-700">
-                      Haz clic en el botón de descarga de arriba o ve
-                      directamente a la{" "}
-                      <a
-                        href={github.releaseUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="font-semibold text-teal-700 underline decoration-teal-300 underline-offset-4 transition hover:decoration-teal-600"
-                      >
-                        página de releases en GitHub
-                      </a>
-                      . Busca el archivo que termina en{" "}
-                      <code className="mono rounded bg-gray-100 px-1.5 py-0.5 text-[13px]">
-                        _aarch64.dmg
-                      </code>{" "}
-                      (Apple Silicon).
+                      Selecciona el plan que se adapte a tu empresa (desde $20
+                      USD/mes). Nuestro equipo te contactará para coordinar la
+                      instalación.
                     </p>
                   </div>
                 </div>
 
-                {/* Paso 2 */}
                 <div className="flex gap-6">
                   <div className="step-circle shrink-0">2</div>
                   <div className="space-y-3">
                     <h3 className="text-base font-bold">
-                      Abre el .dmg y arrastra a Aplicaciones
+                      Conecta tu modelo de IA (BYOM)
                     </h3>
                     <p className="text-[15px] text-gray-700">
-                      Haz doble clic en el archivo descargado. Se abrirá una
-                      ventana con el ícono de AikaOS. Arrástralo a la carpeta{" "}
-                      <strong>Aplicaciones</strong>.
+                      AikaOS funciona con el modelo que tú prefieras. Puedes
+                      usar tu propia API key de Anthropic (Claude), OpenAI
+                      (GPT-4), DeepSeek, o modelos locales con Ollama. También
+                      puedes usar una suscripción de OpenCode. Si necesitas
+                      ayuda para elegir o integrar un modelo, nuestro equipo te
+                      asiste sin costo adicional en planes Business y
+                      Enterprise.
                     </p>
                   </div>
                 </div>
 
-                {/* Paso 3 */}
                 <div className="flex gap-6">
                   <div className="step-circle shrink-0">3</div>
                   <div className="space-y-3">
                     <h3 className="text-base font-bold">
-                      Permite la ejecución en Seguridad
+                      Recibe tu sistema listo para trabajar
                     </h3>
                     <p className="text-[15px] text-gray-700">
-                      La primera vez que abras AikaOS, macOS puede mostrar un
-                      aviso de seguridad porque la app no está firmada con una
-                      cuenta de desarrollador de Apple. Para abrirla:
-                    </p>
-                    <ol className="list-inside list-decimal space-y-2 text-[15px] text-gray-700">
-                      <li>
-                        Haz clic derecho (o Control + clic) sobre AikaOS en
-                        Aplicaciones y selecciona <strong>Abrir</strong>.
-                      </li>
-                      <li>
-                        En el diálogo que aparece, haz clic en{" "}
-                        <strong>Abrir</strong> de nuevo.
-                      </li>
-                      <li>
-                        Si no aparece la opción, ve a{" "}
-                        <strong>
-                          Ajustes del Sistema → Privacidad y Seguridad
-                        </strong>{" "}
-                        y haz clic en <strong>Abrir de todos modos</strong>.
-                      </li>
-                    </ol>
-                    <p className="text-[13px] text-gray-500">
-                      Solo necesitas hacer esto una vez. Las siguientes veces
-                      abrirá normalmente.
+                      Te entregamos AikaOS instalado y configurado con los
+                      expertos y skills que necesitas para tu industria. Solo
+                      abre la app y empieza a trabajar.
                     </p>
                   </div>
                 </div>
 
-                {/* Paso 4 */}
                 <div className="flex gap-6">
                   <div className="step-circle shrink-0">4</div>
                   <div className="space-y-3">
                     <h3 className="text-base font-bold">
-                      Configura tu API key
+                      Actualizaciones y soporte continuo
                     </h3>
                     <p className="text-[15px] text-gray-700">
-                      AikaOS necesita una clave de API para conectarse a un
-                      modelo de lenguaje. Ve a{" "}
-                      <strong>Settings → Model Provider</strong> y agrega tu
-                      clave de Anthropic (Claude), OpenAI (GPT-4) o el proveedor
-                      que prefieras.
-                    </p>
-                    <p className="text-[13px] text-gray-500">
-                      También puedes usar modelos locales con Ollama sin
-                      necesidad de API key.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Paso 5 */}
-                <div className="flex gap-6">
-                  <div className="step-circle shrink-0">5</div>
-                  <div className="space-y-3">
-                    <h3 className="text-base font-bold">
-                      Elige un experto y empieza a trabajar
-                    </h3>
-                    <p className="text-[15px] text-gray-700">
-                      Ve a la pestaña <strong>Skills</strong>, haz clic en{" "}
-                      <strong>Aplicar Plantilla</strong> y selecciona el experto
-                      que necesitas (Legal, Contabilidad, Marketing, etc.). Se
-                      instalan skills y comandos automáticamente. Escribe tu
-                      primera tarea en lenguaje natural.
+                      Tu plan incluye actualizaciones con nuevos modelos, nuevas
+                      integraciones y mejoras constantes. Nuestro equipo está
+                      disponible para soporte técnico y para desarrollar
+                      funcionalidades a medida.
                     </p>
                   </div>
                 </div>
               </div>
 
+              {/* BYOM callout */}
+              <div className="mt-12 rounded-2xl border border-teal-200 bg-teal-50/50 p-6">
+                <h3 className="mb-3 text-[15px] font-bold text-teal-800">
+                  Trae tu propio modelo (BYOM)
+                </h3>
+                <p className="mb-4 text-[14px] leading-relaxed text-gray-700">
+                  AikaOS no te obliga a usar un modelo específico. Tú decides
+                  qué inteligencia artificial potencia tu sistema:
+                </p>
+                <ul className="space-y-2 text-[14px] text-gray-700">
+                  <li>
+                    <strong>API key propia:</strong> Anthropic (Claude), OpenAI
+                    (GPT-4), DeepSeek, Google Gemini, o cualquier proveedor
+                    compatible.
+                  </li>
+                  <li>
+                    <strong>Modelos locales:</strong> Ollama con Llama, Mistral,
+                    Phi u otros modelos que corren 100% en tu máquina sin
+                    internet.
+                  </li>
+                  <li>
+                    <strong>OpenCode:</strong> Si ya tienes una suscripción de
+                    OpenCode, puedes conectarla directamente.
+                  </li>
+                  <li>
+                    <strong>Asistencia de integración:</strong> En planes
+                    Business y Enterprise, nuestro equipo integra el modelo que
+                    prefieras en toda tu infraestructura.
+                  </li>
+                </ul>
+              </div>
+
               {/* Requisitos */}
-              <div className="mt-12 rounded-2xl border border-gray-100 bg-gray-50/60 p-6">
+              <div className="mt-8 rounded-2xl border border-gray-100 bg-gray-50/60 p-6">
                 <h3 className="mb-3 text-[15px] font-bold">
                   Requisitos del sistema
                 </h3>
@@ -644,15 +447,132 @@ export default async function Home() {
 
             <hr />
 
+            {/* ══════════════════════════════════════════════════════════
+                ── POR QUÉ LOCAL-FIRST ──
+                ══════════════════════════════════════════════════════════ */}
+            <section id="local-first" className="py-12">
+              <h2 className="mb-3 text-2xl font-bold md:text-3xl">
+                ¿Por qué correr tu IA en local?
+              </h2>
+              <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
+                La mayoría de las herramientas de IA procesan tus datos en
+                servidores externos. Eso significa que tus conversaciones,
+                archivos y estrategias de negocio pasan por manos de terceros.
+                AikaOS funciona diferente: todo corre en tu propia computadora.
+              </p>
+
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded-2xl border border-teal-100 bg-teal-50/30 p-6 ring-1 ring-teal-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-teal-100 text-lg">
+                    🔒
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Privacidad total de tus datos
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Tus conversaciones, archivos y datos de negocio nunca salen
+                    de tu computadora. No hay servidores intermediarios, no hay
+                    terceros con acceso a tu información. En abril de 2023,
+                    empleados de Samsung filtraron código confidencial al usar
+                    ChatGPT — con AikaOS eso es imposible porque nada se envía
+                    a la nube.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-6 ring-1 ring-emerald-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-lg">
+                    💰
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Costos predecibles
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Un precio fijo mensual que incluye la app, actualizaciones y
+                    soporte. Con modelos locales como Ollama, tu costo de
+                    infraestructura adicional es $0. Sin sorpresas de consumo,
+                    sin facturas variables.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-violet-100 bg-violet-50/30 p-6 ring-1 ring-violet-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-lg">
+                    🔓
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Sin dependencia de un proveedor
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Elige el modelo que quieras: Claude, GPT-4, DeepSeek, Llama,
+                    Mistral o cualquier modelo local. Si un proveedor sube
+                    precios o cambia sus términos, simplemente cambias a otro.
+                    Tu trabajo y tus automatizaciones siguen funcionando.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-blue-100 bg-blue-50/30 p-6 ring-1 ring-blue-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-lg">
+                    📋
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Cumplimiento regulatorio automático
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Si tus datos nunca salen de tu máquina, cumples
+                    automáticamente con GDPR, LGPD (Brasil), Ley Federal de
+                    Protección de Datos (México) y regulaciones similares. Ideal
+                    para despachos legales, clínicas y firmas financieras.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-amber-100 bg-amber-50/30 p-6 ring-1 ring-amber-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-lg">
+                    ♾️
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Sin límites de uso
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Las herramientas cloud tienen límites por ventanas de tiempo
+                    — Claude Cowork opera en ventanas de 5 horas y las tareas
+                    agenticas consumen tokens mucho más rápido que el chat
+                    normal. Con AikaOS y un modelo local, puedes trabajar todo
+                    el día sin interrupciones.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-pink-100 bg-pink-50/30 p-6 ring-1 ring-pink-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-pink-100 text-lg">
+                    📡
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Funciona sin internet
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Con un modelo local instalado, AikaOS funciona completamente
+                    offline. Especialmente valioso en Latinoamérica, donde más
+                    de la mitad de los hogares rurales no tienen acceso
+                    confiable a internet.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <hr />
+
             {/* ── Expertos preconfigurados ── */}
             <section id="expertos" className="py-12">
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 10 expertos preconfigurados
               </h2>
-              <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
+              <p className="mb-4 max-w-3xl text-base leading-relaxed text-gray-700">
                 Cada experto incluye skills especializados, comandos listos para
-                usar y servidores MCP sugeridos. Instálalos con un clic desde la
-                pestaña Skills.
+                usar y servidores MCP configurados. Disponibles a partir del
+                plan Profesional ($50/mes).
+              </p>
+              <p className="mb-10 max-w-3xl text-[14px] text-gray-500">
+                El plan Personal ($20/mes) incluye la app base sin expertos
+                preconfigurados — ideal para quienes quieren configurar sus
+                propios skills.
               </p>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -725,14 +645,15 @@ export default async function Home() {
                 </div>
                 <div className="feature-card border-amber-100 bg-white/90 ring-1 ring-amber-100/60">
                   <span className="mb-3 inline-flex rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-amber-700">
-                    Extensible
+                    Interconexión
                   </span>
                   <h4 className="mb-2 text-[15px] font-bold">
                     Servidores MCP
                   </h4>
                   <p className="text-[15px] leading-relaxed text-gray-700">
                     Conecta herramientas externas — navegador, bases de datos,
-                    APIs — mediante el protocolo MCP. Sin código adicional.
+                    APIs — mediante el protocolo MCP. En planes Enterprise,
+                    desarrollamos servidores MCP a medida para tu empresa.
                   </p>
                 </div>
                 <div className="feature-card border-sky-100 bg-white/90 ring-1 ring-sky-100/60">
@@ -784,15 +705,14 @@ export default async function Home() {
                     OpenClaw (225k estrellas en GitHub)
                   </h3>
                   <p className="text-[14px] leading-relaxed text-gray-700">
-                    Asistente personal open source creado por Peter Steinberger.
-                    Se opera principalmente por mensajería (WhatsApp, Telegram,
-                    Discord). Siempre encendido, con 3,000+ skills de la
-                    comunidad. Sin embargo, tiene problemas de seguridad
-                    documentados: Cisco encontró que skills de terceros
-                    realizaban exfiltración de datos sin que el usuario lo
-                    supiera. Un caso documentado mostró que el agente creó un
-                    perfil de citas sin permiso del usuario. Requiere Node 22+
-                    y configuración técnica avanzada.
+                    Asistente personal creado por Peter Steinberger. Se opera
+                    por mensajería (WhatsApp, Telegram, Discord). Siempre
+                    encendido, con 3,000+ skills de la comunidad. Sin embargo,
+                    tiene problemas de seguridad documentados: Cisco encontró
+                    que skills de terceros realizaban exfiltración de datos sin
+                    que el usuario lo supiera. Un caso documentado mostró que el
+                    agente creó un perfil de citas sin permiso del usuario.
+                    Requiere Node 22+ y configuración técnica avanzada.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-purple-100 bg-purple-50/30 p-6">
@@ -867,25 +787,23 @@ export default async function Home() {
                   <li>
                     <strong>vs OpenClaw:</strong> AikaOS tiene interfaz gráfica
                     completa (no necesitas terminal ni WhatsApp), flujo de
-                    aprobación antes de cada acción (OpenClaw puede actuar sin
-                    permiso), y no depende de un repositorio de skills sin
-                    verificar que ha tenido problemas de seguridad documentados.
+                    aprobación antes de cada acción, sistema cerrado y
+                    verificado (sin skills de terceros no auditados), y puesta
+                    en marcha profesional incluida.
                   </li>
                   <li>
-                    <strong>vs Claude Cowork:</strong> AikaOS es gratis y open
-                    source (Cowork cuesta $20-200/mes), funciona offline (Cowork
-                    requiere internet constante), no tiene límites de uso
-                    (Cowork tiene ventanas de 5 horas), tus datos nunca salen de
-                    tu máquina (Cowork procesa en servidores de Anthropic), y
-                    puedes usar cualquier modelo de IA (Cowork solo funciona con
-                    Claude).
+                    <strong>vs Claude Cowork:</strong> AikaOS funciona offline,
+                    no tiene límites de uso, tus datos nunca salen de tu
+                    máquina, puedes usar cualquier modelo de IA, y el precio
+                    incluye actualizaciones y soporte — no solo acceso a la
+                    herramienta.
                   </li>
                   <li>
                     <strong>Exclusivo de AikaOS:</strong> Interfaz nativa en
                     español, expertos preconfigurados para industrias
                     latinoamericanas, normativas locales integradas (SAT, DIAN,
-                    AFIP), y un modelo de servicio on-premise diseñado para
-                    empresas de la región.
+                    AFIP), desarrollo de servidores MCP a medida, e
+                    interconexión entre agentes para empresas.
                   </li>
                 </ul>
               </div>
@@ -893,7 +811,7 @@ export default async function Home() {
 
             <hr />
 
-            {/* ── Sectores objetivo (expandido) ── */}
+            {/* ── Sectores objetivo ── */}
             <section id="sectores" className="py-12">
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 Diseñado para estos sectores
@@ -901,8 +819,7 @@ export default async function Home() {
               <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
                 AikaOS se adapta a las necesidades específicas de cada industria
                 en Latinoamérica. Desde despachos legales hasta clínicas
-                médicas, desde logística hasta agricultura — estos son los
-                sectores que ya pueden beneficiarse.
+                médicas, desde logística hasta agricultura.
               </p>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -915,6 +832,119 @@ export default async function Home() {
                     </p>
                   </div>
                 ))}
+              </div>
+            </section>
+
+            <hr />
+
+            {/* ── Planes resumen ── */}
+            <section id="planes" className="py-12">
+              <h2 className="mb-3 text-center text-2xl font-bold md:text-3xl">
+                Planes
+              </h2>
+              <p className="mx-auto mb-10 max-w-2xl text-center text-base leading-relaxed text-gray-700">
+                Precios en USD para toda Latinoamérica. Todos los planes
+                incluyen actualizaciones y soporte.
+              </p>
+
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {/* Personal */}
+                <div className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 className="mb-1 text-lg font-bold">Personal</h3>
+                  <div className="mb-3 flex items-baseline gap-1">
+                    <span className="text-3xl font-bold tracking-tight">$20</span>
+                    <span className="text-[14px] text-gray-500">USD/mes</span>
+                  </div>
+                  <p className="mb-6 text-[14px] text-gray-600">
+                    1 instalación. La app base sin expertos preconfigurados.
+                    Ideal para explorar y configurar tus propios skills.
+                  </p>
+                  <ul className="mb-8 flex-1 space-y-2 text-[13px] text-gray-700">
+                    <li>App de escritorio (macOS)</li>
+                    <li>Trae tu propio modelo (BYOM)</li>
+                    <li>Actualizaciones incluidas</li>
+                    <li>Soporte por documentación</li>
+                  </ul>
+                  <a href="/enterprise#contacto" className="doc-button-dark w-full justify-center text-[13px]">
+                    Empezar
+                  </a>
+                </div>
+
+                {/* Profesional */}
+                <div className="relative flex flex-col rounded-2xl border-2 border-aika-teal bg-teal-50/30 p-6 shadow-lg">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-aika-teal px-4 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                    Más popular
+                  </div>
+                  <h3 className="mb-1 text-lg font-bold">Profesional</h3>
+                  <div className="mb-3 flex items-baseline gap-1">
+                    <span className="text-3xl font-bold tracking-tight">$50</span>
+                    <span className="text-[14px] text-gray-500">USD/mes</span>
+                  </div>
+                  <p className="mb-6 text-[14px] text-gray-600">
+                    1 instalación. Todos los expertos y skills preconfigurados.
+                    Sistema listo para trabajar.
+                  </p>
+                  <ul className="mb-8 flex-1 space-y-2 text-[13px] text-gray-700">
+                    <li>Todo lo de Personal</li>
+                    <li>10 expertos preconfigurados</li>
+                    <li>Todos los skills y comandos</li>
+                    <li>Servidores MCP incluidos</li>
+                    <li>Soporte por email</li>
+                    <li>Puesta en marcha asistida</li>
+                  </ul>
+                  <a href="/enterprise#contacto" className="doc-button w-full justify-center text-[13px]">
+                    Empezar
+                  </a>
+                </div>
+
+                {/* Business */}
+                <div className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 className="mb-1 text-lg font-bold">Business</h3>
+                  <div className="mb-3 flex items-baseline gap-1">
+                    <span className="text-3xl font-bold tracking-tight">$150</span>
+                    <span className="text-[14px] text-gray-500">USD/mes</span>
+                  </div>
+                  <p className="mb-6 text-[14px] text-gray-600">
+                    Hasta 5 instalaciones. Interconexión entre agentes y
+                    asistencia para integrar tu modelo preferido.
+                  </p>
+                  <ul className="mb-8 flex-1 space-y-2 text-[13px] text-gray-700">
+                    <li>Todo lo de Profesional</li>
+                    <li>Hasta 5 instalaciones</li>
+                    <li>Interconexión entre agentes vía MCP</li>
+                    <li>Asistencia de integración de modelo</li>
+                    <li>Soporte prioritario (email + chat)</li>
+                    <li>Actualizaciones con prioridad</li>
+                  </ul>
+                  <a href="/enterprise#contacto" className="doc-button-dark w-full justify-center text-[13px]">
+                    Contactar ventas
+                  </a>
+                </div>
+
+                {/* Enterprise */}
+                <div className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 className="mb-1 text-lg font-bold">Enterprise</h3>
+                  <div className="mb-3 flex items-baseline gap-1">
+                    <span className="text-3xl font-bold tracking-tight">$500</span>
+                    <span className="text-[14px] text-gray-500">USD/mes</span>
+                  </div>
+                  <p className="mb-6 text-[14px] text-gray-600">
+                    10+ instalaciones. Desarrollo de servidores MCP a medida y
+                    arquitectura personalizada.
+                  </p>
+                  <ul className="mb-8 flex-1 space-y-2 text-[13px] text-gray-700">
+                    <li>Todo lo de Business</li>
+                    <li>10+ instalaciones (ilimitadas)</li>
+                    <li>Desarrollo de servidores MCP custom</li>
+                    <li>Integración completa de modelo en tu infra</li>
+                    <li>Acceso anticipado a nuevas funciones</li>
+                    <li>Soporte dedicado + videollamada</li>
+                    <li>Arquitectura de agentes personalizada</li>
+                  </ul>
+                  <a href="/enterprise#contacto" className="doc-button-dark w-full justify-center text-[13px]">
+                    Hablar con ventas
+                  </a>
+                </div>
               </div>
             </section>
 
@@ -939,12 +969,16 @@ export default async function Home() {
                 </div>
                 <div>
                   <h4 className="mb-2 text-[15px] font-bold">
-                    ¿Es gratis?
+                    ¿Necesito comprar un modelo de IA aparte?
                   </h4>
                   <p className="text-[15px] leading-relaxed text-gray-700">
-                    Sí. AikaOS es open source y puedes usarlo gratis con modelos
-                    locales. Solo pagas por uso de API si decides conectar
-                    modelos en la nube como Claude o GPT-4.
+                    AikaOS funciona con el modelo que tú elijas (BYOM: Bring
+                    Your Own Model). Puedes usar tu API key de Anthropic,
+                    OpenAI, DeepSeek u otro proveedor. También puedes usar
+                    modelos locales gratuitos con Ollama, o conectar una
+                    suscripción de OpenCode. En planes Business y Enterprise,
+                    nuestro equipo te ayuda a integrar el modelo en toda tu
+                    infraestructura.
                   </p>
                 </div>
                 <div>
@@ -965,8 +999,9 @@ export default async function Home() {
                   <p className="text-[15px] leading-relaxed text-gray-700">
                     AikaOS corre localmente en tu computadora. No puede acceder
                     a archivos ni ejecutar comandos sin tu permiso. Ves un plan
-                    claro antes de cada acción. A diferencia de herramientas
-                    cloud, tus datos nunca pasan por servidores de terceros.
+                    claro antes de cada acción. Tus datos nunca pasan por
+                    servidores de terceros. El sistema es cerrado y cada
+                    actualización es verificada por nuestro equipo.
                   </p>
                 </div>
                 <div>
@@ -982,12 +1017,27 @@ export default async function Home() {
                 </div>
                 <div>
                   <h4 className="mb-2 text-[15px] font-bold">
-                    ¿Puedo compartir automatizaciones con mi equipo?
+                    ¿Qué incluyen las actualizaciones?
                   </h4>
                   <p className="text-[15px] leading-relaxed text-gray-700">
-                    Sí. Empaqueta cualquier flujo como un skill y compártelo.
-                    Tus compañeros lo instalan y lo ejecutan en sus propias
-                    máquinas al instante.
+                    Todos los planes incluyen actualizaciones con nuevos modelos
+                    compatibles, nuevas integraciones, mejoras de rendimiento y
+                    nuevos skills. En planes Enterprise, también desarrollamos
+                    funcionalidades a medida para tu empresa.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="mb-2 text-[15px] font-bold">
+                    ¿Qué son los servidores MCP?
+                  </h4>
+                  <p className="text-[15px] leading-relaxed text-gray-700">
+                    MCP (Model Context Protocol) permite que AikaOS se conecte
+                    con herramientas externas: navegadores, bases de datos,
+                    APIs, CRMs y más. En el plan Enterprise, desarrollamos
+                    servidores MCP personalizados que conectan AikaOS con los
+                    sistemas específicos de tu empresa, permitiendo
+                    interconexión entre agentes y automatización de flujos
+                    complejos.
                   </p>
                 </div>
                 <div>
@@ -995,14 +1045,15 @@ export default async function Home() {
                     ¿En qué se diferencia de OpenClaw o Claude Cowork?
                   </h4>
                   <p className="text-[15px] leading-relaxed text-gray-700">
-                    AikaOS combina lo mejor de ambos mundos: es open source y
-                    local-first como OpenClaw, pero con una interfaz gráfica
-                    completa como Cowork. A diferencia de OpenClaw, tiene flujo
-                    de aprobación obligatorio antes de cada acción. A diferencia
-                    de Cowork, es gratis, funciona offline, no tiene límites de
-                    uso y tus datos nunca salen de tu máquina. Además, es el
-                    único con interfaz nativa en español y expertos
-                    preconfigurados para Latinoamérica.
+                    AikaOS es un sistema cerrado y verificado con interfaz
+                    gráfica completa, a diferencia de OpenClaw que requiere
+                    terminal y tiene problemas de seguridad documentados en sus
+                    skills de terceros. A diferencia de Claude Cowork, AikaOS
+                    funciona offline, no tiene límites de uso, tus datos nunca
+                    salen de tu máquina, y puedes usar cualquier modelo de IA.
+                    Además, es el único con interfaz nativa en español, expertos
+                    para Latinoamérica, y servicio de puesta en marcha
+                    profesional.
                   </p>
                 </div>
               </div>
@@ -1013,40 +1064,18 @@ export default async function Home() {
             {/* ── CTA final ── */}
             <section className="py-12 text-center">
               <h2 className="mb-4 text-2xl font-bold md:text-3xl">
-                Empieza a automatizar hoy
+                Empieza a automatizar tu empresa
               </h2>
               <p className="mx-auto mb-8 max-w-2xl text-[15px] leading-relaxed text-gray-700">
-                Descarga AikaOS en tu Mac, elige un experto y envía tu primera
-                tarea. Sin registro, sin tarjeta de crédito, sin complicaciones.
+                Contáctanos para una demo personalizada. Te mostramos cómo
+                AikaOS puede automatizar los flujos de trabajo de tu industria.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <a
-                  href={github.downloads.macos}
+                  href="/enterprise#contacto"
                   className="doc-button"
-                  rel="noreferrer"
-                  target="_blank"
                 >
-                  Descargar para macOS (Apple Silicon)
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                  </svg>
-                </a>
-                <a
-                  href="/enterprise"
-                  className="doc-button-dark"
-                >
-                  Ver precios para empresas
+                  Solicitar demo
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -1061,6 +1090,12 @@ export default async function Home() {
                       d="M14 5l7 7m0 0l-7 7m7-7H3"
                     />
                   </svg>
+                </a>
+                <a
+                  href="/enterprise"
+                  className="doc-button-dark"
+                >
+                  Ver planes desde $20/mes
                 </a>
               </div>
             </section>
