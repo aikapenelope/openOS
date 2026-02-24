@@ -85,7 +85,7 @@ const EXPERTOS = [
   },
 ];
 
-const CLIENTES = [
+const SECTORES = [
   {
     sector: "Despachos legales",
     desc: "Automatiza contratos, poderes notariales y revisión de documentos en minutos.",
@@ -115,6 +115,106 @@ const CLIENTES = [
     sector: "Gobierno municipal",
     desc: "Redacta oficios, informes de transparencia y respuestas ciudadanas.",
     icono: "🏛️",
+  },
+  {
+    sector: "Salud y clínicas",
+    desc: "Agenda citas, automatiza facturación médica, genera resúmenes clínicos y apoya el triaje inicial. Solo el 65% de la atención primaria en LATAM usa expedientes electrónicos — AikaOS cierra esa brecha.",
+    icono: "🏥",
+  },
+  {
+    sector: "Inmobiliaria / PropTech",
+    desc: "Publica propiedades, genera contratos de arrendamiento, da seguimiento a clientes y automatiza valuaciones comparativas de mercado.",
+    icono: "🏠",
+  },
+  {
+    sector: "Logística y cadena de suministro",
+    desc: "Predice demanda de inventario, rastrea envíos, coordina proveedores y genera reportes de aduanas. El comercio intrarregional en LATAM es solo el 14% — la eficiencia logística es clave.",
+    icono: "🚛",
+  },
+  {
+    sector: "Agricultura / Agtech",
+    desc: "Planifica cultivos, genera documentos de cumplimiento fitosanitario, automatiza trámites de exportación y analiza datos climáticos para toma de decisiones.",
+    icono: "🌾",
+  },
+  {
+    sector: "Fintech y servicios financieros",
+    desc: "Procesa documentos de crédito, automatiza onboarding de clientes, genera reportes de cumplimiento regulatorio y analiza riesgo crediticio.",
+    icono: "💳",
+  },
+  {
+    sector: "Construcción",
+    desc: "Prepara licitaciones, documenta avance de obra, genera reportes de seguridad laboral y automatiza presupuestos de materiales.",
+    icono: "🏗️",
+  },
+];
+
+/* ── Datos de la tabla comparativa ── */
+const COMPARATIVA = [
+  {
+    criterio: "Precio",
+    aikaos: "Gratis (open source). Solo pagas API si usas modelos en la nube.",
+    openclaw: "Gratis (open source). Requiere suscripción a un modelo (Claude Max recomendado: $100-200/mes).",
+    cowork: "$20/mes (Pro) a $200/mes (Max 20x). Pago obligatorio.",
+  },
+  {
+    criterio: "Privacidad de datos",
+    aikaos: "Total. Todo corre en tu máquina. Tus archivos, conversaciones y datos nunca salen de tu computadora.",
+    openclaw: "Parcial. Corre localmente pero envía todo a APIs externas. Sin GUI, difícil auditar qué se envía.",
+    cowork: "Limitada. El procesamiento ocurre en servidores de Anthropic. Tu información pasa por sus sistemas.",
+  },
+  {
+    criterio: "Interfaz",
+    aikaos: "App de escritorio con GUI completa. Cualquier persona puede usarla sin conocimientos técnicos.",
+    openclaw: "Sin GUI nativa. Se opera por línea de comandos o mensajes de WhatsApp/Telegram/Discord.",
+    cowork: "App de escritorio (macOS y Windows). Interfaz pulida pero requiere conexión constante a internet.",
+  },
+  {
+    criterio: "Modelos de IA",
+    aikaos: "Cualquiera: Claude, GPT-4, DeepSeek, Ollama (local, gratis). Tú eliges.",
+    openclaw: "Cualquiera, pero recomienda fuertemente Claude Max ($100-200/mes) para mejor rendimiento.",
+    cowork: "Solo Claude (Anthropic). No puedes usar otros modelos.",
+  },
+  {
+    criterio: "Funciona offline",
+    aikaos: "Sí, con modelos locales (Ollama). Sin internet, sin problema.",
+    openclaw: "Parcial. El gateway corre local pero necesita API externa para el modelo.",
+    cowork: "No. Requiere conexión activa a internet durante toda la sesión.",
+  },
+  {
+    criterio: "Límites de uso",
+    aikaos: "Sin límites. Usa todo lo que necesites, cuando lo necesites.",
+    openclaw: "Sin límites propios, pero heredas los límites del modelo que uses.",
+    cowork: "Límites estrictos por ventanas de 5 horas. Cowork consume tokens mucho más rápido que el chat normal.",
+  },
+  {
+    criterio: "Aprobación de acciones",
+    aikaos: "Sí. Ves un plan claro antes de cada acción. Nada se ejecuta sin tu permiso.",
+    openclaw: "Limitada. El agente puede actuar sin dirección explícita (caso documentado: creó un perfil de citas sin permiso del usuario).",
+    cowork: "Parcial. Pide permiso para eliminar archivos, pero puede ejecutar otras acciones sin confirmación.",
+  },
+  {
+    criterio: "Seguridad",
+    aikaos: "Código abierto, auditable. Sin acceso a datos de terceros. Sin skills maliciosos de repositorios no verificados.",
+    openclaw: "Riesgos documentados: Cisco encontró exfiltración de datos en skills de terceros. El repositorio de skills carece de verificación adecuada.",
+    cowork: "Anthropic advierte explícitamente: no usar para cargas de trabajo reguladas. Sin logs de auditoría para actividad de Cowork.",
+  },
+  {
+    criterio: "Idioma",
+    aikaos: "Interfaz nativa en español. Expertos preconfigurados para LATAM con normativas locales (SAT, DIAN, AFIP).",
+    openclaw: "Solo en inglés. Sin soporte nativo para español ni normativas latinoamericanas.",
+    cowork: "Multiidioma en chat, pero la interfaz y documentación están en inglés.",
+  },
+  {
+    criterio: "Configuración",
+    aikaos: "Descarga el .dmg, arrastra a Aplicaciones, configura tu API key. 5 minutos.",
+    openclaw: "Requiere Node 22+, CLI wizard, configuración de gateway, canales de mensajería. Nivel técnico medio-avanzado.",
+    cowork: "Descarga la app, inicia sesión con tu cuenta de pago. Sencillo pero requiere suscripción.",
+  },
+  {
+    criterio: "Cumplimiento regulatorio",
+    aikaos: "GDPR/LGPD automático: ningún dato sale de tu máquina. Ideal para datos sensibles (médicos, legales, financieros).",
+    openclaw: "Depende de tu configuración. Si usas APIs en la nube, los datos salen de tu máquina.",
+    cowork: "Anthropic no ofrece cumplimiento HIPAA para Cowork. Ellos mismos advierten no usarlo para cargas reguladas.",
   },
 ];
 
@@ -206,6 +306,184 @@ export default async function Home() {
               Interfaz real de AikaOS — crea tareas, ejecuta skills y automatiza
               flujos desde tu escritorio.
             </p>
+
+            <hr />
+
+            {/* ══════════════════════════════════════════════════════════
+                ── POR QUÉ LOCAL-FIRST ──
+                ══════════════════════════════════════════════════════════ */}
+            <section id="local-first" className="py-12">
+              <h2 className="mb-3 text-2xl font-bold md:text-3xl">
+                ¿Por qué correr tu IA en local?
+              </h2>
+              <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
+                La mayoría de las herramientas de IA procesan tus datos en
+                servidores externos. Eso significa que tus conversaciones,
+                archivos y estrategias de negocio pasan por manos de terceros.
+                AikaOS funciona diferente: todo corre en tu propia computadora.
+                Esto no es solo una preferencia técnica — es una ventaja
+                competitiva real para tu empresa.
+              </p>
+
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {/* Privacidad */}
+                <div className="rounded-2xl border border-teal-100 bg-teal-50/30 p-6 ring-1 ring-teal-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-teal-100 text-lg">
+                    🔒
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Privacidad total de tus datos
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Tus conversaciones, archivos y datos de negocio nunca salen
+                    de tu computadora. No hay servidores intermediarios, no hay
+                    terceros con acceso a tu información. En abril de 2023,
+                    empleados de Samsung filtraron código confidencial al usar
+                    ChatGPT — con AikaOS eso es imposible porque nada se envía
+                    a la nube.
+                  </p>
+                </div>
+
+                {/* Costo cero */}
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-6 ring-1 ring-emerald-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-lg">
+                    💰
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Cero costo de infraestructura
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Con modelos locales como Ollama, tu costo de infraestructura
+                    es literalmente $0. No hay factura mensual de servidores, no
+                    hay sorpresas de consumo, no hay &quot;quemé $300 probando
+                    algo&quot;. Tu Mac ya tiene el hardware necesario — solo
+                    necesitas descargar AikaOS y empezar.
+                  </p>
+                </div>
+
+                {/* Sin vendor lock-in */}
+                <div className="rounded-2xl border border-violet-100 bg-violet-50/30 p-6 ring-1 ring-violet-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-lg">
+                    🔓
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Sin dependencia de un proveedor
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Elige el modelo que quieras: Claude, GPT-4, DeepSeek, Llama,
+                    Mistral o cualquier modelo local. Si un proveedor sube
+                    precios o cambia sus términos, simplemente cambias a otro.
+                    Tu trabajo, tus skills y tus automatizaciones siguen
+                    funcionando exactamente igual.
+                  </p>
+                </div>
+
+                {/* Cumplimiento automático */}
+                <div className="rounded-2xl border border-blue-100 bg-blue-50/30 p-6 ring-1 ring-blue-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-lg">
+                    📋
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Cumplimiento regulatorio automático
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Si tus datos nunca salen de tu máquina, cumples
+                    automáticamente con GDPR, LGPD (Brasil), Ley Federal de
+                    Protección de Datos (México) y regulaciones similares. No
+                    necesitas contratos de procesamiento de datos con terceros
+                    ni auditorías de proveedores cloud. Ideal para despachos
+                    legales, clínicas y firmas financieras.
+                  </p>
+                </div>
+
+                {/* Sin límites */}
+                <div className="rounded-2xl border border-amber-100 bg-amber-50/30 p-6 ring-1 ring-amber-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-lg">
+                    ♾️
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Sin límites de uso
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Las herramientas cloud tienen límites por ventanas de tiempo
+                    — Claude Cowork, por ejemplo, opera en ventanas de 5 horas
+                    y las tareas agenticas consumen tokens mucho más rápido que
+                    el chat normal. Con AikaOS y un modelo local, puedes
+                    trabajar todo el día sin interrupciones, sin esperar a que
+                    se renueve tu cuota.
+                  </p>
+                </div>
+
+                {/* Funciona offline */}
+                <div className="rounded-2xl border border-pink-100 bg-pink-50/30 p-6 ring-1 ring-pink-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-pink-100 text-lg">
+                    📡
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Funciona sin internet
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Con un modelo local instalado, AikaOS funciona completamente
+                    offline. Esto es especialmente valioso en Latinoamérica,
+                    donde más de la mitad de los hogares rurales no tienen
+                    acceso confiable a internet. Tu asistente de IA no depende
+                    de la calidad de tu conexión.
+                  </p>
+                </div>
+
+                {/* Control total */}
+                <div className="rounded-2xl border border-gray-200 bg-gray-50/30 p-6 ring-1 ring-gray-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-lg">
+                    🛠️
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Control total sobre tu herramienta
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    AikaOS es open source. Puedes inspeccionar cada línea de
+                    código, modificar lo que necesites, crear tus propios skills
+                    y adaptar la herramienta a tu flujo de trabajo exacto. No
+                    dependes de que una empresa decida agregar la función que
+                    necesitas — la construyes tú mismo o la pides a la
+                    comunidad.
+                  </p>
+                </div>
+
+                {/* Sin suscripción */}
+                <div className="rounded-2xl border border-orange-100 bg-orange-50/30 p-6 ring-1 ring-orange-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100 text-lg">
+                    🚫
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Adiós a la fatiga de suscripciones
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    No más pagos mensuales que se acumulan. AikaOS es gratis
+                    para siempre. Si quieres usar modelos en la nube como Claude
+                    o GPT-4, pagas solo por lo que consumes en API — no una
+                    suscripción fija que te cobra aunque no uses la herramienta.
+                  </p>
+                </div>
+
+                {/* Casos reales */}
+                <div className="rounded-2xl border border-red-100 bg-red-50/30 p-6 ring-1 ring-red-100/50">
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 text-lg">
+                    ⚠️
+                  </div>
+                  <h3 className="mb-2 text-[15px] font-bold">
+                    Los riesgos del cloud son reales
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    En marzo de 2023, un bug de ChatGPT expuso títulos de
+                    conversaciones e información de pago de otros usuarios. En
+                    abril de 2023, Samsung prohibió ChatGPT internamente después
+                    de que empleados subieran código fuente confidencial. Estos
+                    no son escenarios hipotéticos — son incidentes documentados
+                    que afectaron a empresas reales.
+                  </p>
+                </div>
+              </div>
+            </section>
 
             <hr />
 
@@ -486,19 +764,149 @@ export default async function Home() {
 
             <hr />
 
-            {/* ── Clientes objetivo ── */}
-            <section id="clientes" className="py-12">
+            {/* ══════════════════════════════════════════════════════════
+                ── COMPARATIVA VS COMPETENCIA ──
+                ══════════════════════════════════════════════════════════ */}
+            <section id="comparativa" className="py-12">
+              <h2 className="mb-3 text-2xl font-bold md:text-3xl">
+                AikaOS vs la competencia
+              </h2>
+              <p className="mb-4 max-w-3xl text-base leading-relaxed text-gray-700">
+                Existen otras herramientas de IA agentica en el mercado. Aquí
+                comparamos AikaOS con las dos más populares para que puedas
+                tomar una decisión informada.
+              </p>
+
+              {/* Resumen de competidores */}
+              <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="rounded-2xl border border-orange-100 bg-orange-50/30 p-6">
+                  <h3 className="mb-2 text-[15px] font-bold text-orange-800">
+                    OpenClaw (225k estrellas en GitHub)
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Asistente personal open source creado por Peter Steinberger.
+                    Se opera principalmente por mensajería (WhatsApp, Telegram,
+                    Discord). Siempre encendido, con 3,000+ skills de la
+                    comunidad. Sin embargo, tiene problemas de seguridad
+                    documentados: Cisco encontró que skills de terceros
+                    realizaban exfiltración de datos sin que el usuario lo
+                    supiera. Un caso documentado mostró que el agente creó un
+                    perfil de citas sin permiso del usuario. Requiere Node 22+
+                    y configuración técnica avanzada.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-purple-100 bg-purple-50/30 p-6">
+                  <h3 className="mb-2 text-[15px] font-bold text-purple-800">
+                    Claude Cowork (por Anthropic)
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-gray-700">
+                    Herramienta agentica de escritorio de Anthropic. Interfaz
+                    pulida, acceso directo a archivos locales, sub-agentes en
+                    paralelo, conectores para Google Drive, Gmail, DocuSign.
+                    Cuesta de $20 a $200/mes. Requiere conexión a internet
+                    constante — todo el procesamiento ocurre en servidores de
+                    Anthropic. Límites de uso por ventanas de 5 horas. Anthropic
+                    advierte explícitamente: &quot;No usar para cargas de trabajo
+                    reguladas&quot;. Sin logs de auditoría para actividad de
+                    Cowork.
+                  </p>
+                </div>
+              </div>
+
+              {/* Tabla comparativa */}
+              <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
+                <table className="w-full min-w-[800px] text-left text-[14px]">
+                  <thead>
+                    <tr className="border-b border-gray-100 bg-gray-50/80">
+                      <th className="px-4 py-3 font-bold text-gray-900">
+                        Criterio
+                      </th>
+                      <th className="px-4 py-3 font-bold text-teal-700">
+                        AikaOS
+                      </th>
+                      <th className="px-4 py-3 font-bold text-orange-700">
+                        OpenClaw
+                      </th>
+                      <th className="px-4 py-3 font-bold text-purple-700">
+                        Claude Cowork
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {COMPARATIVA.map((row, i) => (
+                      <tr
+                        key={row.criterio}
+                        className={
+                          i % 2 === 0 ? "bg-white" : "bg-gray-50/50"
+                        }
+                      >
+                        <td className="border-t border-gray-100 px-4 py-3 font-semibold text-gray-900 align-top">
+                          {row.criterio}
+                        </td>
+                        <td className="border-t border-gray-100 px-4 py-3 text-gray-700 align-top">
+                          {row.aikaos}
+                        </td>
+                        <td className="border-t border-gray-100 px-4 py-3 text-gray-700 align-top">
+                          {row.openclaw}
+                        </td>
+                        <td className="border-t border-gray-100 px-4 py-3 text-gray-700 align-top">
+                          {row.cowork}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Resumen */}
+              <div className="mt-8 rounded-2xl border border-teal-200 bg-teal-50/50 p-6">
+                <h3 className="mb-3 text-[15px] font-bold text-teal-800">
+                  En resumen: ¿por qué AikaOS?
+                </h3>
+                <ul className="space-y-2 text-[14px] leading-relaxed text-gray-700">
+                  <li>
+                    <strong>vs OpenClaw:</strong> AikaOS tiene interfaz gráfica
+                    completa (no necesitas terminal ni WhatsApp), flujo de
+                    aprobación antes de cada acción (OpenClaw puede actuar sin
+                    permiso), y no depende de un repositorio de skills sin
+                    verificar que ha tenido problemas de seguridad documentados.
+                  </li>
+                  <li>
+                    <strong>vs Claude Cowork:</strong> AikaOS es gratis y open
+                    source (Cowork cuesta $20-200/mes), funciona offline (Cowork
+                    requiere internet constante), no tiene límites de uso
+                    (Cowork tiene ventanas de 5 horas), tus datos nunca salen de
+                    tu máquina (Cowork procesa en servidores de Anthropic), y
+                    puedes usar cualquier modelo de IA (Cowork solo funciona con
+                    Claude).
+                  </li>
+                  <li>
+                    <strong>Exclusivo de AikaOS:</strong> Interfaz nativa en
+                    español, expertos preconfigurados para industrias
+                    latinoamericanas, normativas locales integradas (SAT, DIAN,
+                    AFIP), y un modelo de servicio on-premise diseñado para
+                    empresas de la región.
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <hr />
+
+            {/* ── Sectores objetivo (expandido) ── */}
+            <section id="sectores" className="py-12">
               <h2 className="mb-3 text-2xl font-bold md:text-3xl">
                 Diseñado para estos sectores
               </h2>
               <p className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
                 AikaOS se adapta a las necesidades específicas de cada industria
-                en Latinoamérica. Estos son algunos de los sectores que ya
-                pueden beneficiarse.
+                en Latinoamérica. Desde despachos legales hasta clínicas
+                médicas, desde logística hasta agricultura — estos son los
+                sectores que ya pueden beneficiarse.
               </p>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                {CLIENTES.map((c) => (
+                {SECTORES.map((c) => (
                   <div key={c.sector} className="feature-card bg-white/90">
                     <div className="mb-3 text-2xl">{c.icono}</div>
                     <h4 className="mb-2 text-[15px] font-bold">{c.sector}</h4>
@@ -557,7 +965,8 @@ export default async function Home() {
                   <p className="text-[15px] leading-relaxed text-gray-700">
                     AikaOS corre localmente en tu computadora. No puede acceder
                     a archivos ni ejecutar comandos sin tu permiso. Ves un plan
-                    claro antes de cada acción.
+                    claro antes de cada acción. A diferencia de herramientas
+                    cloud, tus datos nunca pasan por servidores de terceros.
                   </p>
                 </div>
                 <div>
@@ -579,6 +988,21 @@ export default async function Home() {
                     Sí. Empaqueta cualquier flujo como un skill y compártelo.
                     Tus compañeros lo instalan y lo ejecutan en sus propias
                     máquinas al instante.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="mb-2 text-[15px] font-bold">
+                    ¿En qué se diferencia de OpenClaw o Claude Cowork?
+                  </h4>
+                  <p className="text-[15px] leading-relaxed text-gray-700">
+                    AikaOS combina lo mejor de ambos mundos: es open source y
+                    local-first como OpenClaw, pero con una interfaz gráfica
+                    completa como Cowork. A diferencia de OpenClaw, tiene flujo
+                    de aprobación obligatorio antes de cada acción. A diferencia
+                    de Cowork, es gratis, funciona offline, no tiene límites de
+                    uso y tus datos nunca salen de tu máquina. Además, es el
+                    único con interfaz nativa en español y expertos
+                    preconfigurados para Latinoamérica.
                   </p>
                 </div>
               </div>
