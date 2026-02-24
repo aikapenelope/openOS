@@ -5,7 +5,7 @@ import { getGithubData } from "../../lib/github";
 export const metadata = {
   title: "AikaOS — Descargar",
   description:
-    "Descarga AikaOS para macOS, Windows y Linux. Incluye instrucciones de instalación para AUR y paquetes directos.",
+    "Descarga AikaOS para macOS con Apple Silicon. Windows y Linux próximamente.",
 };
 
 export default async function Download() {
@@ -27,8 +27,8 @@ export default async function Download() {
               Descargar AikaOS
             </h1>
             <p className="mb-4 max-w-3xl text-[17px] leading-relaxed text-gray-700">
-              Instala AikaOS en macOS, Windows o Linux. Elige el paquete que
-              corresponda a tu sistema operativo y arquitectura.
+              AikaOS está disponible para macOS con procesadores Apple Silicon.
+              Las versiones para Windows y Linux están en desarrollo.
             </p>
             <p className="mb-10 text-[14px] text-gray-600">
               Última versión estable:{" "}
@@ -43,40 +43,7 @@ export default async function Download() {
             </p>
           </div>
 
-          <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <a
-              href="#macos"
-              className="feature-card border-sky-100 bg-sky-50/60 transition hover:border-sky-200"
-            >
-              <h2 className="mb-2 text-[16px] font-semibold text-gray-900">
-                macOS
-              </h2>
-              <p className="text-[14px] text-gray-700">
-                Apple Silicon e Intel
-              </p>
-            </a>
-            <a
-              href="#windows"
-              className="feature-card border-violet-100 bg-violet-50/50 transition hover:border-violet-200"
-            >
-              <h2 className="mb-2 text-[16px] font-semibold text-gray-900">
-                Windows
-              </h2>
-              <p className="text-[14px] text-gray-700">Instalador MSI x64</p>
-            </a>
-            <a
-              href="#linux"
-              className="feature-card border-emerald-100 bg-emerald-50/60 transition hover:border-emerald-200"
-            >
-              <h2 className="mb-2 text-[16px] font-semibold text-gray-900">
-                Linux
-              </h2>
-              <p className="text-[14px] text-gray-700">
-                AUR, .deb y .rpm
-              </p>
-            </a>
-          </div>
-
+          {/* ── macOS ── */}
           <section id="macos" className="py-6">
             <h2 className="mb-2 text-2xl font-bold md:text-3xl">macOS</h2>
             <p className="mb-8 text-[15px] text-gray-700">
@@ -84,12 +51,17 @@ export default async function Download() {
             </p>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="feature-card bg-white/90">
-                <h3 className="mb-2 text-[16px] font-semibold text-gray-900">
-                  Apple Silicon (serie M)
-                </h3>
+              <div className="feature-card border-teal-100 bg-teal-50/30 ring-1 ring-teal-100/60">
+                <div className="mb-2 flex items-center gap-2">
+                  <h3 className="text-[16px] font-semibold text-gray-900">
+                    Apple Silicon (serie M)
+                  </h3>
+                  <span className="rounded-full bg-teal-100 px-2 py-0.5 text-[11px] font-semibold text-teal-700">
+                    Recomendado
+                  </span>
+                </div>
                 <p className="mb-4 text-[14px] text-gray-600">
-                  Recomendado para chips M1, M2, M3 y M4.
+                  Para chips M1, M2, M3 y M4.
                 </p>
                 <a
                   href={github.installers.macos.appleSilicon}
@@ -97,7 +69,7 @@ export default async function Download() {
                   rel="noreferrer"
                   target="_blank"
                 >
-                  Descargar .dmg
+                  Descargar .dmg (Apple Silicon)
                 </a>
               </div>
 
@@ -114,132 +86,88 @@ export default async function Download() {
                   rel="noreferrer"
                   target="_blank"
                 >
-                  Descargar .dmg
+                  Descargar .dmg (Intel)
                 </a>
               </div>
+            </div>
+
+            {/* Instrucciones de instalación */}
+            <div className="mt-8 rounded-2xl border border-gray-100 bg-gray-50/60 p-6">
+              <h3 className="mb-4 text-[15px] font-bold">
+                Instrucciones de instalación
+              </h3>
+              <ol className="list-inside list-decimal space-y-3 text-[14px] text-gray-700">
+                <li>
+                  Abre el archivo <code className="mono rounded bg-gray-100 px-1.5 py-0.5 text-[13px]">.dmg</code> descargado.
+                </li>
+                <li>
+                  Arrastra AikaOS a la carpeta <strong>Aplicaciones</strong>.
+                </li>
+                <li>
+                  La primera vez, haz clic derecho → <strong>Abrir</strong> para
+                  autorizar la ejecución.
+                </li>
+                <li>
+                  Si macOS lo bloquea, ve a{" "}
+                  <strong>Ajustes del Sistema → Privacidad y Seguridad</strong>{" "}
+                  y haz clic en <strong>Abrir de todos modos</strong>.
+                </li>
+                <li>
+                  Configura tu API key en{" "}
+                  <strong>Settings → Model Provider</strong> y empieza a
+                  trabajar.
+                </li>
+              </ol>
             </div>
           </section>
 
           <hr />
 
+          {/* ── Windows ── */}
           <section id="windows" className="py-6">
-            <h2 className="mb-2 text-2xl font-bold md:text-3xl">Windows</h2>
-            <p className="mb-6 text-[15px] text-gray-700">
-              AikaOS para Windows está disponible como instalador MSI x64.
+            <div className="flex items-center gap-3">
+              <h2 className="text-2xl font-bold md:text-3xl">Windows</h2>
+              <span className="rounded-full bg-amber-50 px-3 py-1 text-[12px] font-semibold text-amber-600 ring-1 ring-amber-200">
+                Próximamente
+              </span>
+            </div>
+            <p className="mt-3 text-[15px] text-gray-500">
+              La versión para Windows está en desarrollo activo. Se anunciará
+              cuando esté lista para pruebas públicas.
             </p>
-            <a
-              href={github.installers.windows.x64}
-              className="doc-button"
-              rel="noreferrer"
-              target="_blank"
-            >
-              Descargar Windows x64 (.msi)
-            </a>
           </section>
 
           <hr />
 
+          {/* ── Linux ── */}
           <section id="linux" className="py-6">
-            <h2 className="mb-2 text-2xl font-bold md:text-3xl">Linux</h2>
-            <p className="mb-8 text-[15px] text-gray-700">
-              Instala desde AUR en distribuciones basadas en Arch, o descarga
-              paquetes directamente para Ubuntu/Debian y Fedora/RHEL/openSUSE.
-            </p>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div className="feature-card border-emerald-100 bg-white/90 ring-1 ring-emerald-100/60">
-                <h3 className="mb-2 text-[16px] font-semibold text-gray-900">
-                  Arch Linux (AUR)
-                </h3>
-                <p className="mb-4 text-[14px] text-gray-600">
-                  Instala y mantén AikaOS actualizado vía el Arch User
-                  Repository.
-                </p>
-                <pre className="mono overflow-x-auto rounded-lg bg-gray-950 px-4 py-3 text-[13px] text-gray-100">
-                  <code>yay -S aikaos</code>
-                </pre>
-                <p className="mt-3 text-[13px] text-gray-600">
-                  ¿Prefieres paru?{" "}
-                  <span className="mono">paru -S aikaos</span>
-                </p>
-                <a
-                  href={github.installers.linux.aur}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 inline-flex text-[13px] font-semibold text-gray-700 underline decoration-gray-300 underline-offset-4 transition hover:text-black"
-                >
-                  Ver paquete en AUR
-                </a>
-              </div>
-
-              <div className="feature-card border-amber-100 bg-white/90 ring-1 ring-amber-100/60">
-                <h3 className="mb-2 text-[16px] font-semibold text-gray-900">
-                  Ubuntu / Debian (.deb)
-                </h3>
-                <p className="mb-4 text-[14px] text-gray-600">
-                  Descarga el paquete para tu arquitectura.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={github.installers.linux.debX64}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="doc-button"
-                  >
-                    x64 .deb
-                  </a>
-                  <a
-                    href={github.installers.linux.debArm64}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="doc-button"
-                  >
-                    arm64 .deb
-                  </a>
-                </div>
-              </div>
-
-              <div className="feature-card border-sky-100 bg-white/90 ring-1 ring-sky-100/60">
-                <h3 className="mb-2 text-[16px] font-semibold text-gray-900">
-                  Fedora / RHEL / openSUSE (.rpm)
-                </h3>
-                <p className="mb-4 text-[14px] text-gray-600">
-                  Descarga un paquete RPM para sistemas x64 o arm64.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={github.installers.linux.rpmX64}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="doc-button"
-                  >
-                    x64 .rpm
-                  </a>
-                  <a
-                    href={github.installers.linux.rpmArm64}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="doc-button"
-                  >
-                    arm64 .rpm
-                  </a>
-                </div>
-              </div>
+            <div className="flex items-center gap-3">
+              <h2 className="text-2xl font-bold md:text-3xl">Linux</h2>
+              <span className="rounded-full bg-amber-50 px-3 py-1 text-[12px] font-semibold text-amber-600 ring-1 ring-amber-200">
+                Próximamente
+              </span>
             </div>
-
-            <p className="mt-8 text-[14px] text-gray-600">
-              ¿Necesitas otro formato?{" "}
-              <a
-                href={releaseUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="font-semibold text-gray-900 underline decoration-gray-300 underline-offset-4 transition hover:decoration-gray-700"
-              >
-                Ver todos los assets del release
-              </a>
-              .
+            <p className="mt-3 text-[15px] text-gray-500">
+              La versión para Linux (Arch, Ubuntu/Debian, Fedora) está en
+              desarrollo activo. Se anunciará cuando esté lista para pruebas
+              públicas.
             </p>
           </section>
+
+          <hr />
+
+          <p className="mt-8 text-[14px] text-gray-600">
+            ¿Necesitas otro formato?{" "}
+            <a
+              href={releaseUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-gray-900 underline decoration-gray-300 underline-offset-4 transition hover:decoration-gray-700"
+            >
+              Ver todos los assets del release en GitHub
+            </a>
+            .
+          </p>
 
           <SiteFooter />
         </div>
