@@ -208,9 +208,23 @@ type SharedBundleV1 =
   | SharedSkillsSetBundleV1
   | SharedWorkspaceProfileBundleV1;
 
+type SharedBundleImportIntent = "new_worker" | "import_current";
+
 type SharedBundleDeepLink = {
   bundleUrl: string;
+  intent: SharedBundleImportIntent;
+  source?: string;
+  orgId?: string;
+  label?: string;
 };
+
+function normalizeSharedBundleImportIntent(value: string | null | undefined): SharedBundleImportIntent {
+  const normalized = (value ?? "").trim().toLowerCase();
+  if (normalized === "new_worker" || normalized === "new-worker" || normalized === "newworker") {
+    return "new_worker";
+  }
+  return "import_current";
+}
 
 function readRecord(value: unknown): Record<string, unknown> | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
@@ -419,7 +433,17 @@ function parseSharedBundleDeepLink(rawUrl: string): SharedBundleDeepLink | null 
     if (parsedBundleUrl.protocol !== "https:" && parsedBundleUrl.protocol !== "http:") {
       return null;
     }
-    return { bundleUrl: parsedBundleUrl.toString() };
+    const intent = normalizeSharedBundleImportIntent(url.searchParams.get("ow_intent") ?? url.searchParams.get("intent"));
+    const source = url.searchParams.get("ow_source")?.trim() ?? url.searchParams.get("source")?.trim() ?? "";
+    const orgId = url.searchParams.get("ow_org")?.trim() ?? "";
+    const label = url.searchParams.get("ow_label")?.trim() ?? "";
+    return {
+      bundleUrl: parsedBundleUrl.toString(),
+      intent,
+      source: source || undefined,
+      orgId: orgId || undefined,
+      label: label || undefined,
+    };
   } catch {
     return null;
   }
@@ -434,7 +458,7 @@ function stripSharedBundleQuery(rawUrl: string): string | null {
   }
 
   let changed = false;
-  for (const key of ["ow_bundle", "bundleUrl", "source"]) {
+  for (const key of ["ow_bundle", "bundleUrl", "ow_intent", "intent", "ow_source", "source", "ow_org", "ow_label"]) {
     if (url.searchParams.has(key)) {
       url.searchParams.delete(key);
       changed = true;
@@ -529,7 +553,7 @@ export default function App() {
       : null;
 
   // Workspace switch tracing is noisy, so only emit in developer mode.
-  // (AikaOS already has a developer mode toggle in Settings.)
+  // (OpenWork already has a developer mode toggle in Settings.)
   const wsDebugEnabled = () => developerMode();
 
   const wsDebug = (label: string, payload?: unknown) => {
@@ -726,7 +750,13 @@ export default function App() {
     }
 
     if (bundleInvite?.bundleUrl) {
-      setPendingSharedBundleUrl(bundleInvite.bundleUrl);
+      setPendingSharedBundleInvite({
+        bundleUrl: bundleInvite.bundleUrl,
+        intent: normalizeSharedBundleImportIntent(bundleInvite.intent),
+        source: bundleInvite.source,
+        orgId: bundleInvite.orgId,
+        label: bundleInvite.label,
+      });
       setSharedBundleNoticeShown(false);
     }
 
@@ -1547,7 +1577,7 @@ export default function App() {
   };
 
   // OpenCode keeps reverted messages in the log and uses `session.revert.messageID`
-  // as the visibility boundary. AikaOS mirrors that behavior by filtering the
+  // as the visibility boundary. OpenWork mirrors that behavior by filtering the
   // displayed transcript.
   const visibleMessages = createMemo(() => {
     const list = messages();
@@ -2320,7 +2350,7 @@ export default function App() {
     const directory = workspace.directory?.trim() ?? "";
     if (workspace.remoteType === "openwork") {
       // Sidebar session listing should be per-workspace and should not implicitly depend on
-      // global AikaOS server settings, otherwise switching between remotes can cause other
+      // global OpenWork server settings, otherwise switching between remotes can cause other
       // workspace task lists to appear/disappear.
       const token = workspace.openworkToken?.trim() ?? "";
       const auth: OpencodeAuth | undefined = token ? { token, mode: "openwork" } : undefined;
@@ -2487,7 +2517,7 @@ export default function App() {
       .join(";");
 
     // Sidebar session refreshes should only be driven by the engine auth/baseUrl or the workspace
-    // definitions themselves. Global AikaOS server settings are intentionally excluded so that
+    // definitions themselves. Global OpenWork server settings are intentionally excluded so that
     // connecting/activating a remote does not cause other workspace task lists to refresh (and
     // potentially disappear) due to auth fallback changes.
     if (engineKey === lastSidebarEngineKey && workspaceKey === lastSidebarWorkspaceKey) return;
@@ -2689,21 +2719,84 @@ export default function App() {
     setOpenworkServerWorkspaceId(null);
   });
 
-  createEffect(() => {
-    const bundleUrl = pendingSharedBundleUrl();
-    if (!bundleUrl || booting()) {
-      return;
+  const resolveSharedBundleWorkerTarget = () => {
+    const pref = startupPreference();
+    const hostInfo = openworkServerHostInfo();
+    const settings = openworkServerSettings();
+
+    const localHostUrl = normalizeOpenworkServerUrl(hostInfo?.baseUrl ?? "") ?? "";
+    const localToken = hostInfo?.clientToken?.trim() ?? "";
+    const serverHostUrl = normalizeOpenworkServerUrl(settings.urlOverride ?? "") ?? "";
+    const serverToken = settings.token?.trim() ?? "";
+
+    if (pref === "server") {
+      return {
+        hostUrl: serverHostUrl || localHostUrl,
+        token: serverToken || localToken,
+      };
     }
 
-    const client = openworkServerClient();
-    const workspaceId = openworkServerWorkspaceId();
-    const connected = openworkServerStatus() === "connected";
+    if (pref === "local") {
+      return {
+        hostUrl: localHostUrl || serverHostUrl,
+        token: localToken || serverToken,
+      };
+    }
 
-    if (!client || !workspaceId || !connected) {
-      if (!sharedBundleNoticeShown()) {
-        setSharedBundleNoticeShown(true);
-        setError("Share link detected. Connect to a writable AikaOS worker to import this bundle.");
+    if (localHostUrl) {
+      return {
+        hostUrl: localHostUrl,
+        token: localToken || serverToken,
+      };
+    }
+
+    return {
+      hostUrl: serverHostUrl,
+      token: serverToken || localToken,
+    };
+  };
+
+  const waitForSharedBundleImportTarget = async (timeoutMs = 20_000) => {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeoutMs) {
+      const client = openworkServerClient();
+      const workspaceId = openworkServerWorkspaceId();
+      if (client && workspaceId && openworkServerStatus() === "connected") {
+        return { client, workspaceId };
       }
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, 200);
+      });
+    }
+    throw new Error("OpenWork worker is not ready yet.");
+  };
+
+  const createWorkerForSharedBundle = async (request: SharedBundleDeepLink, bundle: SharedBundleV1) => {
+    const target = resolveSharedBundleWorkerTarget();
+    const hostUrl = target.hostUrl.trim();
+    const token = target.token.trim();
+    if (!hostUrl || !token) {
+      throw new Error("Share link detected. Configure an OpenWork worker host and token, then open the link again.");
+    }
+
+    const label = (request.label?.trim() || bundle.name?.trim() || "Shared setup").slice(0, 80);
+    const ok = await workspaceStore.createRemoteWorkspaceFlow({
+      openworkHostUrl: hostUrl,
+      openworkToken: token,
+      directory: null,
+      displayName: label,
+      manageBusy: false,
+      closeModal: false,
+    });
+
+    if (!ok) {
+      throw new Error("Failed to create a worker from this share link.");
+    }
+  };
+
+  createEffect(() => {
+    const request = pendingSharedBundleInvite();
+    if (!request || booting()) {
       return;
     }
 
@@ -2711,12 +2804,44 @@ export default function App() {
       return;
     }
 
+    if (request.intent === "import_current") {
+      const client = openworkServerClient();
+      const workspaceId = openworkServerWorkspaceId();
+      const connected = openworkServerStatus() === "connected";
+      if (!client || !workspaceId || !connected) {
+        if (!sharedBundleNoticeShown()) {
+          setSharedBundleNoticeShown(true);
+          setError("Share link detected. Connect to a writable OpenWork worker to import this bundle.");
+        }
+        return;
+      }
+    } else {
+      const target = resolveSharedBundleWorkerTarget();
+      if (!target.hostUrl.trim() || !target.token.trim()) {
+        if (!sharedBundleNoticeShown()) {
+          setSharedBundleNoticeShown(true);
+          setError("Share link detected. Configure an OpenWork host and token to create a new worker.");
+        }
+        return;
+      }
+    }
+
     let cancelled = false;
     setSharedBundleImportBusy(true);
 
     void (async () => {
       try {
-        const bundle = await fetchSharedBundle(bundleUrl);
+        const bundle = await fetchSharedBundle(request.bundleUrl);
+        if (cancelled) return;
+
+        if (request.intent === "new_worker") {
+          await createWorkerForSharedBundle(request, bundle);
+          if (cancelled) return;
+        }
+
+        const { client, workspaceId } = await waitForSharedBundleImportTarget();
+        if (cancelled) return;
+
         const { payload, importedSkillsCount } = buildImportPayloadFromBundle(bundle);
         await client.importWorkspace(workspaceId, payload);
         await refreshSkills({ force: true });
@@ -2733,7 +2858,7 @@ export default function App() {
       } finally {
         if (!cancelled) {
           setSharedBundleImportBusy(false);
-          setPendingSharedBundleUrl(null);
+          setPendingSharedBundleInvite(null);
           setSharedBundleNoticeShown(false);
         }
       }
@@ -2882,7 +3007,7 @@ export default function App() {
   const [editRemoteWorkspaceError, setEditRemoteWorkspaceError] = createSignal<string | null>(null);
   const [deepLinkRemoteWorkspaceDefaults, setDeepLinkRemoteWorkspaceDefaults] = createSignal<RemoteWorkspaceDefaults | null>(null);
   const [pendingRemoteConnectDeepLink, setPendingRemoteConnectDeepLink] = createSignal<RemoteWorkspaceDefaults | null>(null);
-  const [pendingSharedBundleUrl, setPendingSharedBundleUrl] = createSignal<string | null>(null);
+  const [pendingSharedBundleInvite, setPendingSharedBundleInvite] = createSignal<SharedBundleDeepLink | null>(null);
   const [sharedBundleImportBusy, setSharedBundleImportBusy] = createSignal(false);
   const [sharedBundleNoticeShown, setSharedBundleNoticeShown] = createSignal(false);
   const [renameWorkspaceOpen, setRenameWorkspaceOpen] = createSignal(false);
@@ -2904,7 +3029,7 @@ export default function App() {
     if (!parsed) {
       return false;
     }
-    setPendingSharedBundleUrl(parsed.bundleUrl);
+    setPendingSharedBundleInvite(parsed);
     setSharedBundleNoticeShown(false);
     return true;
   };
@@ -3204,7 +3329,7 @@ export default function App() {
   };
 
   onMount(() => {
-    // OpenCode hot reload drives freshness now; AikaOS no longer listens for
+    // OpenCode hot reload drives freshness now; OpenWork no longer listens for
     // legacy reload-required events.
   });
 
@@ -3252,10 +3377,10 @@ export default function App() {
         setScheduledJobs([]);
         const status =
           openworkServerStatus() === "disconnected"
-            ? "AikaOS server unavailable. Connect to sync scheduled tasks."
+            ? "OpenWork server unavailable. Connect to sync scheduled tasks."
             : openworkServerStatus() === "limited"
-              ? "AikaOS server needs a token to load scheduled tasks."
-              : "AikaOS server not ready.";
+              ? "OpenWork server needs a token to load scheduled tasks."
+              : "OpenWork server not ready.";
         setScheduledJobsStatus(status);
         return;
       }
@@ -3317,7 +3442,7 @@ export default function App() {
     if (scheduledJobsSource() === "remote") {
       const scheduler = resolveOpenworkScheduler();
       if (!scheduler) {
-        throw new Error("AikaOS server unavailable. Connect to sync scheduled tasks.");
+        throw new Error("OpenWork server unavailable. Connect to sync scheduled tasks.");
       }
       const response = await scheduler.client.deleteScheduledJob(scheduler.workspaceId, name);
       setScheduledJobs((current) => current.filter((entry) => entry.slug !== response.job.slug));
@@ -3855,7 +3980,7 @@ export default function App() {
 
     if (isRemoteWorkspace) {
       if (!canUseOpenworkServer) {
-        setMcpStatus("AikaOS server unavailable. MCP config is read-only.");
+        setMcpStatus("OpenWork server unavailable. MCP config is read-only.");
         setMcpServers([]);
         setMcpStatuses({});
         return;
@@ -4013,7 +4138,7 @@ export default function App() {
       openworkCapabilities?.mcp?.write;
 
     if (isRemoteWorkspace && !canUseOpenworkServer) {
-      setMcpStatus("AikaOS server unavailable. MCP config is read-only.");
+      setMcpStatus("OpenWork server unavailable. MCP config is read-only.");
       finishPerf(developerMode(), "mcp.connect", "blocked", startedAt, {
         reason: "openwork-server-unavailable",
       });
@@ -4220,7 +4345,7 @@ export default function App() {
       openworkCapabilities?.mcp?.write;
 
     if (isRemoteWorkspace && !canUseOpenworkServer) {
-      setMcpStatus("AikaOS server unavailable. MCP auth is read-only.");
+      setMcpStatus("OpenWork server unavailable. MCP auth is read-only.");
       return;
     }
 
@@ -5127,7 +5252,7 @@ export default function App() {
     const normalizedVersion = openworkVersion.startsWith("v")
       ? openworkVersion
       : `v${openworkVersion}`;
-    return `AikaOS ${normalizedVersion}`;
+    return `OpenWork ${normalizedVersion}`;
   });
 
   const headerStatus = createMemo(() => {
@@ -5294,21 +5419,21 @@ export default function App() {
     const canUseGlobalPluginScope = !isRemoteWorkspace && isTauriRuntime();
     const skillsAccessHint = isRemoteWorkspace
       ? openworkStatus === "disconnected"
-        ? "AikaOS server unavailable. Add the server URL/token in Advanced to manage skills."
+        ? "OpenWork server unavailable. Add the server URL/token in Advanced to manage skills."
         : openworkStatus === "limited"
-          ? "AikaOS server needs a host token to install/update skills. Add it in Advanced and reconnect."
+          ? "OpenWork server needs a host token to install/update skills. Add it in Advanced and reconnect."
           : openworkServerCanWriteSkills()
             ? null
-            : "AikaOS server is read-only for skills. Add a host token in Advanced to enable installs."
+            : "OpenWork server is read-only for skills. Add a host token in Advanced to enable installs."
       : null;
     const pluginsAccessHint = isRemoteWorkspace
       ? openworkStatus === "disconnected"
-        ? "AikaOS server unavailable. Plugins are read-only."
+        ? "OpenWork server unavailable. Plugins are read-only."
         : openworkStatus === "limited"
-          ? "AikaOS server needs a token to edit plugins."
+          ? "OpenWork server needs a token to edit plugins."
           : openworkServerCanWritePlugins()
             ? null
-            : "AikaOS server is read-only for plugins."
+            : "OpenWork server is read-only for plugins."
       : null;
 
     return {
