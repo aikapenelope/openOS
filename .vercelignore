@@ -1,0 +1,16 @@
+_archive
+_worktrees
+.git
+.opencode
+vendor
+**/node_modules
+**/.next
+**/dist
+**/.*.bun-build
+packages/app
+packages/desktop
+packages/opencode-router
+packages/orchestrator
+packages/server
+packages/web
+services

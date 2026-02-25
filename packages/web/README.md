@@ -1,4 +1,4 @@
-# OpenWork Cloud App (`packages/web`)
+# AikaOS Cloud App (`packages/web`)
 
 Frontend for `app.openwork.software`.
 
@@ -14,7 +14,7 @@ Frontend for `app.openwork.software`.
 1. Install workspace deps from repo root:
    `pnpm install`
 2. Run the app:
-   `pnpm --filter @different-ai/openwork-web dev`
+   `pnpm --filter @aikalabs/aikaos-web dev`
 3. Open:
    `http://localhost:3005`
 
@@ -27,6 +27,8 @@ Frontend for `app.openwork.software`.
 - `NEXT_PUBLIC_OPENWORK_APP_CONNECT_URL` (client): Base URL for "Open in App" links.
   - Example: `https://openwork.software/app`
   - The web panel appends `/connect-remote` and injects worker URL/token params automatically.
+- `NEXT_PUBLIC_OPENWORK_AUTH_CALLBACK_URL` (client): Canonical URL used for GitHub auth callback redirects.
+  - default: `https://app.openwork.software`
 
 ## Deploy on Vercel
 
