@@ -54,33 +54,19 @@ iconify-icon {
 /* Scrolling MCP integrations marquee */
 @keyframes scroll-integrations {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translateX(0);
   }
   100% {
-    transform: translate3d(-50%, 0, 0);
+    transform: translateX(-50%);
   }
 }
 
 .animate-scroll-integrations {
   animation: scroll-integrations 40s linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
 }
 
 .animate-scroll-integrations:hover {
   animation-play-state: paused;
-}
-
-/* ── Reduce backdrop-blur cost on lower-end devices ── */
-@supports (backdrop-filter: blur(1px)) {
-  .backdrop-blur-2xl {
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-  }
-  .backdrop-blur-3xl {
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
