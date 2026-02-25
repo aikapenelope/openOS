@@ -1,6 +1,6 @@
-# OpenWork Share Service (Publisher)
+# AikaOS Share Service (Publisher)
 
-This is a tiny publisher service for OpenWork "share link" bundles.
+This is a tiny publisher service for AikaOS "share link" bundles.
 
 It is designed to be deployed on Vercel and backed by Vercel Blob.
 
@@ -13,10 +13,20 @@ It is designed to be deployed on Vercel and backed by Vercel Blob.
 
 - `GET /b/:id`
   - Returns an HTML share page by default for browser requests.
+  - Includes an **Open in app** action that sends users to AikaOS app with `ow_bundle` query param.
   - Returns raw JSON for API/programmatic requests:
     - send `Accept: application/json`, or
     - append `?format=json`.
   - Supports `?format=json&download=1` to download the bundle as a file.
+
+## Bundle Types
+
+- `skill`
+  - A single skill install payload.
+- `skills-set`
+  - A full skills pack (multiple skills) exported from a worker.
+- `workspace-profile`
+  - Full workspace profile payload (config, MCP/OpenCode settings, commands, and skills).
 
 ## Required Environment Variables
 
@@ -32,6 +42,10 @@ It is designed to be deployed on Vercel and backed by Vercel Blob.
 - `MAX_BYTES`
   - Default: `5242880` (5MB)
   - Hard upload limit.
+
+- `PUBLIC_OPENWORK_APP_URL`
+  - Default: `https://app.openwork.software`
+  - Target app URL for the Open in app action on bundle pages.
 
 ## Local development
 
@@ -50,7 +64,7 @@ vercel dev
 # Human-friendly page
 curl -i "http://localhost:3000/b/<id>" -H "Accept: text/html"
 
-# Machine-readable payload (OpenWork parser path)
+# Machine-readable payload (AikaOS parser path)
 curl -i "http://localhost:3000/b/<id>?format=json"
 ```
 
