@@ -3,23 +3,38 @@
 export default function Home() {
   return (
     <>
-      {/* Background Layer */}
+      {/* Background Layer — images are decorative, eager-load the main sky */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/bfd2f4cf-65ed-4b1a-86d1-a1710619267b_1600w.png"
-          alt="Sky Background"
+          alt=""
+          role="presentation"
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#A6CBE8]/20 via-[#BFD9EF]/40 to-[#EAE3D6]/60" />
         <img
           src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
           className="absolute top-[20%] -left-[10%] w-[50%] opacity-40 mix-blend-screen blur-xl pointer-events-none"
-          alt="cloud"
+          alt=""
+          role="presentation"
+          width={800}
+          height={600}
+          loading="lazy"
+          decoding="async"
         />
         <img
           src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
           className="absolute top-[30%] -right-[10%] w-[50%] opacity-40 mix-blend-screen blur-xl pointer-events-none"
-          alt="cloud"
+          alt=""
+          role="presentation"
+          width={800}
+          height={600}
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -110,6 +125,7 @@ export default function Home() {
               loop
               muted
               playsInline
+              preload="metadata"
               className="w-full block"
             >
               <source src="/app-demo.mp4" type="video/mp4" />
@@ -121,6 +137,74 @@ export default function Home() {
             flujos desde tu escritorio.
           </p>
         </main>
+
+        {/* MCP Integrations Marquee */}
+        <div className="w-full py-10 relative overflow-hidden">
+          <p className="text-center text-xs font-semibold tracking-widest text-slate-600 uppercase mb-6 font-sans">
+            Integraciones MCP compatibles
+          </p>
+          {/* Fade edges */}
+          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#ABCDE9] to-transparent z-20 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#ABCDE9] to-transparent z-20 pointer-events-none" />
+          <div className="flex animate-scroll-integrations w-max gap-8 px-4">
+            {/* Set 1 */}
+            <div className="flex gap-8 items-center">
+              <IntegrationBadge icon="simple-icons:google" label="Google" />
+              <IntegrationBadge icon="simple-icons:gmail" label="Gmail" />
+              <IntegrationBadge icon="simple-icons:googlecalendar" label="Calendar" />
+              <IntegrationBadge icon="simple-icons:googledrive" label="Drive" />
+              <IntegrationBadge icon="simple-icons:googlesheets" label="Sheets" />
+              <IntegrationBadge icon="simple-icons:slack" label="Slack" />
+              <IntegrationBadge icon="simple-icons:whatsapp" label="WhatsApp" />
+              <IntegrationBadge icon="simple-icons:telegram" label="Telegram" />
+              <IntegrationBadge icon="simple-icons:notion" label="Notion" />
+              <IntegrationBadge icon="simple-icons:brave" label="Brave" />
+              <IntegrationBadge icon="simple-icons:ollama" label="Ollama" />
+              <IntegrationBadge icon="simple-icons:openai" label="OpenAI" />
+              <IntegrationBadge icon="simple-icons:anthropic" label="Claude" />
+              <IntegrationBadge icon="simple-icons:github" label="GitHub" />
+              <IntegrationBadge icon="simple-icons:discord" label="Discord" />
+              <IntegrationBadge icon="simple-icons:postgresql" label="PostgreSQL" />
+              <IntegrationBadge icon="simple-icons:docker" label="Docker" />
+              <IntegrationBadge icon="simple-icons:linear" label="Linear" />
+              <IntegrationBadge icon="simple-icons:figma" label="Figma" />
+              <IntegrationBadge icon="simple-icons:trello" label="Trello" />
+              <IntegrationBadge icon="simple-icons:airtable" label="Airtable" />
+              <IntegrationBadge icon="simple-icons:zapier" label="Zapier" />
+              <IntegrationBadge icon="simple-icons:stripe" label="Stripe" />
+              <IntegrationBadge icon="simple-icons:jira" label="Jira" />
+              <IntegrationBadge icon="simple-icons:microsoftteams" label="Teams" />
+            </div>
+            {/* Set 2 (duplicate for seamless loop) */}
+            <div className="flex gap-8 items-center">
+              <IntegrationBadge icon="simple-icons:google" label="Google" />
+              <IntegrationBadge icon="simple-icons:gmail" label="Gmail" />
+              <IntegrationBadge icon="simple-icons:googlecalendar" label="Calendar" />
+              <IntegrationBadge icon="simple-icons:googledrive" label="Drive" />
+              <IntegrationBadge icon="simple-icons:googlesheets" label="Sheets" />
+              <IntegrationBadge icon="simple-icons:slack" label="Slack" />
+              <IntegrationBadge icon="simple-icons:whatsapp" label="WhatsApp" />
+              <IntegrationBadge icon="simple-icons:telegram" label="Telegram" />
+              <IntegrationBadge icon="simple-icons:notion" label="Notion" />
+              <IntegrationBadge icon="simple-icons:brave" label="Brave" />
+              <IntegrationBadge icon="simple-icons:ollama" label="Ollama" />
+              <IntegrationBadge icon="simple-icons:openai" label="OpenAI" />
+              <IntegrationBadge icon="simple-icons:anthropic" label="Claude" />
+              <IntegrationBadge icon="simple-icons:github" label="GitHub" />
+              <IntegrationBadge icon="simple-icons:discord" label="Discord" />
+              <IntegrationBadge icon="simple-icons:postgresql" label="PostgreSQL" />
+              <IntegrationBadge icon="simple-icons:docker" label="Docker" />
+              <IntegrationBadge icon="simple-icons:linear" label="Linear" />
+              <IntegrationBadge icon="simple-icons:figma" label="Figma" />
+              <IntegrationBadge icon="simple-icons:trello" label="Trello" />
+              <IntegrationBadge icon="simple-icons:airtable" label="Airtable" />
+              <IntegrationBadge icon="simple-icons:zapier" label="Zapier" />
+              <IntegrationBadge icon="simple-icons:stripe" label="Stripe" />
+              <IntegrationBadge icon="simple-icons:jira" label="Jira" />
+              <IntegrationBadge icon="simple-icons:microsoftteams" label="Teams" />
+            </div>
+          </div>
+        </div>
 
         {/* Cómo funciona Section */}
         <section
@@ -211,7 +295,7 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 mb-32">
           {/* Mockup / Visual (Left) */}
           <div className="w-full lg:w-[55%] relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-3xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform rotate-1 transition-all duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform rotate-1 transition-all duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
             <div className="md:p-12 transition-transform duration-500 group-hover:scale-[1.02] pt-8 pr-8 pb-8 pl-8 relative z-10">
               <div className="overflow-hidden font-sans bg-white/70 backdrop-blur-xl max-w-lg border-white/80 border rounded-[28px] mr-auto ml-auto shadow-[0_20px_50px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,1)] p-8">
                 <h3 className="font-semibold text-lg text-slate-900 mb-6 font-nunito flex items-center gap-2">
@@ -447,7 +531,7 @@ export default function Home() {
 
           {/* Visual (Right) */}
           <div className="w-full lg:w-[55%] relative group">
-            <div className="absolute inset-0 bg-gradient-to-bl from-white/40 to-white/10 backdrop-blur-3xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform -rotate-1 transition-all duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-white/40 to-white/10 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform -rotate-1 transition-all duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
 
             <div className="md:p-12 transition-transform duration-500 group-hover:scale-[1.02] pt-8 pr-8 pb-8 pl-8 relative z-10 flex items-center justify-center">
               <div className="font-sans bg-white/60 backdrop-blur-xl border-white/80 border rounded-full w-64 h-64 flex flex-col items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.08),inset_0_2px_0_rgba(255,255,255,1)] relative overflow-hidden">
@@ -489,30 +573,32 @@ export default function Home() {
                 usar y servidores MCP configurados. Disponibles a partir del
                 plan Profesional.
               </p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/60 backdrop-blur-md px-4 py-3.5 rounded-2xl border border-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[14px] font-semibold text-slate-800 flex items-center gap-3 transition-transform hover:scale-[1.02]">
-                  {/* @ts-expect-error iconify-icon is a web component */}
-                  <iconify-icon icon="solar:diploma-linear" class="text-xl text-slate-600" /> Legal LATAM
-                </div>
-                <div className="bg-white/60 backdrop-blur-md px-4 py-3.5 rounded-2xl border border-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[14px] font-semibold text-slate-800 flex items-center gap-3 transition-transform hover:scale-[1.02]">
-                  {/* @ts-expect-error iconify-icon is a web component */}
-                  <iconify-icon icon="solar:chart-square-linear" class="text-xl text-slate-600" /> Contabilidad
-                </div>
-                <div className="bg-white/60 backdrop-blur-md px-4 py-3.5 rounded-2xl border border-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[14px] font-semibold text-slate-800 flex items-center gap-3 transition-transform hover:scale-[1.02]">
-                  {/* @ts-expect-error iconify-icon is a web component */}
-                  <iconify-icon icon="solar:cart-large-linear" class="text-xl text-slate-600" /> E-commerce
-                </div>
-                <div className="bg-white/60 backdrop-blur-md px-4 py-3.5 rounded-2xl border border-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[14px] font-semibold text-slate-800 flex items-center gap-3 transition-transform hover:scale-[1.02]">
-                  {/* @ts-expect-error iconify-icon is a web component */}
-                  <iconify-icon icon="solar:megaphone-linear" class="text-xl text-slate-600" /> Marketing
-                </div>
-                <div className="bg-white/60 backdrop-blur-md px-4 py-3.5 rounded-2xl border border-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[14px] font-semibold text-slate-800 flex items-center gap-3 transition-transform hover:scale-[1.02]">
-                  {/* @ts-expect-error iconify-icon is a web component */}
-                  <iconify-icon icon="solar:square-academic-cap-linear" class="text-xl text-slate-600" /> Educación
-                </div>
-                <div className="bg-white/40 backdrop-blur-md px-4 py-3.5 rounded-2xl border border-white/50 text-[14px] font-semibold text-slate-600 flex items-center gap-3">
-                  Y 20 más...
-                </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <ExpertTag icon="solar:diploma-linear" label="Legal LATAM" />
+                <ExpertTag icon="solar:chart-square-linear" label="Contabilidad" />
+                <ExpertTag icon="solar:cart-large-linear" label="E-commerce" />
+                <ExpertTag icon="solar:megaphone-linear" label="Marketing" />
+                <ExpertTag icon="solar:square-academic-cap-linear" label="Educación" />
+                <ExpertTag icon="solar:buildings-2-linear" label="Gobierno" />
+                <ExpertTag icon="solar:heart-pulse-linear" label="Salud" />
+                <ExpertTag icon="solar:home-2-linear" label="Inmobiliaria" />
+                <ExpertTag icon="solar:routing-2-linear" label="Logística" />
+                <ExpertTag icon="solar:leaf-linear" label="Agricultura" />
+                <ExpertTag icon="solar:card-linear" label="Fintech" />
+                <ExpertTag icon="solar:buildings-linear" label="Construcción" />
+                <ExpertTag icon="solar:people-nearby-linear" label="RRHH" />
+                <ExpertTag icon="solar:clipboard-text-linear" label="Seguros" />
+                <ExpertTag icon="solar:calculator-linear" label="Fiscal" />
+                <ExpertTag icon="solar:chat-round-dots-linear" label="Soporte" />
+                <ExpertTag icon="solar:bag-4-linear" label="Retail" />
+                <ExpertTag icon="solar:document-text-linear" label="Notarial" />
+                <ExpertTag icon="solar:graph-up-linear" label="Analítica" />
+                <ExpertTag icon="solar:pen-new-square-linear" label="Copywriting" />
+                <ExpertTag icon="solar:translation-linear" label="Traductor" />
+                <ExpertTag icon="solar:calendar-linear" label="Productividad" />
+                <ExpertTag icon="solar:database-linear" label="Datos" />
+                <ExpertTag icon="solar:shield-check-linear" label="Compliance" />
+                <ExpertTag icon="solar:hand-money-linear" label="Cobranza" />
               </div>
             </div>
           </div>
@@ -557,7 +643,7 @@ export default function Home() {
                   <div className="flex items-center gap-3 font-semibold text-slate-900 text-[15px]">
                     <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-slate-700">
                       {/* @ts-expect-error iconify-icon is a web component */}
-                      <iconify-icon icon="solar:handshake-linear" />
+                      <iconify-icon icon="solar:hand-shake-linear" />
                     </div>
                     Ventas B2B Pro
                   </div>
@@ -621,7 +707,7 @@ export default function Home() {
           <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 flex flex-col items-start gap-5 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-2 group">
             <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center text-2xl text-slate-800 group-hover:scale-110 transition-transform duration-500">
               {/* @ts-expect-error iconify-icon is a web component */}
-              <iconify-icon icon="solar:wifi-router-minimalistic-linear" />
+              <iconify-icon icon="solar:cloud-cross-linear" />
             </div>
             <h4 className="text-[19px] font-semibold text-slate-900 font-nunito tracking-tight">
               Funciona sin internet
@@ -1203,7 +1289,7 @@ export default function Home() {
       {/* FAQ Section */}
       <section
         id="faq"
-        className="w-full z-10 border-t border-white/30 py-24 relative bg-white/30 backdrop-blur-3xl"
+        className="w-full z-10 border-t border-white/30 py-24 relative bg-white/30 backdrop-blur-xl"
       >
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -1401,6 +1487,32 @@ export default function Home() {
         </div>
       </footer>
     </>
+  );
+}
+
+/* ── Integration badge for the MCP marquee ── */
+function IntegrationBadge({ icon, label }: { icon: string; label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-2 shrink-0 group cursor-default">
+      <div className="w-14 h-14 rounded-2xl bg-white/70 backdrop-blur-md border border-white shadow-[0_4px_12px_rgba(0,0,0,0.04)] flex items-center justify-center group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+        {/* @ts-expect-error iconify-icon is a web component */}
+        <iconify-icon icon={icon} class="text-2xl text-slate-700" />
+      </div>
+      <span className="text-[11px] font-semibold text-slate-600 whitespace-nowrap">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+/* ── Expert tag component for the 25 experts grid ── */
+function ExpertTag({ icon, label }: { icon: string; label: string }) {
+  return (
+    <div className="bg-white/60 backdrop-blur-md px-3 py-2.5 rounded-xl border border-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[13px] font-semibold text-slate-800 flex items-center gap-2 transition-transform hover:scale-[1.02]">
+      {/* @ts-expect-error iconify-icon is a web component */}
+      <iconify-icon icon={icon} class="text-lg text-slate-600 shrink-0" />
+      <span className="truncate">{label}</span>
+    </div>
   );
 }
 
