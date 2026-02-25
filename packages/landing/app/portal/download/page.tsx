@@ -1,7 +1,7 @@
 export default function DownloadPage() {
   return (
     <div className="max-w-3xl">
-      <h1 className="text-3xl font-semibold text-slate-900 font-nunito tracking-tight mb-2">
+      <h1 className="text-3xl font-medium text-[#1A1A1A] font-nunito tracking-tight mb-2 drop-shadow-sm">
         Descargar AikaOS
       </h1>
       <p className="text-slate-600 font-medium mb-10">
@@ -9,9 +9,9 @@ export default function DownloadPage() {
       </p>
 
       {/* Download card */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-8 mb-8">
+      <div className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-8 mb-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)]">
         <div className="flex items-start gap-6">
-          <div className="w-16 h-16 rounded-2xl bg-slate-900 flex items-center justify-center shrink-0">
+          <div className="w-16 h-16 rounded-2xl bg-[#1A1A1A] flex items-center justify-center shrink-0 shadow-[0_8px_16px_rgba(0,0,0,0.15)]">
             {/* @ts-expect-error iconify-icon is a web component */}
             <iconify-icon
               icon="solar:monitor-linear"
@@ -28,7 +28,7 @@ export default function DownloadPage() {
             </p>
             <a
               href="#"
-              className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-black transition-colors"
+              className="inline-flex items-center gap-2 bg-[#1A1A1A] text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-black transition-all shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 border border-white/10"
             >
               {/* @ts-expect-error iconify-icon is a web component */}
               <iconify-icon icon="solar:download-minimalistic-linear" />
@@ -42,7 +42,7 @@ export default function DownloadPage() {
       </div>
 
       {/* Windows/Linux notice */}
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+      <div className="bg-amber-50/60 backdrop-blur-xl border border-amber-200/60 rounded-[28px] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
         <div className="flex items-start gap-3">
           {/* @ts-expect-error iconify-icon is a web component */}
           <iconify-icon

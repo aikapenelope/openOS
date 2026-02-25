@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { FaqAccordion } from "../components/faq-accordion";
+import { ChatWidget } from "../components/chat-widget";
 
 export default function Home() {
   return (
@@ -68,7 +69,13 @@ export default function Home() {
             </a>
           </div>
 
-          <div>
+          <div className="flex items-center gap-4">
+            <a
+              href="/portal/sign-in"
+              className="text-[15px] font-medium text-slate-700 hover:text-black transition-colors"
+            >
+              Login
+            </a>
             <a
               href="#planes"
               className="bg-[#1A1A1A] text-white text-[15px] font-normal px-6 py-2.5 rounded-full hover:bg-black transition-all shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 border border-white/10"
@@ -1114,7 +1121,7 @@ export default function Home() {
                   Soporte por documentación
                 </li>
               </ul>
-              <a href="#planes" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-all text-center block">
+              <a href="/portal/sign-in" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-all text-center block">
                 Empezar
               </a>
             </div>
@@ -1166,7 +1173,7 @@ export default function Home() {
                   Puesta en marcha asistida
                 </li>
               </ul>
-              <a href="#planes" className="w-full py-4 rounded-full bg-slate-900 text-white font-semibold text-[14px] hover:bg-black shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 transition-all border border-white/10 text-center block">
+              <a href="/portal/sign-in" className="w-full py-4 rounded-full bg-slate-900 text-white font-semibold text-[14px] hover:bg-black shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 transition-all border border-white/10 text-center block">
                 Empezar
               </a>
             </div>
@@ -1300,6 +1307,107 @@ export default function Home() {
           </div>
 
           <FaqAccordion />
+        </div>
+      </section>
+
+      {/* Chatbot + Installation Guide */}
+      <section
+        id="asistente"
+        className="w-full z-10 border-t border-white/30 py-24 relative bg-white/20 backdrop-blur-lg"
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="md:text-4xl text-3xl font-medium text-[#1A1A1A] tracking-tight font-nunito mb-4 drop-shadow-sm">
+              Asistente + Guía de instalación
+            </h2>
+            <p className="text-[16px] leading-relaxed text-slate-700 font-medium font-sans max-w-2xl mx-auto">
+              Pregúntale al asistente cualquier duda sobre AikaOS, o sigue los
+              pasos para instalar el sistema en tu computadora.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Chatbot */}
+            <ChatWidget />
+
+            {/* Installation steps */}
+            <div className="space-y-4">
+              <div className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 flex gap-4 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]">
+                <div className="w-9 h-9 rounded-lg bg-[#1A1A1A] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+                  1
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 font-nunito mb-1 text-[15px]">
+                    Descarga e instala
+                  </h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Descarga el .dmg, arrastra AikaOS a Aplicaciones y ábrelo.
+                    macOS te pedirá permiso la primera vez.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 flex gap-4 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]">
+                <div className="w-9 h-9 rounded-lg bg-[#1A1A1A] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+                  2
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 font-nunito mb-1 text-[15px]">
+                    Configura tu modelo de IA
+                  </h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Usa tu API key (Claude, GPT-4, DeepSeek, Gemini) o instala
+                    Ollama para modelos locales 100% offline.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 flex gap-4 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]">
+                <div className="w-9 h-9 rounded-lg bg-[#1A1A1A] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+                  3
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 font-nunito mb-1 text-[15px]">
+                    Conecta tu API key
+                  </h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Ve a Configuración &gt; Modelo. Pega tu API key o deja que
+                    AikaOS detecte Ollama automáticamente.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 flex gap-4 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]">
+                <div className="w-9 h-9 rounded-lg bg-[#1A1A1A] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+                  4
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 font-nunito mb-1 text-[15px]">
+                    Activa los expertos
+                  </h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Cada experto incluye skills, comandos y servidores MCP
+                    listos. Actívalos desde el panel de configuración.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 flex gap-4 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]">
+                <div className="w-9 h-9 rounded-lg bg-[#1A1A1A] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+                  5
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 font-nunito mb-1 text-[15px]">
+                    Verifica que funcione
+                  </h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Escribe &ldquo;Hola, ¿qué puedes hacer?&rdquo; y el agente
+                    responderá con sus capacidades.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
