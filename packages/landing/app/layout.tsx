@@ -1,6 +1,9 @@
 import "./globals.css";
 import { Nunito, Inter } from "next/font/google";
 import Script from "next/script";
+import { ClerkProvider } from "@clerk/nextjs";
+import { esES } from "@clerk/localizations";
+import { ChatWidget } from "../components/chat-widget";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -25,7 +28,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
+  const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  const body = (
     <html lang="es" className={`${nunito.variable} ${inter.variable}`}>
       <head>
         {/* Preload hero background to avoid blank flash */}
@@ -39,6 +44,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased min-h-screen overflow-x-hidden selection:bg-black selection:text-white text-slate-800 font-sans bg-[#ABCDE9] relative">
         {children}
+        <ChatWidget />
         <Script
           src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"
           strategy="beforeInteractive"
@@ -46,4 +52,13 @@ export default function RootLayout({
       </body>
     </html>
   );
+
+  // Wrap with ClerkProvider only when the publishable key is configured.
+  // This allows the build to succeed without Clerk credentials while
+  // enabling auth at runtime once the keys are set in the environment.
+  if (clerkKey) {
+    return <ClerkProvider localization={esES}>{body}</ClerkProvider>;
+  }
+
+  return body;
 }

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { FaqAccordion } from "../components/faq-accordion";
 
 export default function Home() {
   return (
@@ -1298,97 +1299,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="space-y-6">
-            <div className="border-b border-white/60 pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿Qué diferencia hay entre AikaOS y un chatbot normal?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                Un chatbot te da respuestas de texto. AikaOS puede ejecutar
-                acciones reales: crear archivos, editar documentos, navegar la
-                web y correr comandos en tu máquina — siempre con tu aprobación.
-              </p>
-            </div>
-            <div className="border-b border-white/60 pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿Necesito comprar un modelo de IA aparte?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                AikaOS funciona con el modelo que tú elijas (BYOM). Puedes usar
-                tu API key, modelos locales gratuitos con Ollama, o una
-                suscripción de OpenCode. En planes superiores te ayudamos a
-                integrarlo.
-              </p>
-            </div>
-            <div className="border-b border-white/60 pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿Solo funciona en Mac?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                Actualmente está optimizado para macOS con procesadores Apple
-                Silicon (M1 a M4). Versiones para Windows y Linux están en
-                desarrollo.
-              </p>
-            </div>
-            <div className="border-b border-white/60 pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿Mis datos están seguros?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                AikaOS corre localmente en tu computadora. No accede a archivos
-                ni ejecuta comandos sin tu permiso. Tus datos nunca pasan por
-                servidores de terceros. Es un sistema cerrado y verificado.
-              </p>
-            </div>
-            {/* Missing FAQ questions from original */}
-            <div className="border-b border-white/60 pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿Funciona con normativas de mi país?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                Los expertos preconfigurados incluyen conocimiento de normativas
-                locales (SAT en México, DIAN en Colombia, AFIP en Argentina).
-                Puedes personalizar los skills para tu jurisdicción específica.
-              </p>
-            </div>
-            <div className="border-b border-white/60 pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿Qué incluyen las actualizaciones?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                Todos los planes incluyen actualizaciones con nuevos modelos
-                compatibles, nuevas integraciones, mejoras de rendimiento y
-                nuevos skills. En planes Enterprise, también desarrollamos
-                funcionalidades a medida para tu empresa.
-              </p>
-            </div>
-            <div className="border-b border-white/60 pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿Qué son los servidores MCP?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                MCP (Model Context Protocol) permite que AikaOS se conecte con
-                herramientas externas: navegadores, bases de datos, APIs, CRMs y
-                más. En el plan Enterprise, desarrollamos servidores MCP
-                personalizados que conectan AikaOS con los sistemas específicos
-                de tu empresa.
-              </p>
-            </div>
-            <div className="pb-6">
-              <h4 className="font-semibold text-slate-900 mb-2 font-nunito text-lg">
-                ¿En qué se diferencia de OpenClaw o Claude Cowork?
-              </h4>
-              <p className="text-[15px] font-medium text-slate-700 leading-relaxed">
-                AikaOS es un sistema cerrado y verificado con interfaz gráfica
-                completa, a diferencia de OpenClaw que requiere terminal y tiene
-                problemas de seguridad documentados. A diferencia de Claude
-                Cowork, AikaOS funciona offline, no tiene límites de uso, tus
-                datos nunca salen de tu máquina, y puedes usar cualquier modelo
-                de IA. Además, es el único con interfaz nativa en español y
-                expertos para Latinoamérica.
-              </p>
-            </div>
-          </div>
+          <FaqAccordion />
         </div>
       </section>
 
