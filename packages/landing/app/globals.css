@@ -17,23 +17,34 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Prevent icon pop-in: reserve space while Iconify loads ── */
+iconify-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
 /* Chart bar animation */
 .chart-bar {
   transition: height 1s ease-out;
 }
 
+/* ── GPU-promote scrolling marquees for jank-free animation ── */
+
 /* Scrolling sectors carousel */
 @keyframes scroll-testimonials {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-scroll-testimonials {
   animation: scroll-testimonials 50s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .animate-scroll-testimonials:hover {
@@ -62,6 +73,13 @@ html {
   .animate-scroll-testimonials,
   .animate-scroll-integrations {
     animation: none;
+    will-change: auto;
+  }
+  .animate-fade-in,
+  .animate-slide-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
   html {
     scroll-behavior: auto;
