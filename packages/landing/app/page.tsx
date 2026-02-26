@@ -4,8 +4,8 @@ import { FaqAccordion } from "../components/faq-accordion";
 export default function Home() {
   return (
     <>
-      {/* Background Layer — images are decorative, eager-load the main sky */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      {/* Background Layer — GPU-promoted fixed layer with will-change */}
+      <div className="fixed inset-0 z-0 pointer-events-none will-change-transform">
         <img
           src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/bfd2f4cf-65ed-4b1a-86d1-a1710619267b_1600w.png"
           alt=""
@@ -17,26 +17,6 @@ export default function Home() {
           className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#A6CBE8]/20 via-[#BFD9EF]/40 to-[#EAE3D6]/60" />
-        <img
-          src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
-          className="absolute top-[20%] -left-[10%] w-[50%] opacity-40 mix-blend-screen blur-xl pointer-events-none"
-          alt=""
-          role="presentation"
-          width={800}
-          height={600}
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
-          className="absolute top-[30%] -right-[10%] w-[50%] opacity-40 mix-blend-screen blur-xl pointer-events-none"
-          alt=""
-          role="presentation"
-          width={800}
-          height={600}
-          loading="lazy"
-          decoding="async"
-        />
       </div>
 
       {/* Content Wrapper */}
