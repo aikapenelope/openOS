@@ -1,23 +1,42 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 /**
- * Portal access is restricted to invited users only.
+ * Portal access is invite-only via Clerk publicMetadata.
  *
  * How it works:
- * 1. Enable "Restricted" mode in Clerk Dashboard > Restrictions
- *    — this blocks sign-ups unless the user has an invitation link.
- * 2. This middleware protects all /portal/* routes (except sign-in).
- * 3. Only users you explicitly invite via Clerk Dashboard can register.
+ * 1. User signs in via Clerk (anyone can create an account).
+ * 2. Middleware reads `portalAccess` from the session token claims.
+ * 3. If `portalAccess` is not `true`, the user is redirected to "/".
  *
- * To invite a user:
- *   Clerk Dashboard > Users > Invite user > enter their email
+ * Setup (one-time, per Clerk application — does NOT affect other projects):
+ *   Clerk Dashboard > Sessions > Customize session token > add:
+ *   { "metadata": "{{user.public_metadata}}" }
+ *
+ * To grant access to a user:
+ *   Clerk Dashboard > Users > select user > Public metadata > set:
+ *   { "portalAccess": true }
  */
 const isProtectedRoute = createRouteMatcher(["/portal(.*)"]);
 const isSignInRoute = createRouteMatcher(["/portal/sign-in(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req) && !isSignInRoute(req)) {
-    await auth.protect();
+  // Public routes — let them through
+  if (!isProtectedRoute(req) || isSignInRoute(req)) {
+    return;
+  }
+
+  // Must be signed in
+  const { sessionClaims } = await auth.protect();
+
+  // Check portalAccess flag from publicMetadata (via session token)
+  const hasAccess = sessionClaims?.metadata?.portalAccess === true;
+
+  if (!hasAccess) {
+    // Signed in but not authorized — redirect to landing
+    const url = req.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url);
   }
 });
 
