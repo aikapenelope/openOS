@@ -11,9 +11,18 @@ const HERO_PHRASES = [
 
 export function HeroMorphingText() {
   return (
-    <MorphingText
-      texts={HERO_PHRASES}
-      className="mb-24 h-[120px] md:h-[140px] max-w-4xl text-[48px] md:text-[80px] font-bold text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm lg:text-[80px]"
-    />
+    <>
+      {/* Desktop: animated morphing effect */}
+      <div className="hidden md:block">
+        <MorphingText
+          texts={HERO_PHRASES}
+          className="mb-24 h-[140px] max-w-4xl text-[80px] font-bold text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm"
+        />
+      </div>
+      {/* Mobile: static text, no animation overhead */}
+      <h1 className="md:hidden mb-12 text-[40px] leading-[1.1] font-bold text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm max-w-4xl text-center">
+        Tu equipo de IA privado.
+      </h1>
+    </>
   );
 }

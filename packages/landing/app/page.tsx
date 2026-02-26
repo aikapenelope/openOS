@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       {/* Background Layer — GPU-promoted fixed layer with will-change */}
-      <div className="fixed inset-0 z-0 pointer-events-none will-change-transform">
+      <div className="fixed inset-0 z-0 pointer-events-none md:will-change-transform">
         <Image
           src="/bg-sky.webp"
           alt=""
@@ -74,13 +74,13 @@ export default function Home() {
             style={{ animationDelay: "0.1s" }}
           >
             <HeroMorphingText />
-            <p className="text-xl md:text-2xl leading-relaxed font-normal text-slate-600 font-sans max-w-3xl mx-auto mb-4">
+            <p className="text-xl md:text-2xl leading-relaxed font-normal text-[#1A1A1A] font-sans max-w-3xl mx-auto mb-4">
               AikaOS es un sistema de agentes inteligentes que corre directamente
               en tu computadora. Automatiza contratos, reportes fiscales,
               campañas, soporte y más — sin que tus datos salgan de tu empresa.
               Nosotros lo instalamos, configuramos y mantenemos actualizado.
             </p>
-            <p className="text-base md:text-lg text-slate-500 font-medium mb-10">
+            <p className="text-base md:text-lg text-[#1A1A1A] font-medium mb-10">
               Disponible para macOS con Apple Silicon (M1/M2/M3/M4). Windows y
               Linux en desarrollo.
             </p>
