@@ -1,9 +1,16 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 /**
- * Routes under /portal/* require authentication.
- * The sign-in page itself is public so Clerk can render it.
- * Everything else (landing, API routes, etc.) is public.
+ * Portal access is restricted to invited users only.
+ *
+ * How it works:
+ * 1. Enable "Restricted" mode in Clerk Dashboard > Restrictions
+ *    — this blocks sign-ups unless the user has an invitation link.
+ * 2. This middleware protects all /portal/* routes (except sign-in).
+ * 3. Only users you explicitly invite via Clerk Dashboard can register.
+ *
+ * To invite a user:
+ *   Clerk Dashboard > Users > Invite user > enter their email
  */
 const isProtectedRoute = createRouteMatcher(["/portal(.*)"]);
 const isSignInRoute = createRouteMatcher(["/portal/sign-in(.*)"]);

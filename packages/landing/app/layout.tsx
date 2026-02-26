@@ -40,12 +40,17 @@ export default function RootLayout({
         />
         {/* Preconnect to Iconify CDN for faster icon loading */}
         <link rel="preconnect" href="https://api.iconify.design" />
+        <link rel="dns-prefetch" href="https://api.iconify.design" />
+        <link
+          rel="dns-prefetch"
+          href="https://hoirqrkdgbmvpwutwuwj.supabase.co"
+        />
       </head>
       <body className="antialiased min-h-screen overflow-x-hidden selection:bg-black selection:text-white text-slate-800 font-sans bg-[#ABCDE9] relative">
         {children}
         <Script
           src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         />
       </body>
     </html>
