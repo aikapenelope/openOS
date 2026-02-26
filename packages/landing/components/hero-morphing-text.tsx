@@ -1,6 +1,6 @@
 "use client";
 
-import { MorphingText } from "./magicui/morphing-text";
+import { WordRotate } from "./magicui/word-rotate";
 
 const HERO_PHRASES = [
   "Tu equipo de IA privado.",
@@ -11,18 +11,10 @@ const HERO_PHRASES = [
 
 export function HeroMorphingText() {
   return (
-    <>
-      {/* Desktop: animated morphing effect */}
-      <div className="hidden md:block">
-        <MorphingText
-          texts={HERO_PHRASES}
-          className="mb-28 h-[140px] max-w-4xl text-[80px] font-bold text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm"
-        />
-      </div>
-      {/* Mobile: static text, no animation overhead */}
-      <h1 className="md:hidden mb-16 text-[40px] leading-[1.1] font-bold text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm max-w-4xl text-center">
-        Tu equipo de IA privado.
-      </h1>
-    </>
+    <WordRotate
+      words={HERO_PHRASES}
+      duration={3000}
+      className="mb-28 max-w-4xl text-[40px] md:text-[80px] leading-[1.1] font-bold text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm text-center"
+    />
   );
 }
