@@ -5,9 +5,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 /**
  * Slow-motion hero video.
  *
- * Desktop: autoplay at reduced playbackRate with ref-callback approach.
- * Mobile (<768px): shows first frame as poster, no autoplay to save
- * battery/bandwidth. User can tap to play.
+ * Starts inert (no autoplay, preload=none) to avoid downloading 5MB+
+ * on mobile. After hydration, detects viewport width:
+ *   - Desktop (>=768px): starts autoplay at reduced playbackRate
+ *   - Mobile (<768px): stays paused, shows play controls
  */
 export function SlowVideo({
   src,
@@ -22,15 +23,29 @@ export function SlowVideo({
   const rateRef = useRef(playbackRate);
   rateRef.current = playbackRate;
 
-  // Detect mobile on mount (avoids SSR mismatch by defaulting to false)
-  const [isMobile, setIsMobile] = useState(false);
+  // null = not yet determined (SSR/hydration), true/false after mount
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
+
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    const mq = window.matchMedia("(min-width: 768px)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+
+  // Once we know it's desktop, start playback
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || isDesktop !== true) return;
+    v.playbackRate = rateRef.current;
+    v.muted = true;
+    v.loop = true;
+    v.preload = "metadata";
+    v.play().catch(() => {
+      /* autoplay blocked — user will see controls */
+    });
+  }, [isDesktop]);
 
   // Force the rate whenever the video starts playing a segment.
   const enforce = useCallback(() => {
@@ -40,11 +55,9 @@ export function SlowVideo({
     }
   }, []);
 
-  // Ref-callback: fires synchronously when React attaches the DOM node,
-  // so we can set playbackRate *before* autoPlay kicks in.
+  // Ref-callback: attach rate-enforcement listeners.
   const refCallback = useCallback(
     (node: HTMLVideoElement | null) => {
-      // Detach old listeners.
       if (videoRef.current) {
         videoRef.current.removeEventListener("playing", enforce);
         videoRef.current.removeEventListener("seeked", enforce);
@@ -53,7 +66,6 @@ export function SlowVideo({
       videoRef.current = node;
 
       if (node) {
-        node.playbackRate = rateRef.current;
         node.addEventListener("playing", enforce);
         node.addEventListener("seeked", enforce);
       }
@@ -61,22 +73,21 @@ export function SlowVideo({
     [enforce],
   );
 
-  // Safety net: re-apply after hydration / lazy-load, and on every
-  // playbackRate prop change.
+  // Re-apply on playbackRate prop change.
   useEffect(() => {
     const v = videoRef.current;
     if (v) v.playbackRate = playbackRate;
   }, [playbackRate]);
 
+  const isMobile = isDesktop === false;
+
   return (
     <video
       ref={refCallback}
-      autoPlay={!isMobile}
-      loop={!isMobile}
       muted
       playsInline
       controls={isMobile}
-      preload={isMobile ? "none" : "metadata"}
+      preload="none"
       className={className}
     >
       <source src={src} type="video/mp4" />
