@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import { FaqAccordion } from "../components/faq-accordion";
+import { HeroMorphingText } from "../components/hero-morphing-text";
+import { SlowVideo } from "../components/slow-video";
 
 export default function Home() {
   return (
@@ -71,11 +73,7 @@ export default function Home() {
             className="text-center max-w-4xl mx-auto mb-16 animate-slide-up"
             style={{ animationDelay: "0.1s" }}
           >
-            <h1 className="md:text-[80px] leading-[1] text-6xl font-medium text-[#1A1A1A] tracking-tight font-nunito mb-8 drop-shadow-sm">
-              Tu equipo de IA privado,
-              <br />
-              listo para trabajar.
-            </h1>
+            <HeroMorphingText />
             <p className="md:text-[19px] leading-relaxed text-lg font-normal text-slate-600 font-sans max-w-3xl mx-auto mb-4">
               AikaOS es un sistema de agentes inteligentes que corre directamente
               en tu computadora. Automatiza contratos, reportes fiscales,
@@ -107,16 +105,11 @@ export default function Home() {
               <span className="font-mono text-sm font-bold text-aika-teal">{">_"}</span>
               <span className="text-sm font-semibold text-white">AikaOS</span>
             </div>
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
+            <SlowVideo
+              src="/app-demo.mp4"
+              playbackRate={0.6}
               className="w-full block"
-            >
-              <source src="/app-demo.mp4" type="video/mp4" />
-            </video>
+            />
           </div>
 
           <p className="mt-4 text-center text-[13px] text-slate-500 font-medium">
