@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Slow-motion hero video. Sets playbackRate on mount so the
- * demo cursor doesn't look rushed.
+ * Slow-motion hero video. Applies playbackRate on mount AND on every
+ * "play" event so the browser can't reset it when the video loops.
  */
 export function SlowVideo({
   src,
@@ -18,9 +18,25 @@ export function SlowVideo({
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.playbackRate = playbackRate;
-    }
+    const video = ref.current;
+    if (!video) return;
+
+    const applyRate = () => {
+      video.playbackRate = playbackRate;
+    };
+
+    // Apply immediately and re-apply on every play/loop restart.
+    applyRate();
+    video.addEventListener("play", applyRate);
+    video.addEventListener("ratechange", () => {
+      if (video.playbackRate !== playbackRate) {
+        video.playbackRate = playbackRate;
+      }
+    });
+
+    return () => {
+      video.removeEventListener("play", applyRate);
+    };
   }, [playbackRate]);
 
   return (
