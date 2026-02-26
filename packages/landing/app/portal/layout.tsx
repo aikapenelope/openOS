@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -39,13 +40,14 @@ export default function PortalLayout({
     <div className="min-h-screen flex relative bg-[#ABCDE9]">
       {/* Same background as landing */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <img
-          src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/bfd2f4cf-65ed-4b1a-86d1-a1710619267b_1600w.png"
+        <Image
+          src="/bg-sky.webp"
           alt=""
           role="presentation"
-          width={1600}
-          height={900}
-          className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-80 mix-blend-multiply"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#A6CBE8]/20 via-[#BFD9EF]/40 to-[#EAE3D6]/60" />
       </div>
