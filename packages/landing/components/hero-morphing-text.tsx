@@ -13,7 +13,7 @@ export function HeroMorphingText() {
   return (
     <MorphingText
       texts={HERO_PHRASES}
-      className="h-[72px] md:h-[96px] max-w-4xl text-[48px] md:text-[80px] font-medium text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm lg:text-[80px]"
+      className="mb-8 h-[80px] md:h-[110px] max-w-4xl text-[48px] md:text-[80px] font-bold text-[#1A1A1A] tracking-tight font-nunito drop-shadow-sm lg:text-[80px]"
     />
   );
 }
