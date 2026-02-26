@@ -1,123 +1,33 @@
 const STEPS = [
   {
     number: "1",
-    title: "Requisitos previos",
-    desc: "Antes de empezar, asegúrate de tener instalado lo siguiente en tu Mac:",
-    code: `# Verifica que tienes Node.js (v18+)
-node --version
-
-# Instala pnpm si no lo tienes
-npm install -g pnpm
-
-# Instala Rust (necesario para Tauri)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Instala Tauri CLI
-cargo install tauri-cli
-
-# Instala OpenCode CLI
-# Descárgalo desde: https://opencode.ai
-# Verifica que esté en tu PATH:
-opencode --version`,
+    icon: "solar:download-minimalistic-linear",
+    title: "Descarga e instala AikaOS",
+    desc: 'Descarga el archivo .dmg desde la sección de Descarga en este portal. Abre el archivo y arrastra AikaOS a tu carpeta de Aplicaciones. La primera vez que lo abras, macOS te pedirá permiso — haz clic en "Abrir".',
   },
   {
     number: "2",
-    title: "Clona el repositorio e instala dependencias",
-    desc: "Descarga el código fuente de AikaOS y sus dependencias:",
-    code: `# Clona el repositorio
-git clone https://github.com/aikapenelope/openOS.git
-cd openOS
-
-# Instala todas las dependencias
-pnpm install`,
+    icon: "solar:cpu-bolt-linear",
+    title: "Configura tu modelo de IA",
+    desc: "AikaOS funciona con tu propio modelo (BYOM). Puedes usar una API key de Anthropic (Claude), OpenAI (GPT-4), DeepSeek, Google Gemini, o instalar Ollama para modelos locales que corren 100% en tu máquina sin internet.",
   },
   {
     number: "3",
-    title: "Ejecuta AikaOS en modo escritorio (Tauri)",
-    desc: "Esto compila la app de escritorio con Tauri + SolidJS y la abre como aplicación nativa:",
-    code: `# Desde la raíz del proyecto:
-pnpm dev
-
-# Esto ejecuta:
-# 1. Compila el UI (packages/app) con Vite
-# 2. Inicia el shell de escritorio (packages/desktop) con Tauri
-# 3. Abre la ventana de AikaOS`,
+    icon: "solar:key-linear",
+    title: "Conecta tu API key o modelo local",
+    desc: "Abre AikaOS y ve a Configuración > Modelo. Si usas una API key, pégala en el campo correspondiente. Si prefieres un modelo local, instala Ollama desde ollama.com, descarga el modelo que prefieras y AikaOS lo detectará automáticamente.",
   },
   {
     number: "4",
-    title: "Alternativa: solo el UI web (sin Tauri)",
-    desc: "Si no necesitas la app de escritorio, puedes correr solo la interfaz web:",
-    code: `# Solo el UI web (sin Tauri)
-pnpm dev:ui
-
-# Abre http://localhost:5173 en tu navegador`,
+    icon: "solar:users-group-rounded-linear",
+    title: "Activa los expertos preconfigurados",
+    desc: "Tu plan incluye 25 expertos especializados para diferentes industrias. Ve a la sección de Expertos en este portal para ver la lista completa. Cada experto incluye skills especializados, comandos listos para usar y servidores MCP configurados.",
   },
   {
     number: "5",
-    title: "Configura tu modelo de IA",
-    desc: "AikaOS funciona con tu propio modelo (BYOM). Tienes dos opciones:",
-    code: `# Opción A: API en la nube
-# Abre AikaOS > Configuración > Modelo
-# Pega tu API key de: Claude, GPT-4, DeepSeek o Gemini
-
-# Opción B: Modelo local con Ollama (100% offline)
-# Instala Ollama:
-curl -fsSL https://ollama.com/install.sh | sh
-
-# Descarga un modelo (ej: llama3):
-ollama pull llama3
-
-# Inicia el servidor:
-ollama serve
-
-# AikaOS detectará Ollama automáticamente`,
-  },
-  {
-    number: "6",
-    title: "Instala los expertos preconfigurados",
-    desc: "Los 25 expertos están en packages/app/src/app/data/templates/. Para activarlos:",
-    code: `# Los expertos se cargan automáticamente desde:
-# packages/app/src/app/data/templates/
-
-# Cada experto tiene:
-# ├── metadata.ts    (nombre, descripción, icono)
-# ├── commands/      (comandos listos para usar)
-# └── skills/        (skills especializados .md)
-
-# Para ver los expertos disponibles:
-ls packages/app/src/app/data/templates/`,
-  },
-  {
-    number: "7",
-    title: "Orchestrator (modo servidor sin UI)",
-    desc: "Si quieres correr AikaOS como servidor sin interfaz gráfica:",
-    code: `# Instala el orchestrator globalmente
-npm install -g openwork-orchestrator
-
-# Inicia con aprobación automática
-openwork start --workspace /ruta/a/tu/proyecto --approval auto
-
-# Para conectar WhatsApp:
-curl -fsSL https://raw.githubusercontent.com/different-ai/opencode-router/dev/install.sh | bash
-opencode-router setup
-opencode-router whatsapp login
-opencode-router start`,
-  },
-  {
-    number: "8",
+    icon: "solar:check-circle-linear",
     title: "Verifica que todo funcione",
-    desc: "Abre AikaOS y prueba que los agentes respondan correctamente:",
-    code: `# En la app, escribe:
-# "Hola, ¿qué puedes hacer?"
-# El agente debería listar sus capacidades.
-
-# Para verificar desde terminal:
-opencode --version
-# Debería mostrar la versión instalada
-
-# Si algo falla, revisa los logs:
-# macOS: ~/Library/Logs/AikaOS/
-# Linux: ~/.local/share/AikaOS/logs/`,
+    desc: 'Abre una nueva sesión en AikaOS y escribe "Hola, ¿qué puedes hacer?". El agente debería responder con una lista de sus capacidades. Si algo no funciona, usa el asistente en la página principal del portal para resolver tus dudas.',
   },
 ];
 
@@ -128,32 +38,36 @@ export default function SetupPage() {
         Guía de instalación
       </h1>
       <p className="text-slate-600 font-medium mb-10">
-        Sigue estos pasos para compilar y ejecutar AikaOS desde el código
-        fuente. Requiere macOS con Apple Silicon (M1-M4).
+        Sigue estos 5 pasos para tener AikaOS funcionando en tu computadora.
+        No necesitas experiencia técnica.
       </p>
 
       <div className="space-y-6">
         {STEPS.map((step) => (
           <div
             key={step.number}
-            className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)]"
+            className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 flex gap-5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)]"
           >
-            <div className="flex gap-5 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_8px_16px_rgba(0,0,0,0.15)]">
-                {step.number}
-              </div>
-              <div>
-                <h3 className="font-semibold text-slate-900 font-nunito mb-1">
+            <div className="w-12 h-12 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 flex items-center justify-center shrink-0 shadow-sm">
+              {/* @ts-expect-error iconify-icon is a web component */}
+              <iconify-icon
+                icon={step.icon}
+                class="text-2xl text-slate-700"
+              />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-bold text-white bg-[#1A1A1A] w-6 h-6 rounded-lg flex items-center justify-center shadow-sm">
+                  {step.number}
+                </span>
+                <h3 className="font-semibold text-slate-900 font-nunito">
                   {step.title}
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  {step.desc}
-                </p>
               </div>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                {step.desc}
+              </p>
             </div>
-            <pre className="bg-[#1A1A1A] text-green-400 text-[13px] leading-relaxed p-5 rounded-2xl overflow-x-auto font-mono">
-              {step.code}
-            </pre>
           </div>
         ))}
       </div>
