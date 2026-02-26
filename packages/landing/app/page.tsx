@@ -585,7 +585,7 @@ export default function Home() {
                 <ExpertTag icon="solar:diploma-linear" label="Legal LATAM" />
                 <ExpertTag icon="solar:chart-square-linear" label="Contabilidad" />
                 <ExpertTag icon="solar:cart-large-linear" label="E-commerce" />
-                <ExpertTag icon="solar:megaphone-linear" label="Marketing" />
+                <ExpertTag icon="solar:target-linear" label="Marketing" />
                 <ExpertTag icon="solar:square-academic-cap-linear" label="Educación" />
                 <ExpertTag icon="solar:buildings-2-linear" label="Gobierno" />
                 <ExpertTag icon="solar:heart-pulse-linear" label="Salud" />
@@ -769,7 +769,7 @@ export default function Home() {
               <SectorCard icon="solar:diploma-linear" title="Despachos legales" desc="Automatiza contratos, poderes notariales y revisión de documentos en minutos." />
               <SectorCard icon="solar:chart-square-linear" title="Firmas contables" desc="Genera reportes fiscales, concilia cuentas y cumple con normativas locales." />
               <SectorCard icon="solar:cart-large-linear" title="Comercio minorista" desc="Gestiona catálogos, responde clientes y analiza inventario automáticamente." />
-              <SectorCard icon="solar:megaphone-linear" title="Agencias de marketing" desc="Crea campañas, genera copy persuasivo y reporta métricas semanales." />
+              <SectorCard icon="solar:target-linear" title="Agencias de marketing" desc="Crea campañas, genera copy persuasivo y reporta métricas semanales." />
               <SectorCard icon="solar:square-academic-cap-linear" title="Instituciones educativas" desc="Diseña planes de clase, rúbricas y exámenes alineados a estándares." />
               <SectorCard icon="solar:buildings-2-linear" title="Gobierno municipal" desc="Redacta oficios, informes de transparencia y respuestas ciudadanas." />
               <SectorCard icon="solar:heart-pulse-linear" title="Salud y clínicas" desc="Agenda citas, automatiza facturación, resúmenes clínicos y apoya el triaje." />
@@ -785,7 +785,7 @@ export default function Home() {
               <SectorCard icon="solar:diploma-linear" title="Despachos legales" desc="Automatiza contratos, poderes notariales y revisión de documentos en minutos." />
               <SectorCard icon="solar:chart-square-linear" title="Firmas contables" desc="Genera reportes fiscales, concilia cuentas y cumple con normativas locales." />
               <SectorCard icon="solar:cart-large-linear" title="Comercio minorista" desc="Gestiona catálogos, responde clientes y analiza inventario automáticamente." />
-              <SectorCard icon="solar:megaphone-linear" title="Agencias de marketing" desc="Crea campañas, genera copy persuasivo y reporta métricas semanales." />
+              <SectorCard icon="solar:target-linear" title="Agencias de marketing" desc="Crea campañas, genera copy persuasivo y reporta métricas semanales." />
               <SectorCard icon="solar:square-academic-cap-linear" title="Instituciones educativas" desc="Diseña planes de clase, rúbricas y exámenes alineados a estándares." />
               <SectorCard icon="solar:buildings-2-linear" title="Gobierno municipal" desc="Redacta oficios, informes de transparencia y respuestas ciudadanas." />
               <SectorCard icon="solar:heart-pulse-linear" title="Salud y clínicas" desc="Agenda citas, automatiza facturación, resúmenes clínicos y apoya el triaje." />
@@ -1316,16 +1316,6 @@ export default function Home() {
         className="w-full z-10 border-t border-white/30 py-24 relative bg-white/20 backdrop-blur-lg"
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="md:text-4xl text-3xl font-medium text-[#1A1A1A] tracking-tight font-nunito mb-4 drop-shadow-sm">
-              Asistente + Guía de instalación
-            </h2>
-            <p className="text-[16px] leading-relaxed text-slate-700 font-medium font-sans max-w-2xl mx-auto">
-              Pregúntale al asistente cualquier duda sobre AikaOS, o sigue los
-              pasos para instalar el sistema en tu computadora.
-            </p>
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Chatbot */}
             <ChatWidget />
