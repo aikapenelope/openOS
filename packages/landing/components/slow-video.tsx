@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 /**
- * Slow-motion hero video. Applies playbackRate on mount AND on every
- * "play" event so the browser can't reset it when the video loops.
+ * Slow-motion hero video.
+ *
+ * Uses a ref-callback so playbackRate is set the instant the
+ * <video> element mounts — before autoPlay fires. A lightweight
+ * "playing" listener re-applies the rate on every loop iteration
+ * in case the browser resets it.
  */
 export function SlowVideo({
   src,
@@ -15,33 +19,49 @@ export function SlowVideo({
   playbackRate?: number;
   className?: string;
 }) {
-  const ref = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const rateRef = useRef(playbackRate);
+  rateRef.current = playbackRate;
 
-  useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
+  // Force the rate whenever the video starts playing a segment.
+  const enforce = useCallback(() => {
+    const v = videoRef.current;
+    if (v && v.playbackRate !== rateRef.current) {
+      v.playbackRate = rateRef.current;
+    }
+  }, []);
 
-    const applyRate = () => {
-      video.playbackRate = playbackRate;
-    };
-
-    // Apply immediately and re-apply on every play/loop restart.
-    applyRate();
-    video.addEventListener("play", applyRate);
-    video.addEventListener("ratechange", () => {
-      if (video.playbackRate !== playbackRate) {
-        video.playbackRate = playbackRate;
+  // Ref-callback: fires synchronously when React attaches the DOM node,
+  // so we can set playbackRate *before* autoPlay kicks in.
+  const refCallback = useCallback(
+    (node: HTMLVideoElement | null) => {
+      // Detach old listeners.
+      if (videoRef.current) {
+        videoRef.current.removeEventListener("playing", enforce);
+        videoRef.current.removeEventListener("seeked", enforce);
       }
-    });
 
-    return () => {
-      video.removeEventListener("play", applyRate);
-    };
+      videoRef.current = node;
+
+      if (node) {
+        node.playbackRate = rateRef.current;
+        node.addEventListener("playing", enforce);
+        node.addEventListener("seeked", enforce);
+      }
+    },
+    [enforce],
+  );
+
+  // Safety net: re-apply after hydration / lazy-load, and on every
+  // playbackRate prop change.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) v.playbackRate = playbackRate;
   }, [playbackRate]);
 
   return (
     <video
-      ref={ref}
+      ref={refCallback}
       autoPlay
       loop
       muted
