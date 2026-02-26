@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { ChatWidget } from "../../components/chat-widget";
 
 const QUICK_LINKS = [
   {
@@ -31,7 +34,7 @@ export default function PortalDashboard() {
         Tu sistema de agentes IA está listo. Sigue estos pasos para comenzar.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {QUICK_LINKS.map((link) => (
           <Link
             key={link.href}
@@ -49,6 +52,9 @@ export default function PortalDashboard() {
           </Link>
         ))}
       </div>
+
+      {/* Chatbot — full width */}
+      <ChatWidget />
     </div>
   );
 }
