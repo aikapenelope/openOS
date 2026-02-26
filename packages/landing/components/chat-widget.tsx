@@ -7,14 +7,16 @@ interface Message {
   content: string;
 }
 
+/**
+ * Inline chatbot panel — designed to sit inside a landing page section,
+ * not as a floating overlay. Matches the glassmorphism aesthetic.
+ */
 export function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when messages change
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -54,101 +56,90 @@ export function ChatWidget() {
   };
 
   return (
-    <>
-      {/* Floating button */}
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-slate-900 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:bg-black hover:scale-105 transition-all flex items-center justify-center"
-        aria-label={isOpen ? "Cerrar chat" : "Abrir chat de soporte"}
-      >
-        {/* @ts-expect-error iconify-icon is a web component */}
-        <iconify-icon
-          icon={isOpen ? "solar:close-circle-linear" : "solar:chat-round-dots-linear"}
-          class="text-2xl"
-        />
-      </button>
+    <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] flex flex-col overflow-hidden h-[520px]">
+      {/* Header */}
+      <div className="px-6 py-4 border-b border-white/40 shrink-0">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-sm font-bold text-aika-teal">
+            {">_"}
+          </span>
+          <span className="font-semibold text-slate-900 font-nunito text-[15px]">
+            Asistente AikaOS
+          </span>
+        </div>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Pregunta lo que necesites sobre AikaOS
+        </p>
+      </div>
 
-      {/* Chat panel */}
-      {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] bg-white rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col overflow-hidden"
-          style={{ height: "500px", maxHeight: "calc(100vh - 8rem)" }}
-        >
-          {/* Header */}
-          <div className="px-5 py-4 border-b border-slate-100 bg-slate-50 shrink-0">
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-sm font-bold text-aika-teal">
-                {">_"}
-              </span>
-              <span className="font-semibold text-slate-900 font-nunito text-[15px]">
-                Asistente AikaOS
-              </span>
+      {/* Messages */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-3">
+        {messages.length === 0 && (
+          <div className="text-center py-10">
+            <div className="w-12 h-12 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 flex items-center justify-center mx-auto mb-4 shadow-sm">
+              {/* @ts-expect-error iconify-icon is a web component */}
+              <iconify-icon
+                icon="solar:chat-round-dots-linear"
+                class="text-2xl text-slate-600"
+              />
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Pregunta lo que necesites sobre AikaOS
+            <p className="text-sm text-slate-500 mb-4">
+              Hola, soy el asistente de AikaOS.
+            </p>
+            <p className="text-xs text-slate-400">
+              Pregunta sobre planes, funciones, instalación o cualquier duda.
             </p>
           </div>
-
-          {/* Messages */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
-            {messages.length === 0 && (
-              <div className="text-center py-8">
-                <p className="text-sm text-slate-500">
-                  Hola, soy el asistente de AikaOS. ¿En qué puedo ayudarte?
-                </p>
-              </div>
-            )}
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-              >
-                <div
-                  className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed ${
-                    msg.role === "user"
-                      ? "bg-slate-900 text-white rounded-br-md"
-                      : "bg-slate-100 text-slate-800 rounded-bl-md"
-                  }`}
-                >
-                  {msg.content}
-                </div>
-              </div>
-            ))}
-            {loading && (
-              <div className="flex justify-start">
-                <div className="bg-slate-100 text-slate-500 px-4 py-2.5 rounded-2xl rounded-bl-md text-sm">
-                  Escribiendo...
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Input */}
-          <form
-            onSubmit={handleSubmit}
-            className="p-3 border-t border-slate-100 shrink-0"
+        )}
+        {messages.map((msg, i) => (
+          <div
+            key={i}
+            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Escribe tu pregunta..."
-                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400 transition-colors"
-                disabled={loading}
-              />
-              <button
-                type="submit"
-                disabled={loading || !input.trim()}
-                className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center hover:bg-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
-              >
-                {/* @ts-expect-error iconify-icon is a web component */}
-                <iconify-icon icon="solar:arrow-up-linear" class="text-lg" />
-              </button>
+            <div
+              className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed ${
+                msg.role === "user"
+                  ? "bg-[#1A1A1A] text-white rounded-br-md shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+                  : "bg-white/60 backdrop-blur-md text-slate-800 rounded-bl-md border border-white/80 shadow-sm"
+              }`}
+            >
+              {msg.content}
             </div>
-          </form>
+          </div>
+        ))}
+        {loading && (
+          <div className="flex justify-start">
+            <div className="bg-white/60 backdrop-blur-md text-slate-500 px-4 py-2.5 rounded-2xl rounded-bl-md text-sm border border-white/80">
+              Escribiendo...
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Input */}
+      <form
+        onSubmit={handleSubmit}
+        className="p-4 border-t border-white/40 shrink-0"
+      >
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Escribe tu pregunta..."
+            className="flex-1 px-4 py-3 rounded-xl bg-white/50 backdrop-blur-md border border-white/80 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors shadow-sm"
+            disabled={loading}
+          />
+          <button
+            type="submit"
+            disabled={loading || !input.trim()}
+            className="w-11 h-11 rounded-xl bg-[#1A1A1A] text-white flex items-center justify-center hover:bg-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.15)] disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+          >
+            {/* @ts-expect-error iconify-icon is a web component */}
+            <iconify-icon icon="solar:arrow-up-linear" class="text-lg" />
+          </button>
         </div>
-      )}
-    </>
+      </form>
+    </div>
   );
 }

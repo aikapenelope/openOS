@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -7,6 +8,11 @@ export const dynamic = "force-dynamic";
 
 const NAV_ITEMS = [
   { href: "/portal", label: "Inicio", icon: "solar:home-smile-linear" },
+  {
+    href: "/portal/onboarding",
+    label: "¿Qué plan necesito?",
+    icon: "solar:star-linear",
+  },
   {
     href: "/portal/download",
     label: "Descarga",
@@ -30,10 +36,23 @@ export default function PortalLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex bg-slate-50">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-slate-200 flex flex-col shrink-0 sticky top-0 h-screen">
-        <div className="p-6 border-b border-slate-100">
+    <div className="min-h-screen flex relative bg-[#ABCDE9]">
+      {/* Same background as landing */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <img
+          src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/bfd2f4cf-65ed-4b1a-86d1-a1710619267b_1600w.png"
+          alt=""
+          role="presentation"
+          width={1600}
+          height={900}
+          className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#A6CBE8]/20 via-[#BFD9EF]/40 to-[#EAE3D6]/60" />
+      </div>
+
+      {/* Sidebar — glassmorphism */}
+      <aside className="w-64 bg-white/40 backdrop-blur-2xl border-r border-white/60 flex flex-col shrink-0 sticky top-0 h-screen z-10">
+        <div className="p-6 border-b border-white/40">
           <Link href="/portal" className="flex items-center gap-2">
             <span className="font-mono text-lg font-bold text-aika-teal">
               {">_"}
@@ -42,7 +61,7 @@ export default function PortalLayout({
               AikaOS
             </span>
           </Link>
-          <p className="text-xs text-slate-500 font-medium mt-1">
+          <p className="text-xs text-slate-600 font-medium mt-1">
             Portal de clientes
           </p>
         </div>
@@ -52,29 +71,33 @@ export default function PortalLayout({
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-medium text-slate-700 hover:bg-white/50 hover:text-slate-900 transition-colors"
             >
               {/* @ts-expect-error iconify-icon is a web component */}
-              <iconify-icon icon={item.icon} class="text-xl text-slate-500" />
+              <iconify-icon icon={item.icon} class="text-xl text-slate-600" />
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="p-4 border-t border-slate-100">
+        <div className="p-4 border-t border-white/40">
           <div className="flex items-center gap-3 px-2">
             <UserButton
               appearance={{
                 elements: { avatarBox: "w-8 h-8" },
               }}
             />
-            <span className="text-sm text-slate-600 font-medium">Mi cuenta</span>
+            <span className="text-sm text-slate-700 font-medium">
+              Mi cuenta
+            </span>
           </div>
         </div>
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8 overflow-y-auto">{children}</main>
+      <main className="flex-1 p-8 overflow-y-auto relative z-10">
+        {children}
+      </main>
     </div>
   );
 }

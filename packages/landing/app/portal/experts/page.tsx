@@ -129,7 +129,7 @@ const EXPERTS = [
 export default function ExpertsPage() {
   return (
     <div className="max-w-4xl">
-      <h1 className="text-3xl font-semibold text-slate-900 font-nunito tracking-tight mb-2">
+      <h1 className="text-3xl font-medium text-[#1A1A1A] font-nunito tracking-tight mb-2 drop-shadow-sm">
         Expertos preconfigurados
       </h1>
       <p className="text-slate-600 font-medium mb-10">
@@ -142,9 +142,9 @@ export default function ExpertsPage() {
         {EXPERTS.map((expert) => (
           <div
             key={expert.name}
-            className="bg-white rounded-2xl border border-slate-200 p-5 flex items-start gap-4 hover:border-slate-300 transition-colors"
+            className="bg-white/40 backdrop-blur-2xl rounded-[22px] border border-white/60 p-5 flex items-start gap-4 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300"
           >
-            <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-white/60 backdrop-blur-md border border-white/80 flex items-center justify-center shrink-0 shadow-sm">
               {/* @ts-expect-error iconify-icon is a web component */}
               <iconify-icon
                 icon={expert.icon}

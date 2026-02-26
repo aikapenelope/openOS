@@ -29,7 +29,7 @@ const STEPS = [
 export default function SetupPage() {
   return (
     <div className="max-w-3xl">
-      <h1 className="text-3xl font-semibold text-slate-900 font-nunito tracking-tight mb-2">
+      <h1 className="text-3xl font-medium text-[#1A1A1A] font-nunito tracking-tight mb-2 drop-shadow-sm">
         Guía de instalación
       </h1>
       <p className="text-slate-600 font-medium mb-10">
@@ -40,9 +40,9 @@ export default function SetupPage() {
         {STEPS.map((step) => (
           <div
             key={step.number}
-            className="bg-white rounded-2xl border border-slate-200 p-6 flex gap-5"
+            className="bg-white/40 backdrop-blur-2xl rounded-[28px] border border-white/60 p-6 flex gap-5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)]"
           >
-            <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_8px_16px_rgba(0,0,0,0.15)]">
               {step.number}
             </div>
             <div>
