@@ -1,14 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Slow-motion hero video.
  *
- * Uses a ref-callback so playbackRate is set the instant the
- * <video> element mounts — before autoPlay fires. A lightweight
- * "playing" listener re-applies the rate on every loop iteration
- * in case the browser resets it.
+ * Desktop: autoplay at reduced playbackRate with ref-callback approach.
+ * Mobile (<768px): shows first frame as poster, no autoplay to save
+ * battery/bandwidth. User can tap to play.
  */
 export function SlowVideo({
   src,
@@ -22,6 +21,16 @@ export function SlowVideo({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const rateRef = useRef(playbackRate);
   rateRef.current = playbackRate;
+
+  // Detect mobile on mount (avoids SSR mismatch by defaulting to false)
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   // Force the rate whenever the video starts playing a segment.
   const enforce = useCallback(() => {
@@ -62,11 +71,12 @@ export function SlowVideo({
   return (
     <video
       ref={refCallback}
-      autoPlay
-      loop
+      autoPlay={!isMobile}
+      loop={!isMobile}
       muted
       playsInline
-      preload="metadata"
+      controls={isMobile}
+      preload={isMobile ? "none" : "metadata"}
       className={className}
     >
       <source src={src} type="video/mp4" />
