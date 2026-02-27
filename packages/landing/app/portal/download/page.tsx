@@ -27,7 +27,7 @@ export default function DownloadPage() {
               16GB recomendado.
             </p>
             <a
-              href="#"
+              href="https://github.com/aikapenelope/openOS/releases/download/v0.11.121/openwork-desktop-darwin-aarch64.dmg"
               className="inline-flex items-center gap-2 bg-[#1A1A1A] text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-black transition-all shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 border border-white/10"
             >
               {/* @ts-expect-error iconify-icon is a web component */}
@@ -35,7 +35,7 @@ export default function DownloadPage() {
               Descargar .dmg
             </a>
             <p className="text-xs text-slate-500 mt-3">
-              Versión actual: 0.1.x &middot; Última actualización: febrero 2026
+              Versión 0.11.121 &middot; Última actualización: febrero 2026
             </p>
           </div>
         </div>
