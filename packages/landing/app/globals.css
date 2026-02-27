@@ -54,15 +54,17 @@ iconify-icon {
 /* Scrolling MCP integrations marquee */
 @keyframes scroll-integrations {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-scroll-integrations {
   animation: scroll-integrations 40s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .animate-scroll-integrations:hover {

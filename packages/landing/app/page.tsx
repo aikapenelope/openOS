@@ -59,7 +59,7 @@ export default function Home() {
             </a>
             <a
               href="#planes"
-              className="bg-[#1A1A1A] text-white text-[15px] font-normal px-6 py-2.5 rounded-full hover:bg-black transition-all shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 border border-white/10"
+              className="bg-[#1A1A1A] text-white text-[15px] font-normal px-6 py-2.5 rounded-full hover:bg-black transition-[transform,box-shadow,background-color] shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 border border-white/10"
             >
               Ver planes
             </a>
@@ -88,7 +88,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="#planes"
-                className="text-[17px] hover:bg-black transition-all hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 sm:w-auto font-normal text-white bg-[#1A1A1A] w-full rounded-full pt-3.5 pr-8 pb-3.5 pl-8 shadow-[0_10px_20px_rgba(0,0,0,0.15)] border border-white/10 text-center"
+                className="text-[17px] hover:bg-black transition-[transform,box-shadow,background-color] hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 sm:w-auto font-normal text-white bg-[#1A1A1A] w-full rounded-full pt-3.5 pr-8 pb-3.5 pl-8 shadow-[0_10px_20px_rgba(0,0,0,0.15)] border border-white/10 text-center"
               >
                 Ver planes desde $20/mes
               </a>
@@ -205,9 +205,9 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-[transform,box-shadow] duration-500 group relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 relative z-10">
+              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-500 relative z-10">
                 {/* @ts-expect-error iconify-icon is a web component */}
                 <iconify-icon icon="solar:clipboard-list-linear" />
               </div>
@@ -221,9 +221,9 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-[transform,box-shadow] duration-500 group relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 relative z-10">
+              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-500 relative z-10">
                 {/* @ts-expect-error iconify-icon is a web component */}
                 <iconify-icon icon="solar:cpu-linear" />
               </div>
@@ -236,9 +236,9 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-[transform,box-shadow] duration-500 group relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 relative z-10">
+              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-500 relative z-10">
                 {/* @ts-expect-error iconify-icon is a web component */}
                 <iconify-icon icon="solar:box-linear" />
               </div>
@@ -251,9 +251,9 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden">
+            <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-[transform,box-shadow] duration-500 group relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 relative z-10">
+              <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center mb-6 text-slate-800 text-2xl group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-500 relative z-10">
                 {/* @ts-expect-error iconify-icon is a web component */}
                 <iconify-icon icon="solar:refresh-circle-linear" />
               </div>
@@ -275,7 +275,7 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 mb-32">
           {/* Mockup / Visual (Left) */}
           <div className="w-full lg:w-[55%] relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform rotate-1 transition-all duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform rotate-1 transition-[transform,box-shadow] duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
             <div className="md:p-12 transition-transform duration-500 group-hover:scale-[1.02] pt-8 pr-8 pb-8 pl-8 relative z-10">
               <div className="overflow-hidden font-sans bg-white/70 backdrop-blur-xl max-w-lg border-white/80 border rounded-[28px] mr-auto ml-auto shadow-[0_20px_50px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,1)] p-8">
                 <h3 className="font-semibold text-lg text-slate-900 mb-6 font-nunito flex items-center gap-2">
@@ -438,7 +438,7 @@ export default function Home() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,background-color] duration-300 cursor-default">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-b from-white to-white/60 border border-white flex items-center justify-center shadow-sm shrink-0">
                   {/* @ts-expect-error iconify-icon is a web component */}
                   <iconify-icon
@@ -455,7 +455,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,background-color] duration-300 cursor-default">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-b from-white to-white/60 border border-white flex items-center justify-center shadow-sm shrink-0">
                   {/* @ts-expect-error iconify-icon is a web component */}
                   <iconify-icon
@@ -472,7 +472,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,background-color] duration-300 cursor-default">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-b from-white to-white/60 border border-white flex items-center justify-center shadow-sm shrink-0">
                   {/* @ts-expect-error iconify-icon is a web component */}
                   <iconify-icon
@@ -489,7 +489,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 cursor-default">
+              <div className="flex items-start gap-3 p-4 rounded-[20px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_8px_20px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,background-color] duration-300 cursor-default">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-b from-white to-white/60 border border-white flex items-center justify-center shadow-sm shrink-0">
                   {/* @ts-expect-error iconify-icon is a web component */}
                   <iconify-icon
@@ -511,7 +511,7 @@ export default function Home() {
 
           {/* Visual (Right) */}
           <div className="w-full lg:w-[55%] relative group">
-            <div className="absolute inset-0 bg-gradient-to-bl from-white/40 to-white/10 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform -rotate-1 transition-all duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-white/40 to-white/10 backdrop-blur-xl rounded-[40px] border border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] transform -rotate-1 transition-[transform,box-shadow] duration-700 group-hover:rotate-0 group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]" />
 
             <div className="md:p-12 transition-transform duration-500 group-hover:scale-[1.02] pt-8 pr-8 pb-8 pl-8 relative z-10 flex items-center justify-center">
               <div className="font-sans bg-white/60 backdrop-blur-xl border-white/80 border rounded-full w-64 h-64 flex flex-col items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.08),inset_0_2px_0_rgba(255,255,255,1)] relative overflow-hidden">
@@ -542,7 +542,7 @@ export default function Home() {
       <section className="md:px-12 z-10 w-full max-w-7xl mr-auto ml-auto pt-12 pr-4 pb-24 pl-4 relative">
         {/* Top Grid: Large Feature Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 md:p-12 flex flex-col justify-between shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden">
+          <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 md:p-12 flex flex-col justify-between shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-[transform,box-shadow] duration-500 hover:-translate-y-2 group relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             <div className="relative z-10">
               <h3 className="md:text-[32px] leading-tight text-3xl font-medium text-[#1A1A1A] font-nunito max-w-md mb-6 drop-shadow-sm">
@@ -583,7 +583,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 md:p-12 flex flex-col justify-between shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden">
+          <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 md:p-12 flex flex-col justify-between shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-[transform,box-shadow] duration-500 hover:-translate-y-2 group relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             <div className="relative z-10">
               <h3 className="md:text-[32px] leading-tight text-3xl font-medium text-[#1A1A1A] font-nunito max-w-md mb-6 drop-shadow-sm">
@@ -669,7 +669,7 @@ export default function Home() {
           </h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 flex flex-col items-start gap-5 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-2 group">
+          <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 flex flex-col items-start gap-5 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.1)] transition-[transform,box-shadow] duration-500 hover:-translate-y-2 group">
             <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center text-2xl text-slate-800 group-hover:scale-110 transition-transform duration-500">
               {/* @ts-expect-error iconify-icon is a web component */}
               <iconify-icon icon="solar:infinity-linear" />
@@ -684,7 +684,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 flex flex-col items-start gap-5 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-2 group">
+          <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 flex flex-col items-start gap-5 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.1)] transition-[transform,box-shadow] duration-500 hover:-translate-y-2 group">
             <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center text-2xl text-slate-800 group-hover:scale-110 transition-transform duration-500">
               {/* @ts-expect-error iconify-icon is a web component */}
               <iconify-icon icon="solar:cloud-cross-linear" />
@@ -699,7 +699,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 flex flex-col items-start gap-5 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-2 group">
+          <div className="bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 flex flex-col items-start gap-5 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 hover:shadow-[0_25px_50px_-15px_rgba(0,0,0,0.1)] transition-[transform,box-shadow] duration-500 hover:-translate-y-2 group">
             <div className="w-14 h-14 rounded-[16px] bg-gradient-to-b from-white to-white/60 border border-white shadow-[0_8px_16px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.02)] flex items-center justify-center text-2xl text-slate-800 group-hover:scale-110 transition-transform duration-500">
               {/* @ts-expect-error iconify-icon is a web component */}
               <iconify-icon icon="solar:layers-linear" />
@@ -1056,7 +1056,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start mb-20">
             {/* Personal */}
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 flex flex-col h-full hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500">
+            <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 flex flex-col h-full hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-[transform,box-shadow] duration-500">
               <h3 className="text-[19px] font-semibold text-slate-900 font-nunito mb-2 tracking-tight">
                 Personal
               </h3>
@@ -1093,7 +1093,7 @@ export default function Home() {
                   Soporte por documentación
                 </li>
               </ul>
-              <a href="/portal/sign-in" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-all text-center block">
+              <a href="/portal/sign-in" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-[box-shadow,background-color] text-center block">
                 Empezar
               </a>
             </div>
@@ -1145,13 +1145,13 @@ export default function Home() {
                   Puesta en marcha asistida
                 </li>
               </ul>
-              <a href="/portal/sign-in" className="w-full py-4 rounded-full bg-slate-900 text-white font-semibold text-[14px] hover:bg-black shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 transition-all border border-white/10 text-center block">
+              <a href="/portal/sign-in" className="w-full py-4 rounded-full bg-slate-900 text-white font-semibold text-[14px] hover:bg-black shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.25)] hover:-translate-y-0.5 transition-[transform,box-shadow,background-color] border border-white/10 text-center block">
                 Empezar
               </a>
             </div>
 
             {/* Business */}
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 flex flex-col h-full hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500">
+            <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 flex flex-col h-full hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-[transform,box-shadow] duration-500">
               <h3 className="text-[19px] font-semibold text-slate-900 font-nunito mb-2 tracking-tight">
                 Business
               </h3>
@@ -1201,13 +1201,13 @@ export default function Home() {
                   Actualizaciones con prioridad
                 </li>
               </ul>
-              <a href="#planes" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-all text-center block">
+              <a href="#planes" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-[box-shadow,background-color] text-center block">
                 Contactar ventas
               </a>
             </div>
 
             {/* Enterprise */}
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 flex flex-col h-full hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500">
+            <div className="bg-white/40 backdrop-blur-2xl rounded-[36px] p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.8)] border border-white/60 flex flex-col h-full hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-[transform,box-shadow] duration-500">
               <h3 className="text-[19px] font-semibold text-slate-900 font-nunito mb-2 tracking-tight">
                 Enterprise
               </h3>
@@ -1258,7 +1258,7 @@ export default function Home() {
                   Arquitectura personalizada
                 </li>
               </ul>
-              <a href="#planes" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-all text-center block">
+              <a href="#planes" className="w-full py-4 rounded-full bg-white/60 backdrop-blur-md border border-white shadow-sm text-slate-900 font-semibold text-[14px] hover:bg-white hover:shadow-md transition-[box-shadow,background-color] text-center block">
                 Hablar con ventas
               </a>
             </div>
@@ -1295,7 +1295,7 @@ export default function Home() {
           <div className="flex items-center justify-center">
             <a
               href="#planes"
-              className="text-[17px] hover:bg-black transition-all hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 sm:w-auto font-normal text-white bg-[#1A1A1A] w-full rounded-full pt-3.5 pr-8 pb-3.5 pl-8 shadow-[0_10px_20px_rgba(0,0,0,0.15)] border border-white/10 text-center"
+              className="text-[17px] hover:bg-black transition-[transform,box-shadow,background-color] hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 sm:w-auto font-normal text-white bg-[#1A1A1A] w-full rounded-full pt-3.5 pr-8 pb-3.5 pl-8 shadow-[0_10px_20px_rgba(0,0,0,0.15)] border border-white/10 text-center"
             >
               Ver planes desde $20/mes
             </a>
@@ -1384,7 +1384,7 @@ export default function Home() {
 function IntegrationBadge({ icon, label }: { icon: string; label: string }) {
   return (
     <div className="flex flex-col items-center gap-2 shrink-0 group cursor-default">
-      <div className="w-14 h-14 rounded-2xl bg-white/70 backdrop-blur-md border border-white shadow-[0_4px_12px_rgba(0,0,0,0.04)] flex items-center justify-center group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+      <div className="w-14 h-14 rounded-2xl bg-white/70 backdrop-blur-md border border-white shadow-[0_4px_12px_rgba(0,0,0,0.04)] flex items-center justify-center group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-300">
         {/* @ts-expect-error iconify-icon is a web component */}
         <iconify-icon icon={icon} class="text-2xl text-slate-700" />
       </div>
