@@ -3,28 +3,34 @@ const STEPS = [
     number: "1",
     icon: "solar:download-minimalistic-linear",
     title: "Descarga e instala AikaOS",
-    desc: 'Descarga el archivo .dmg desde la sección de Descarga en este portal. Abre el archivo y arrastra AikaOS a tu carpeta de Aplicaciones. La primera vez que lo abras, macOS te pedirá permiso — haz clic en "Abrir".',
+    desc: 'Descarga el archivo .dmg desde la sección de Descarga en este portal. Abre el archivo y arrastra AikaOS a tu carpeta de Aplicaciones.',
   },
   {
     number: "2",
+    icon: "solar:shield-check-linear",
+    title: "Autoriza la app en macOS",
+    desc: 'Antes de abrir AikaOS por primera vez, abre la Terminal y ejecuta este comando:\n\nxattr -cr /Applications/AikaOS.app\n\nEsto solo se hace una vez. Es necesario porque la app aún no está firmada con Apple Developer. Después de ejecutarlo, abre AikaOS normalmente.',
+  },
+  {
+    number: "3",
     icon: "solar:cpu-bolt-linear",
     title: "Configura tu modelo de IA",
     desc: "AikaOS funciona con tu propio modelo (BYOM). Puedes usar una API key de Anthropic (Claude), OpenAI (GPT-4), DeepSeek, Google Gemini, o instalar Ollama para modelos locales que corren 100% en tu máquina sin internet.",
   },
   {
-    number: "3",
+    number: "4",
     icon: "solar:key-linear",
     title: "Conecta tu API key o modelo local",
     desc: "Abre AikaOS y ve a Configuración > Modelo. Si usas una API key, pégala en el campo correspondiente. Si prefieres un modelo local, instala Ollama desde ollama.com, descarga el modelo que prefieras y AikaOS lo detectará automáticamente.",
   },
   {
-    number: "4",
+    number: "5",
     icon: "solar:users-group-rounded-linear",
     title: "Activa los expertos preconfigurados",
     desc: "Tu plan incluye 25 expertos especializados para diferentes industrias. Ve a la sección de Expertos en este portal para ver la lista completa. Cada experto incluye skills especializados, comandos listos para usar y servidores MCP configurados.",
   },
   {
-    number: "5",
+    number: "6",
     icon: "solar:check-circle-linear",
     title: "Verifica que todo funcione",
     desc: 'Abre una nueva sesión en AikaOS y escribe "Hola, ¿qué puedes hacer?". El agente debería responder con una lista de sus capacidades. Si algo no funciona, usa el asistente en la página principal del portal para resolver tus dudas.',
@@ -77,7 +83,7 @@ export default function SetupPage() {
         Guía de instalación
       </h1>
       <p className="text-slate-600 font-medium mb-10">
-        Sigue estos 5 pasos para tener AikaOS funcionando en tu computadora.
+        Sigue estos 6 pasos para tener AikaOS funcionando en tu computadora.
         No necesitas experiencia técnica.
       </p>
 
